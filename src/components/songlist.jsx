@@ -4,10 +4,10 @@ import { bindActionCreators } from 'redux';
 
 class Songlist extends Component {
   renderSongs() {
-    return this.props.songs.map((song) => {
+    return this.props.songs.map((songlist) => {
       return (
         <div>
-          <li>{ song.title }</li>
+          <li>{ songlist.title }, { songlist.artist }, { songlist.duration }</li>
         </div>
       )
     });
