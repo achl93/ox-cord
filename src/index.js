@@ -12,6 +12,10 @@ import { createStore, applyMiddleware } from 'redux';
 
 const createStoreWithMiddleware = applyMiddleware()(createStore);
 
+import reducers from './reducers';
+
+const createStoreWithMiddleware = applyMiddleware()(createStore);
+
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>
