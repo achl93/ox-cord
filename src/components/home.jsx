@@ -7,8 +7,12 @@ export default class Home extends Component {
       // Route login button to Spotify login endpoint
       // then when they come back, redirect to playlist
       <div>
-        <Link to='/host'>Host</Link>
-        <Link to='/join'>Join</Link>
+        <div>
+          <Link to='/host'>Host</Link>
+        </div>
+        <div>
+          <Link to='/join'>Join</Link>
+        </div>
       </div>
     )
   }
