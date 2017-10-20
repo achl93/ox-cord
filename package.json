@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "mongodb": "^2.2.33",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "react-scripts": "1.0.14"
+    "react-scripts": "1.0.14",
+    "socket.io": "^2.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
