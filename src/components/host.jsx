@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { getGeolocation } from '../getGeolocation'
+// import { getGeolocation } from '../getGeolocation'
 
 export default class Host extends Component {
   render() {
