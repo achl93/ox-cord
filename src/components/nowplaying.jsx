@@ -8,8 +8,7 @@ class NowPlaying extends Component {
       <div>
       <h3>{this.props.songs[0].title}</h3>
       <p>{this.props.songs[0].artist}</p>
-      <p>{this.props.songs[0].length}</p>
-      <p>{this.props.songs[0].spotify_id}</p>
+      <p>{this.props.songs[0].duration}</p>
       </div>
     );
   }
