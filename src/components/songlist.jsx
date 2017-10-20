@@ -7,10 +7,7 @@ class Songlist extends Component {
     return this.props.songs.map((song) => {
       return (
         <div>
-          <li>{ song.name }</li>
-          <li>{ song.songs.forEach((eachSong) => {
-            eachSong.title
-          }) }</li>
+          <li>{ song.title }</li>
         </div>
       )
     });
