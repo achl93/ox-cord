@@ -8,7 +8,7 @@ export default class Home extends Component {
       // then when they come back, redirect to playlist
       <div>
         <div>
-          <Link to='/host'>Host</Link>
+          <a href='http://localhost:8888/login'><h4>Host</h4></a>
         </div>
         <div>
           <Link to='/join'>Join</Link>

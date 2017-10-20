@@ -13,7 +13,7 @@ ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Route path='/join' component={Join} />
-      <Route path='/host' component={Host} />
+      <Route path='/host*' component={Host} />
       <Route path='/' component={Home} />
     </Switch>
   </BrowserRouter>
