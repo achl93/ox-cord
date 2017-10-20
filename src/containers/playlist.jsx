@@ -5,7 +5,9 @@ import React, { Component } from 'react';
 import Songlist from '../components/songlist';
 import NowPlaying from '../components/nowplaying';
 
+
 export default class Playlist extends Component {
+
   render() {
     return (
       <div>
