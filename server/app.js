@@ -8,14 +8,6 @@ const app       = express();
 const server    = http.Server(app);
 const io        = socketIo(server);
 
-const { createStore }     = require('redux');
-const { socketReducer }   = require('./reducers/socketReducer');
-const store               = createStore(socketReducer);
-
-store.subscribe(() => {
-  console.log('Redux DataStore Changed', store.getState());
-});
-
 MongoDB.connect(MongoURL, function(err, db) {
   console.log("Connected successfully to MongoDB server");
   db.close();
@@ -24,17 +16,16 @@ MongoDB.connect(MongoURL, function(err, db) {
 io.on('connection', (socket) => {
   const { id, name } = socket.decoded_token;
 
-  const subscription = store.subscribe(() => {
-    socket.emit('update', store.getState());
+  socket.on('add-user', (username) => {
+
   });
 
-  socket.on('add', ({ targetId }) => {
-    store.dispatch({ type: ACTION_METHOD, someVars: someVars });
-  });
+  socket.on('join-room', (room) => {
+    //store.dispatch({ type: 'JOIN_ROOM', room_id: room });
+    socket.join(room);
+    socket.broadcast.emit('user-joined', {
 
-  socket.on('disconnect', () => {
-    store.dispatch({ type: ACTION_METHOD, someVars: someVars });
-    subscription();
+    });
   });
 
   console.log('Connected', id, name);
