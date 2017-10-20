@@ -7,22 +7,24 @@ export default class Join extends Component {
   }
 
   getGeolocation() {
+  var geo = {};
   if (!navigator.geolocation) {
     return null;
   } else {
     navigator.geolocation.getCurrentPosition((pos) => {
       console.log(pos.coords);
-      return (
+      geo = pos.coords;
+    });
+    return (
         <div>
           <div>
-            latitude: {pos.coords.latitude}
+            latitude: {geo.latitude}
           </div>
           <div>
-            longitude: {pos.coords.longitude}
+            longitude: {geo.longitude}
           </div>
         </div>
       )
-    });
   }
 }
 
@@ -30,9 +32,7 @@ export default class Join extends Component {
     return (
       <div>
         Join a room!
-        <div>
-          {this.getGeolocation()}
-        </div>
+        {this.getGeolocation()}
       </div>
     )
   }
