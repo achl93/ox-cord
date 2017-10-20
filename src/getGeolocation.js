@@ -3,7 +3,7 @@
 
 function getGeolocation() {
   if (!navigator.geolocation) {
-    return nil;
+    return null;
   }
   function success(pos) {
     const coords = {
@@ -13,7 +13,7 @@ function getGeolocation() {
     return coords;
   }
   function error() {
-    return nil;
+    return null;
   }
   navigator.geolocation.getCurrentPosition(success, error);
 }
