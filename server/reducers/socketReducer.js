@@ -1,9 +1,14 @@
 const initialState = {  };
 
 function socketReducer(state = initialState, action) {
-  // For now, don't handle any actions
-  // and just return the state given to us.
-  return state
+  switch (action.type) {
+    case 'JOIN_ROOM':
+      return Object.assign({}, state, {
+        room_id: action.room_id
+      })
+    default:
+      return state
+  }
 }
 
 module.exports = { socketReducer }
