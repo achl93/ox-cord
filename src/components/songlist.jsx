@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Songsearch from './songsearch';
 
 class Songlist extends Component {
   renderSongs() {
@@ -15,9 +16,12 @@ class Songlist extends Component {
 
   render () {
     return (
-      <ul>
-        { this.renderSongs() }
-      </ul>
+      <div>
+        <Songsearch />
+        <ul>
+          { this.renderSongs() }
+        </ul>
+      </div>
     )
   }
 }
