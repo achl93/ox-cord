@@ -1,4 +1,5 @@
 import { ADD_SONG } from '../actions/index';
+import { REMOVE_SONG } from '../actions/index';
 
 const dummySongs = [
   {
@@ -25,6 +26,9 @@ export default function(state = dummySongs, action) {
   switch (action.type) {
     case ADD_SONG:
       return [ ...state, action.payload ];
+    case REMOVE_SONG:
+      console.log('removing song:', action.payload)
+      return state.filter(song => song.id !== action.payload);
     default:
       return state;
   } 

@@ -2,6 +2,7 @@ var SpotifyWebApi = require('spotify-web-api-js');
 var spotifyApi = new SpotifyWebApi();
 
 export const ADD_SONG = 'ADD_SONG';
+export const REMOVE_SONG = 'REMOVE_SONG';
 export const SEARCH_SONGS = 'SEARCH_SONG';
 export const STORE_TOKEN = 'ADD_TOKEN';
 export const GET_GEO = 'GET_GEO';
@@ -12,6 +13,13 @@ export function addSong(song) {
   return {
     type: ADD_SONG,
     payload: song
+  };
+}
+
+export function removeSong(id) {
+  return {
+    type: REMOVE_SONG,
+    payload: id
   };
 }
 
