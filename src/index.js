@@ -22,7 +22,7 @@ ReactDOM.render(
         <Route path='/playlist' component={Playlist} />
         <Route path='/join' component={Join} />
         <Route path='/settings' component={Settings} />
-        <Route path='/host*' component={Host} />
+        <Route path='/host' component={Host} />
         <Route path='/' component={Home} />
       </Switch>
     </BrowserRouter>
