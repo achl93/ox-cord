@@ -20,7 +20,6 @@ class Songlist extends Component {
       <div>
         <p>Longitude: {this.props.coords.longitude}</p>
         <p>Latitude: {this.props.coords.latitude}</p>
-        <p>{this.props.token}</p>
         <ul>
           { this.renderSongs() }
         </ul>
