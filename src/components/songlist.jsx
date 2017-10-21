@@ -20,7 +20,6 @@ class Songlist extends Component {
         <ul>
           { this.renderSongs() }
         </ul>
-        <button onClick={()=> this.onHandleClick()}>Add Song</button>
         <Link to='/settings'>Settings</Link>
       </div>
     )
