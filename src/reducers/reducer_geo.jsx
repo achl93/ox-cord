@@ -1,8 +1,8 @@
 import { GET_GEO } from '../actions/index';
 
 const dummy_coords = {
-  longitude: 11111,
-  latitude: 22222
+  longitude: 0,
+  latitude: 0
 }
 
 export default function(state = dummy_coords, action) {

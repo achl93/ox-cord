@@ -12,16 +12,6 @@ class Join extends Component {
     console.log(pos);
   }
 
-  // render() {
-  //   return (
-  //     <div>
-  //       <h4> hey </h4>
-  //       <p>Longitude: {this.props.coords.longitude}</p>
-  //       <p>Latitude: {this.props.coords.latitude}</p>
-  //     </div>
-  //   );
-  // }
-
   getGeolocation() {
     if (!navigator.geolocation) {
       return null;
@@ -29,6 +19,7 @@ class Join extends Component {
       navigator.geolocation.getCurrentPosition(this.setLocation.bind(this))
     }
   }
+  
   render() {
     this.getGeolocation();
     return (
