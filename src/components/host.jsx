@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 //import { getGeolocation } from '../getGeolocation'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { storeToken } from '../actions/index';
 
-export default class Host extends Component {
+class Host extends Component {
   getSearchParams() {
     var searchParams = {};
     var e, r = /([^&;=]+)=?([^&;]*)/g,
@@ -25,4 +28,23 @@ export default class Host extends Component {
       </div>
     )
   }
+
+  componentDidMount() {
+    var params = this.getSearchParams();
+    this.props.storeToken(params.access_token);
+    console.log("XYXYXYXYXYYX", params.access_token);
+  }
 }
+
+
+function mapStateToProps(state) {
+  return {
+    token: state.token
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ storeToken }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Host);
