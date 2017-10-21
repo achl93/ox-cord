@@ -2,6 +2,7 @@ var SpotifyWebApi = require('spotify-web-api-js');
 var spotifyApi = new SpotifyWebApi();
 
 export const ADD_SONG = 'ADD_SONG';
+export const REMOVE_SONG = 'REMOVE_SONG';
 export const SEARCH_SONGS = 'SEARCH_SONG';
 export const STORE_TOKEN = 'ADD_TOKEN';
 export const GET_GEO = 'GET_GEO';
@@ -9,10 +10,16 @@ export const GET_GEO = 'GET_GEO';
 // spotifyApi.setAccessToken('BQAUPDsYu5b3bpY_vNLsYHHCxUKeykZFvknbnshw4WCag-XQKgGZlZjU1YIgbAAaPwGFf-h8-JpHqkLW8h0u4yGdHa4hFauNN9kMw8W7hH_9P2COeGlav5HAJF9Cls7Bq5S9digOx4rQHytAGHW2EAwURy-7IyK74fUSEXNBBh8Rn422u-4dPLg25GbjuVZjflVPsYY2oTJO7f0QXjo57wNvX72aRtWxlE59kNtJAvAV3bC1SxrYsEk1z4RfGwz-UAstCR5fIFMP4F1ckwiPwpSVktl0dCmSCLvusSGS0oG4USeRKBA5XGvQLQ5KQr5_EpH7wu54Uq-ZseVyXw5PnIxMNw');
 
 export function addSong(song) {
-  console.log('action fired');
   return {
     type: ADD_SONG,
     payload: song
+  };
+}
+
+export function removeSong(id) {
+  return {
+    type: REMOVE_SONG,
+    payload: id
   };
 }
 
@@ -27,7 +34,6 @@ export function searchSongs(term) {
 
 export function storeToken(token) {
   spotifyApi.setAccessToken(token);
-  console.log("MNMNMNMNMNMMN", token);
   return {
     type: STORE_TOKEN,
     payload: token
@@ -35,7 +41,6 @@ export function storeToken(token) {
 };
 
 export function getGeo(coords) {
-  console.log('geo acquired');
   return {
     type: GET_GEO,
     payload: coords

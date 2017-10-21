@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-// import { addSong } from '../actions/index';
+import Song from './Song';
+import { removeSong } from '../actions/index';
 // import SearchBar from './songsearch';
 
 class Songlist extends Component {
   renderSongs() {
     return this.props.songs.map((song) => {
       return (
-          <li key={song.id}>{ song.name } - ({ song.artist }) <button>x</button></li>
+          <Song key={song.id} song={song} removeSong={this.props.removeSong} />
       )
     });
   }
@@ -36,7 +37,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ }, dispatch)
+  return bindActionCreators({ removeSong }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Songlist);
