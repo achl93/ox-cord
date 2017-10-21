@@ -5,6 +5,7 @@ const MongoDB = require('mongodb').MongoClient;
 const MongoURL = 'mongodb://localhost:27017/oxcord';
 const cookieParser = require('cookie-parser');
 const spotifyRouteHelpers = require('./routes/spotify');
+let dataHelpers = require('./lib/data-helpers');
 
 const app = express();
 const server = http.Server(app);
@@ -26,7 +27,7 @@ MongoDB.connect(MongoURL, function (err, db) {
     console.log(`Failed to connect to mongodb`);
     throw err;
   }
-  const dataHelpers = require('./lib/data-helpers')(db);
+  dataHelpers = dataHelpers(db);
   console.log("Connected successfully to MongoDB server");
 });
 
@@ -68,6 +69,17 @@ io.on('connection', (socket) => {
   socket.on('set-geolocation', (geolocation) => {
     if (SHOW_DEBUG) { console.log(' + set-geolocation : ', geolocation) }
   });
+
+  socket.on('create-room', (data) => {
+    if (SHOW_DEBUG) { console.log(' + create-room : ', data) }
+    dataHelpers.createRoom(data, (err, result) => {
+      if (err !== null) {
+        if (SHOW_DEBUG) { console.log(' *** ROOM-CREATED (err) : ', err) }
+      }
+      if (SHOW_DEBUG) { console.log(' *** ROOM-CREATED (data) : ', data) }
+      io.sockets.emit('room-created', data);
+    });
+  })
 
   console.log('Connected successfully to Socket.IO');
 });
