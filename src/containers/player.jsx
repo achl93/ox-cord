@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { playSong } from '../actions/index';
+import { removeSong } from '../actions/index';
 
 class Player extends Component {
   render() {
@@ -15,13 +16,18 @@ class Player extends Component {
   onPlay(e) {
     // Currently plays songs dynamically, but from position 3 after the dummy data
     // TODO: Plays next song in our playlist
-    this.props.playSong({"uris": [`spotify:track:${this.props.songs[3].id}`]});
-    console.log(this.props.songs[3].id);
+    if (this.props.songs[0]) {
+      this.props.playSong({"uris": [`spotify:track:${this.props.songs[0].id}`]});
+      console.log(`spotify:track:${this.props.songs[0].id}`);
+    } else {
+      // Do nothing or pop an alert maybe?
+    }
   }
-  onNext(e) {
-    // Plays next song in our virtual playlist
-    // this.props.playSong({});
-  }
+  // onNext(e) {
+  //   // Plays next song in our virtual playlist
+  //   this.props.removeSong(this.props.songs[0]);
+  //   this.props.playSong({"uris": [`spotify:track:${this.props.songs[0].id}`]});
+  // }
 }
 
 function mapStateToProps(state) {
@@ -33,7 +39,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ playSong }, dispatch)
+  return bindActionCreators({ playSong, removeSong }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Player)

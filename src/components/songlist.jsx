@@ -8,11 +8,13 @@ import { removeSong } from '../actions/index';
 
 class Songlist extends Component {
   renderSongs() {
-    return this.props.songs.map((song) => {
-      return (
+    if (Object.keys(this.props.songs).length !== 0) {
+      return this.props.songs.map((song) => {
+        return (
           <Song key={song.id} song={song} removeSong={this.props.removeSong} />
-      )
-    });
+        )
+      });
+    }
   }
 
   render () {
