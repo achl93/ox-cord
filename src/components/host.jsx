@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import {Redirect} from 'react-router-dom'
-//import { getGeolocation } from '../getGeolocation'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { storeToken } from '../actions/index';
+import { getGeo } from '../actions/index';
 
 class Host extends Component {
   getSearchParams() {
@@ -16,7 +16,24 @@ class Host extends Component {
     return searchParams;
   }
 
+  setLocation(pos) {
+    this.props.getGeo({
+      longitude: pos.coords.longitude,
+      latitude: pos.coords.latitude
+    });
+    console.log(pos);
+  }
+
+  getGeolocation() {
+    if (!navigator.geolocation) {
+      return null;
+    } else {
+      navigator.geolocation.getCurrentPosition(this.setLocation.bind(this))
+    }
+  }
+
   render() {
+    this.getGeolocation();
     var params = this.getSearchParams();
     console .log(params)
     return <Redirect to="/playlist"/>;
@@ -40,15 +57,15 @@ class Host extends Component {
   }
 }
 
-
 function mapStateToProps(state) {
   return {
-    token: state.token
+    token: state.token,
+    coords: state.coords
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ storeToken }, dispatch)
+  return bindActionCreators({ storeToken, getGeo }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Host);
