@@ -1,18 +1,33 @@
 import React, { Component } from 'react'
-import Button from 'button.jsx'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { playSong } from '../actions/index';
 
 class Player extends Component {
   render() {
     return (
       <div>
-        <h6>Chad's Party Playlist</h6>
-        <textarea placeholder='Search' />
-        <p>Song 1</p>
-        <p>Song 2</p>
-        <p>Song 3</p>
-        <button>Play</button>
+        <button onClick={() => this.onPlay()}>Play</button>
         <button>Fast Forward</button>
       </div>
     )
   }
+  onPlay(e) {
+    // Plays hardcoded song
+    // TODO: Play next song in playlist
+    this.props.playSong({"uris": ["spotify:track:4iV5W9uYEdYUVa79Axb7Rh"]});
+  }
 }
+
+function mapStateToProps(state) {
+  return {
+    // TODO: Set state of nowPlaying to current song name
+    nowPlaying: state.nowPlaying
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ playSong }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Player)
