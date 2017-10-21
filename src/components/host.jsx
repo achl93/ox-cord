@@ -18,7 +18,7 @@ class Host extends Component {
 
   render() {
     var params = this.getSearchParams();
-    console .log(params)
+    console.log(params)
     return <Redirect to="/playlist"/>;
     // return (
     //   <div>
