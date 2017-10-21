@@ -18,8 +18,6 @@ class Songlist extends Component {
   }
 
   render () {
-    console.log("LOOK AT MEEEEEE:", this.props.user);
-    console.log("WEEEEEE:", this.props.user.id);
     return (
       <div>
         <p>Longitude: {this.props.coords.longitude}</p>
