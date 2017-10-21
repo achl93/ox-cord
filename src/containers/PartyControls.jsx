@@ -24,8 +24,8 @@ class PartyControls extends Component {
     console.log('party started')
     console.log(this.props.songs)
     socket.emit('create-room', {
-      room_id: socket.id,
-      name: 'Andy\'s Playlist',
+      room_id: this.props.user_id.id,
+      name: `${this.props.user_id.display_name}'s Playlist'`,
       active: true,
       lastActive: Date.now(),
       geolocation: this.props.coords,
@@ -37,7 +37,8 @@ class PartyControls extends Component {
 function mapStateToProps(state) {
   return {
     songs: state.songs,
-    coords: state.coords
+    coords: state.coords,
+    user_id: state.user_id
   }
 }
 
