@@ -34,7 +34,7 @@ function mapStateToProps(state) {
   return {
     songs: state.songs,
     token: state.token,
-    user_id: state.user_id
+    user_id: state.user_id,
     coords: state.coords
   }
 }
