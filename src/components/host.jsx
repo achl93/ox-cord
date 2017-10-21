@@ -36,6 +36,10 @@ class Host extends Component {
   render() {
     this.getGeolocation();
     var params = this.getSearchParams();
+<<<<<<< HEAD
+=======
+    console.log(params)
+>>>>>>> feature/client-sockets
     return <Redirect to="/playlist"/>;
   }
 
