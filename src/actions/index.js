@@ -3,7 +3,7 @@ var spotifyApi = new SpotifyWebApi();
 
 export const ADD_SONG = 'ADD_SONG';
 export const SEARCH_SONGS = 'SEARCH_SONG';
-spotifyApi.setAccessToken('BQAKKOR_e_TWKAp8Euh8FJQTvHDXzcDM5X4InJcxXlpWqPUGiuKW2lGGzbcVYo42xFTLqNzx4LmVAi3THM2tuvEx-H5z8HqmsSkjw9Dp9dvdJ2UyYrbS_B9BrnnmARHUj_y9Df_2ZnDTyCaw1IgAfozChpKaOSIBQEw0WEYT7qFiQ87fhwe4BZohZByhp-QAE8FXBAGPFMELcqnlV9AN-tUwruRUKwbPwgoXtEcUAOObIGYwV2qvZLFPQUhqMby_9ouz7XLHOiQ_mLB5h053mD6YS79epn4qKeQ_KRhOwOYbw-jRbE-TNEXmhrr1PgswNFM4a3khVuuSrc65gxtPaSw5aw');
+spotifyApi.setAccessToken('BQAUPDsYu5b3bpY_vNLsYHHCxUKeykZFvknbnshw4WCag-XQKgGZlZjU1YIgbAAaPwGFf-h8-JpHqkLW8h0u4yGdHa4hFauNN9kMw8W7hH_9P2COeGlav5HAJF9Cls7Bq5S9digOx4rQHytAGHW2EAwURy-7IyK74fUSEXNBBh8Rn422u-4dPLg25GbjuVZjflVPsYY2oTJO7f0QXjo57wNvX72aRtWxlE59kNtJAvAV3bC1SxrYsEk1z4RfGwz-UAstCR5fIFMP4F1ckwiPwpSVktl0dCmSCLvusSGS0oG4USeRKBA5XGvQLQ5KQr5_EpH7wu54Uq-ZseVyXw5PnIxMNw');
 
 export function addSong(song) {
   console.log('action fired - add Song')
@@ -14,7 +14,6 @@ export function addSong(song) {
 }
 
 export function searchSongs(term) {
-  console.log('action fired - search song')
   //make the request here
   const request = spotifyApi.searchTracks(term);
 

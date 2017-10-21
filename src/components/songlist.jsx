@@ -3,14 +3,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addSong } from '../actions/index';
 
-
-
-
 class Songlist extends Component {
   renderSongs() {
     return this.props.songs.map((song) => {
       return (
-          <li key={song.id}>{ song.title }, { song.artist }, { song.duration }</li>
+          <li key={song.id}>{ song.name }</li>
       )
     });
   }
@@ -29,8 +26,8 @@ class Songlist extends Component {
     console.log('clicked');
     this.props.addSong({
       id: 4,
-      title: 'Chadder Cheese',
-      artist: 'Chad',
+      name: 'Song 4',
+      artists: [],
       duration: 420
     })
   }
