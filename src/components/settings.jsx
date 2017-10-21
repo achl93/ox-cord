@@ -8,6 +8,7 @@ export default class Settings extends Component {
       // then when they come back, redirect to playlist
       <div>
         <h1> Yo Settings </h1>
+        <Link to='/playlist'>Back</Link>
       </div>
     )
   }

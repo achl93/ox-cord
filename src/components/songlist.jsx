@@ -14,8 +14,6 @@ class Songlist extends Component {
   }
 
   render () {
-    console.log("<Songlist> props", this.props);
-    console.log("<Songlist> state", this.state)
     console.log(this.props.token);
     return (
       <div>
