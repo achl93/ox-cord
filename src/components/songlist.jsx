@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addSong } from '../actions/index';
+import { Link } from 'react-router-dom';
 
 class Songlist extends Component {
   renderSongs() {
@@ -13,12 +14,15 @@ class Songlist extends Component {
   }
 
   render () {
+    console.log(this.props.token);
     return (
       <div>
+        <p>{this.props.token}</p>
         <ul>
           { this.renderSongs() }
         </ul>
         <button onClick={()=> this.onHandleClick()}>Add Song</button>
+        <Link to='/settings'>Settings</Link>
       </div>
     )
   }
@@ -37,7 +41,8 @@ class Songlist extends Component {
 
 function mapStateToProps(state) {
   return {
-    songs: state.songs
+    songs: state.songs,
+    token: state.token
   }
 }
 

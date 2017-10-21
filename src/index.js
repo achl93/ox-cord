@@ -10,8 +10,10 @@ import reducers from './reducers';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxPromise from 'redux-promise';
+import Settings from './components/settings';
 
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
+
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
@@ -19,6 +21,7 @@ ReactDOM.render(
       <Switch>
         <Route path='/playlist' component={Playlist} />
         <Route path='/join' component={Join} />
+        <Route path='/settings' component={Settings} />
         <Route path='/host*' component={Host} />
         <Route path='/' component={Home} />
       </Switch>
