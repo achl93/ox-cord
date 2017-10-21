@@ -3,9 +3,8 @@ module.exports = function dataHelpers(db) {
   return {
 
     createRoom: function (roomObj, callback) {
-      
       db.collection("rooms").insertOne(roomObj, (err, result) => {
-        callback(null, true);
+        callback(err, result);
       });
     },
 
