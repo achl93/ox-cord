@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addSong } from '../actions/index';
+import { Link } from 'react-router-dom';
 
 class Songlist extends Component {
   renderSongs() {
@@ -23,6 +24,7 @@ class Songlist extends Component {
           { this.renderSongs() }
         </ul>
         <button onClick={()=> this.onHandleClick()}>Add Song</button>
+        <Link to='/settings'>Settings</Link>
       </div>
     )
   }

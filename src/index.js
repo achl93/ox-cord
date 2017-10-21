@@ -9,10 +9,10 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import reducers from './reducers';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+import Settings from './components/settings';
 
 const createStoreWithMiddleware = applyMiddleware()(createStore);
 
-console.log("XXX !!! XXX We just reloaded the app, state is probably reset to nothing")
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
@@ -20,6 +20,7 @@ ReactDOM.render(
       <Switch>
         <Route path='/playlist' component={Playlist} />
         <Route path='/join' component={Join} />
+        <Route path='/settings' component={Settings} />
         <Route path='/host*' component={Host} />
         <Route path='/' component={Home} />
       </Switch>
