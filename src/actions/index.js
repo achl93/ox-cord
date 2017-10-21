@@ -1,5 +1,5 @@
-var SpotifyWebApi = require('spotify-web-api-js');
-var spotifyApi = new SpotifyWebApi();
+const SpotifyWebApi = require('spotify-web-api-js');
+const spotifyApi = new SpotifyWebApi();
 
 export const ADD_SONG = 'ADD_SONG';
 export const REMOVE_SONG = 'REMOVE_SONG';
@@ -7,7 +7,7 @@ export const SEARCH_SONGS = 'SEARCH_SONG';
 export const STORE_TOKEN = 'ADD_TOKEN';
 export const GET_GEO = 'GET_GEO';
 export const STORE_USER = 'STORE_USER';
-
+export const PLAY_SONG = 'PLAY_SONG';
 
 export function addSong(song) {
   return {
@@ -31,6 +31,17 @@ export function searchSongs(term) {
     payload: request
   }
 };
+
+export function playSong(song) {
+  const request = spotifyApi.play(song);
+  // request is a promise object
+  console.log('playing song');
+  console.log(request);
+  return {
+    type: PLAY_SONG,
+    payload: request
+  }
+}
 
 export function storeToken(token) {
   spotifyApi.setAccessToken(token);

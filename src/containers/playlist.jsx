@@ -6,6 +6,7 @@ import Songlist from '../components/songlist';
 import SongSearch from './songsearch';
 import PartyControls from './PartyControls';
 import NowPlaying from '../components/nowplaying';
+import Player from './player';
 
 
 export default class Playlist extends Component {
@@ -16,6 +17,7 @@ export default class Playlist extends Component {
         <Songlist />
         <SongSearch />
         <PartyControls />
+        <Player />
       </div>
     )
   }
