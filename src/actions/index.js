@@ -9,7 +9,6 @@ export const STORE_USER = 'STORE_USER';
 
 
 export function addSong(song) {
-  console.log('action fired');
   return {
     type: ADD_SONG,
     payload: song
@@ -27,7 +26,6 @@ export function searchSongs(term) {
 
 export function storeToken(token) {
   spotifyApi.setAccessToken(token);
-  console.log("MNMNMNMNMNMMN", token);
   return {
     type: STORE_TOKEN,
     payload: token
@@ -43,7 +41,6 @@ export function storeUser() {
 };
 
 export function getGeo(coords) {
-  console.log('geo acquired');
   return {
     type: GET_GEO,
     payload: coords

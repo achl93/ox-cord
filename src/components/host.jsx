@@ -19,17 +19,13 @@ class Host extends Component {
 
   render() {
     var params = this.getSearchParams();
-    console .log(params)
     return <Redirect to="/playlist"/>;
   }
 
   componentWillMount() {
     var params = this.getSearchParams();
     this.props.storeToken(params.access_token);
-    console.log("XYXYXYXYXYYX", params.access_token);
     var user = this.props.storeUser();
-    console.log("LOOOK AT MEEEEEEE", user);
-    console.log("LOLOLLOLOOLOLOLOL:", this.props.user_id)
   }
 }
 

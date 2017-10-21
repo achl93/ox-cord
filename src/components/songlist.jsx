@@ -15,11 +15,6 @@ class Songlist extends Component {
   }
 
   render () {
-    //console.log(this.props.token);
-    //console.log(JSON.parse(this.props.user_id));
-    //console.log(this.props.user_id);
-    var temp = JSON.parse(this.props.user_id);
-    console.log(temp.id);
     return (
       <div>
         <p>{this.props.token}</p>
