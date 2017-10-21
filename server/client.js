@@ -1,6 +1,6 @@
 //client.js
 var io = require('socket.io-client');
-var socket = io.connect('http://localhost:2017', {reconnect: true});
+var socket = io.connect('http://localhost:8888', {reconnect: true});
 
 // Add a connect listener
 socket.on('connect', function (data) {
