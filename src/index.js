@@ -12,6 +12,8 @@ import { createStore, applyMiddleware } from 'redux';
 
 const createStoreWithMiddleware = applyMiddleware()(createStore);
 
+console.log("XXX !!! XXX We just reloaded the app, state is probably reset to nothing")
+
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>

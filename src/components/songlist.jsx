@@ -13,8 +13,12 @@ class Songlist extends Component {
   }
 
   render () {
+    console.log("<Songlist> props", this.props);
+    console.log("<Songlist> state", this.state)
+    console.log(this.props.token);
     return (
       <div>
+        <p>{this.props.token}</p>
         <ul>
           { this.renderSongs() }
         </ul>
@@ -37,7 +41,8 @@ class Songlist extends Component {
 
 function mapStateToProps(state) {
   return {
-    songs: state.songs
+    songs: state.songs,
+    token: state.token
   }
 }
 

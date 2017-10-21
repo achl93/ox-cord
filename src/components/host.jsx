@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {Redirect} from 'react-router-dom'
 //import { getGeolocation } from '../getGeolocation'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -17,19 +18,22 @@ class Host extends Component {
 
   render() {
     var params = this.getSearchParams();
-    console.log(params)
-    return (
-      <div>
-        <h1>Your account</h1>
-        <h2>Access Token</h2>
-        <div>{params.access_token}</div>
-        <h2>Refresh Token</h2>
-        <div>{params.refresh_token}</div>
-      </div>
-    )
+    console .log(params)
+    return <Redirect to="/playlist"/>;
+    // return (
+    //   <div>
+    //     <h1>Your account</h1>
+    //     <h2>Access Token</h2>
+    //     <div>{params.access_token}</div>
+    //     <h2>Refresh Token</h2>
+    //     <div>{params.refresh_token}</div>
+    //     <div className="actualUserFriendlyMessage">Logged in, redirecting . . .</div>
+        
+    //   </div>
+    // )
   }
 
-  componentDidMount() {
+  componentWillMount() {
     var params = this.getSearchParams();
     this.props.storeToken(params.access_token);
     console.log("XYXYXYXYXYYX", params.access_token);
