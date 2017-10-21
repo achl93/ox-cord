@@ -1,37 +1,38 @@
-const express       = require('express');
-const http          = require('http');
-const socketIo      = require('socket.io');
-const MongoDB       = require('mongodb').MongoClient;
-const MongoURL      = 'mongodb://localhost:27017/oxcord';
+const express = require('express');
+const http = require('http');
+const socketIo = require('socket.io');
+const MongoDB = require('mongodb').MongoClient;
+const MongoURL = 'mongodb://localhost:27017/oxcord';
+const cookieParser = require('cookie-parser');
+const spotifyRouteHelpers = require('./routes/spotify');
 
-const app           = express();
-const server        = http.Server(app);
-const io            = socketIo(server);
+const app = express();
+const server = http.Server(app);
+const io = socketIo(server);
 
 let numUsers = 0;
 let SHOW_DEBUG = true;
+let PORT = process.env.PORT | 8888;
 
-MongoDB.connect(MongoURL, function(err, db) {
+app.use(express.static(__dirname + '/public'))
+    .use(cookieParser())
+    .use(spotifyRouteHelpers);
+
+/*
+ *  MongoDB Connection 
+ */
+MongoDB.connect(MongoURL, function (err, db) {
   if (err) {
     console.log(`Failed to connect to mongodb`);
     throw err;
   }
-  const dataHelpers   = require('./lib/data-helpers')(db);
+  const dataHelpers = require('./lib/data-helpers')(db);
   console.log("Connected successfully to MongoDB server");
-
-  // dataHelpers.getRoomData('q6tubv3icueaamst4xw6h7go2', (err, data) => {
-  //   console.log(data);
-  // });
-
-  // dataHelpers.getRooms((err, data) => {
-  //   console.log(data);
-  // });
-
-  dataHelpers.getSongsFromRoomID('q6tubv3icueaamst4xw6h7go2', (err, data) => {
-    console.log(data);
-  });
 });
 
+/*
+ *  Socket.IO Connection 
+ */
 io.on('connection', (socket) => {
 
   socket.on('add-user', (username) => {
@@ -45,7 +46,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('join-room', (room) => {
-    if (SHOW_DEBUG) { console.log(' + join-room : ', room) }    
+    if (SHOW_DEBUG) { console.log(' + join-room : ', room) }
     socket.join(room);
     socket.broadcast.emit('user-joined', {
       room_id: room
@@ -65,10 +66,10 @@ io.on('connection', (socket) => {
   })
 
   socket.on('set-geolocation', (geolocation) => {
-    if (SHOW_DEBUG) { console.log(' + set-geolocation : ', geolocation) }    
+    if (SHOW_DEBUG) { console.log(' + set-geolocation : ', geolocation) }
   });
 
   console.log('Connected successfully to Socket.IO');
 });
 
-server.listen(2017);
+server.listen(PORT, () => console.log('Server running on ' + PORT));
