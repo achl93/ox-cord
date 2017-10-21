@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
+console.log('-----------part controls constructed------------')
 const socket = require('socket.io-client')('http://localhost:8888');
+
+
 
 class PartyControls extends Component {
   constructor() {
     super();
+    
     socket.on('room-created', (data) => {
       console.log('ROOM CREATED!')
       console.log(data)
