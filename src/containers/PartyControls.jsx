@@ -29,10 +29,7 @@ class PartyControls extends Component {
       active: true,
       lastActive: Date.now(),
       geolocation: this.props.coords,
-      playlist: [
-        { something: true },
-        { something_else: false }
-      ]
+      playlist: this.props.songs
     });
   }
 }
