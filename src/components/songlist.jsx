@@ -8,14 +8,18 @@ import { removeSong } from '../actions/index';
 
 class Songlist extends Component {
   renderSongs() {
-    return this.props.songs.map((song) => {
-      return (
+    if (Object.keys(this.props.songs).length !== 0) {
+      return this.props.songs.map((song) => {
+        return (
           <Song key={song.id} song={song} removeSong={this.props.removeSong} />
-      )
-    });
+        )
+      });
+    }
   }
 
   render () {
+    console.log("LOOK AT MEEEEEE:", this.props.user);
+    console.log("WEEEEEE:", this.props.user.id);
     return (
       <div>
         <p>Longitude: {this.props.coords.longitude}</p>
@@ -33,7 +37,7 @@ function mapStateToProps(state) {
   return {
     songs: state.songs,
     token: state.token,
-    user_id: state.user_id,
+    user: state.user,
     coords: state.coords
   }
 }
