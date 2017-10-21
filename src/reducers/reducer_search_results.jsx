@@ -21,6 +21,7 @@ const dummyResults = [
 export default function(state = dummyResults, action) {
   switch (action.type) {
     case SEARCH_SONGS:
+      console.log(action.payload.tracks.items.slice(0, 5));
       const newResults = action.payload.tracks.items.slice(0, 5).map(song =>{ // to-do: remove slice and add options to limit returned tracks
         return {
           id: song.id,
