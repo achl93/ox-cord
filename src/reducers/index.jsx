@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
   token: TokenReducer,
   searchResults: SearchResultsReducer,
   coords: GeoReducer,
-  user_id: UserReducer,
+  user: UserReducer,
   nowPlaying: PlayReducer
 });
 
