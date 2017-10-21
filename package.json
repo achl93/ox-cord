@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bootstrap": "^4.0.0-beta.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
+    "mongodb": "^2.2.33",
     "querystring": "^0.2.0",
     "react": "^16.0.0",
+    "react-bootstrap": "^0.31.3",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
@@ -14,10 +17,9 @@
     "redux": "^3.7.2",
     "redux-promise": "^0.5.3",
     "request": "^2.83.0",
-    "spotify-web-api-js": "^0.22.1",
-    "mongodb": "^2.2.33",
     "socket.io": "^2.0.3",
-    "socket.io-client": "^2.0.3"
+    "socket.io-client": "^2.0.3",
+    "spotify-web-api-js": "^0.22.1"
   },
   "scripts": {
     "start": "react-scripts start",
