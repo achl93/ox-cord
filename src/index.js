@@ -12,6 +12,9 @@ import { createStore, applyMiddleware } from 'redux';
 import ReduxPromise from 'redux-promise';
 import Settings from './components/settings';
 
+import './index.css';
+import 'bootstrap/dist/css/bootstrap.css';
+
 // const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 const store = createStore(reducers, applyMiddleware(ReduxPromise));
 
