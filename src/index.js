@@ -12,11 +12,11 @@ import { createStore, applyMiddleware } from 'redux';
 import ReduxPromise from 'redux-promise';
 import Settings from './components/settings';
 
-const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
-
+// const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
+const store = createStore(reducers, applyMiddleware(ReduxPromise));
 
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
+  <Provider store={store}>
     <BrowserRouter>
       <Switch>
         <Route path='/playlist' component={Playlist} />
