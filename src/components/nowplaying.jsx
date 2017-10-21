@@ -6,9 +6,7 @@ class NowPlaying extends Component {
   currentSong() {
     return (
       <div>
-      <h3>{this.props.songs[0].title}</h3>
-      <p>{this.props.songs[0].artist}</p>
-      <p>{this.props.songs[0].duration}</p>
+      <h3>Now Playing: {this.props.songs[0].name}</h3>
       </div>
     );
   }

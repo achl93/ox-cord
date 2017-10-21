@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { addSong } from '../actions/index';
 import { Link } from 'react-router-dom';
 
 class Songlist extends Component {
@@ -26,15 +25,7 @@ class Songlist extends Component {
       </div>
     )
   }
-  onHandleClick() {
-    console.log('clicked');
-    this.props.addSong({
-      id: 4,
-      name: 'Song 4',
-      artists: [],
-      duration: 420
-    })
-  }
+
 
 }
 
@@ -47,7 +38,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ addSong }, dispatch)
+  return bindActionCreators({ }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Songlist);

@@ -3,7 +3,7 @@ import { searchSongs } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import SearchResult from '../components/SearchResult';
-
+import { addSong } from '../actions/index';
 
 class SongSearch extends Component {
   constructor(props){
@@ -16,7 +16,7 @@ class SongSearch extends Component {
   renderResults() {
     return this.props.results.map((song) => {
       return (
-          <SearchResult key={song.id} song={song} />
+          <SearchResult addSong={this.props.addSong} key={song.id} song={song} />
       )
     });
   }
@@ -60,7 +60,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ searchSongs }, dispatch)
+  return bindActionCreators({ searchSongs, addSong }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SongSearch)

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 export default class SearchResult extends Component {
 
   render() {
@@ -9,6 +10,7 @@ export default class SearchResult extends Component {
   }
 
   onHandleClick() {
-    console.log('clicked')
+    console.log('clicked');
+    this.props.addSong(this.props.song)
   }
 }

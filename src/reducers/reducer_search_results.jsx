@@ -2,18 +2,18 @@ import { SEARCH_SONGS } from '../actions/index';
 
 const dummyResults = [
   {
-    id: 1,
-    name: 'Result 1',
+    id: 4,
+    name: 'Result 4',
     artists: []
   },
   {
-    id: 2,
-    name: 'Result 2',
+    id: 5,
+    name: 'Result 5',
     artists: []
   },
   {
-    id: 3,
-    name: 'Result 3',
+    id: 6,
+    name: 'Result 6',
     artists: []
   }
 ];
