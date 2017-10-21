@@ -1,5 +1,5 @@
 {
-  "name": "test",
+  "name": "oxcord",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -14,7 +14,10 @@
     "redux": "^3.7.2",
     "redux-promise": "^0.5.3",
     "request": "^2.83.0",
-    "spotify-web-api-js": "^0.22.1"
+    "spotify-web-api-js": "^0.22.1",
+    "mongodb": "^2.2.33",
+    "socket.io": "^2.0.3",
+    "socket.io-client": "^2.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
