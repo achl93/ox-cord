@@ -1,39 +1,54 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getGeo } from '../actions/index';
 
-export default class Join extends Component {
-  constructor(props) {
-    super(props);
-    this.getGeolocation = this.getGeolocation.bind(this);
+class Join extends Component {
+  setLocation(pos) {
+    this.props.getGeo({
+      longitude: pos.coords.longitude,
+      latitude: pos.coords.latitude
+    });
+    console.log(pos);
   }
+
+  // render() {
+  //   return (
+  //     <div>
+  //       <h4> hey </h4>
+  //       <p>Longitude: {this.props.coords.longitude}</p>
+  //       <p>Latitude: {this.props.coords.latitude}</p>
+  //     </div>
+  //   );
+  // }
 
   getGeolocation() {
-  var geo = {};
-  if (!navigator.geolocation) {
-    return null;
-  } else {
-    navigator.geolocation.getCurrentPosition((pos) => {
-      console.log(pos.coords);
-      geo = pos.coords;
-    });
-    return (
-        <div>
-          <div>
-            latitude: {geo.latitude}
-          </div>
-          <div>
-            longitude: {geo.longitude}
-          </div>
-        </div>
-      )
+    if (!navigator.geolocation) {
+      return null;
+    } else {
+      navigator.geolocation.getCurrentPosition(this.setLocation.bind(this))
+    }
   }
-}
-
   render() {
+    this.getGeolocation();
     return (
       <div>
         Join a room!
-        {this.getGeolocation()}
+        <p>Longitude: {this.props.coords.longitude}</p>
+        <p>Latitude: {this.props.coords.latitude}</p>
       </div>
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    coords: state.coords
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ getGeo }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Join);

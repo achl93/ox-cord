@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
+// import { addSong } from '../actions/index';
+// import SearchBar from './songsearch';
 
 class Songlist extends Component {
   renderSongs() {
@@ -24,10 +26,7 @@ class Songlist extends Component {
       </div>
     )
   }
-
-
 }
-
 
 function mapStateToProps(state) {
   return {
