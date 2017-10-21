@@ -4,17 +4,17 @@ const dummyResults = [
   {
     id: 4,
     name: 'Result 4',
-    artists: []
+    artist: 'Artist 4'
   },
   {
     id: 5,
     name: 'Result 5',
-    artists: []
+    artist: 'Artist 5'
   },
   {
     id: 6,
     name: 'Result 6',
-    artists: []
+    artist: 'Artist 6'
   }
 ];
 
@@ -26,7 +26,7 @@ export default function(state = dummyResults, action) {
         return {
           id: song.id,
           name: song.name,
-          artists: song.artists
+          artist: song.artists[0].name
         }
       })
       return newResults;

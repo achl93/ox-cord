@@ -7,7 +7,7 @@ class Songlist extends Component {
   renderSongs() {
     return this.props.songs.map((song) => {
       return (
-          <li key={song.id}>{ song.name }</li>
+          <li key={song.id}>{ song.name } - ({ song.artist })</li>
       )
     });
   }
@@ -20,7 +20,6 @@ class Songlist extends Component {
         <ul>
           { this.renderSongs() }
         </ul>
-        <button onClick={()=> this.onHandleClick()}>Add Song</button>
         <Link to='/settings'>Settings</Link>
       </div>
     )
