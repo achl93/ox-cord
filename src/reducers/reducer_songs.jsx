@@ -4,19 +4,19 @@ const dummySongs = [
   {
     id: 1,
     name: 'Song 1',
-    artitsts: [],
+    artist: 'Artist 1',
     duration: 320
   },
   {
     id: 2,
     name: 'Song 2',
-    artitsts: [],
+    artist: 'Artist 2',
     duration: 280
   },
   {
     id: 3,
     name: 'Song 3',
-    artitsts: [],
+    artist: 'Artist 3',
     duration: 240
   }
 ];
