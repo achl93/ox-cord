@@ -15,9 +15,11 @@ class Songlist extends Component {
   }
 
   render () {
-    console.log(this.props.token);
+    // console.log(this.props.token);
     return (
       <div>
+        <p>Longitude: {this.props.coords.longitude}</p>
+        <p>Latitude: {this.props.coords.latitude}</p>
         <p>{this.props.token}</p>
         <ul>
           { this.renderSongs() }
@@ -31,7 +33,8 @@ class Songlist extends Component {
 function mapStateToProps(state) {
   return {
     songs: state.songs,
-    token: state.token
+    token: state.token,
+    coords: state.coords
   }
 }
 
