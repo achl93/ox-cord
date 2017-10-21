@@ -4,11 +4,13 @@ import { bindActionCreators } from 'redux';
 
 class NowPlaying extends Component {
   currentSong() {
+    if (this.props.songs[0] !== undefined) {
     return (
       <div>
-      <h3>Now Playing: {this.props.songs[0].name}</h3>
+        {<h3>Now Playing: {this.props.songs[0].name}</h3>}
       </div>
     );
+  };
   }
 
   render () {
