@@ -15,7 +15,11 @@ class Songlist extends Component {
   }
 
   render () {
-    console.log(this.props.token);
+    //console.log(this.props.token);
+    //console.log(JSON.parse(this.props.user_id));
+    //console.log(this.props.user_id);
+    var temp = JSON.parse(this.props.user_id);
+    console.log(temp.id);
     return (
       <div>
         <p>{this.props.token}</p>
@@ -31,7 +35,8 @@ class Songlist extends Component {
 function mapStateToProps(state) {
   return {
     songs: state.songs,
-    token: state.token
+    token: state.token,
+    user_id: state.user_id
   }
 }
 
