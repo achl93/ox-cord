@@ -49,7 +49,7 @@ class Host extends Component {
 function mapStateToProps(state) {
   return {
     token: state.token,
-    user_id: state.user_id
+    user_id: state.user_id,
     coords: state.coords
   }
 }
