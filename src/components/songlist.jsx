@@ -16,7 +16,6 @@ class Songlist extends Component {
   }
 
   render () {
-    // console.log(this.props.token);
     return (
       <div>
         <p>Longitude: {this.props.coords.longitude}</p>
@@ -35,6 +34,7 @@ function mapStateToProps(state) {
   return {
     songs: state.songs,
     token: state.token,
+    user_id: state.user_id
     coords: state.coords
   }
 }
