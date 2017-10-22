@@ -52,10 +52,10 @@ export function storeToken(token) {
 };
 
 export function storeUser() {
-  const user_id = spotifyApi.getMe();
+  const user = spotifyApi.getMe();
   return {
     type: STORE_USER,
-    payload: user_id
+    payload: user
   }
 };
 
