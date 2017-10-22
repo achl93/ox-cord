@@ -17,7 +17,7 @@ class SongSearch extends Component {
   renderResults() {
     return this.props.results.map((song) => {
       return (
-          <SongSearchResult addSong={this.props.addSong} key={song.id} song={song} />
+          <SongSearchResultgit  addSong={this.props.addSong} key={song.id} song={song} />
       )
     });
   }
