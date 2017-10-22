@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { searchSongs } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import SearchResult from '../components/SearchResult';
 import { addSong } from '../actions/index';
+
+import SongSearchResult from '../components/SongSearchResult';
 
 class SongSearch extends Component {
   constructor(props){
@@ -16,7 +17,7 @@ class SongSearch extends Component {
   renderResults() {
     return this.props.results.map((song) => {
       return (
-          <SearchResult addSong={this.props.addSong} key={song.id} song={song} />
+          <SongSearchResult addSong={this.props.addSong} key={song.id} song={song} />
       )
     });
   }

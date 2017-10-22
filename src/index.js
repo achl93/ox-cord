@@ -1,16 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Home from './components/home';
-import Join from './components/join';
-import Host from './components/host';
-import Playlist from './containers/playlist';
+
+
+
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import reducers from './reducers';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxPromise from 'redux-promise';
-import Settings from './components/settings';
+
+import Home from './components/Home';
+import Join from './containers/Join';
+import Host from './containers/Host';
+import Playlist from './components/Playlist';
+import Settings from './components/Settings';
 
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
