@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-console.log('-----------part controls constructed------------')
-const socket = require('socket.io-client')('http://localhost:8888');
+
+import socket from '../lib/SocketAPI';
 
 
 
 class PartyControls extends Component {
-  constructor() {
-    super();
-    
-    socket.on('room-created', (data) => {
-      console.log('ROOM CREATED!')
-      console.log(data)
-    })
-  }
 
   render() {
     return (
@@ -27,8 +19,8 @@ class PartyControls extends Component {
     console.log('party started')
     console.log(this.props.songs)
     socket.emit('create-room', {
-      room_id: this.props.user_id.id,
-      name: `${this.props.user_id.display_name}'s Playlist'`,
+      room_id: this.props.user.id,
+      name: `${this.props.user.display_name}'s Playlist'`,
       active: true,
       lastActive: Date.now(),
       geolocation: this.props.coords,
@@ -41,7 +33,7 @@ function mapStateToProps(state) {
   return {
     songs: state.songs,
     coords: state.coords,
-    user_id: state.user_id
+    user: state.user
   }
 }
 
@@ -49,4 +41,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({})
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PartyControls);
+export default connect(mapStateToProps, mapDispatchToProps)(PartyControls)

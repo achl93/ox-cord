@@ -1,3 +1,4 @@
+import socket from '../lib/SocketAPI';
 const SpotifyWebApi = require('spotify-web-api-js');
 const spotifyApi = new SpotifyWebApi();
 
@@ -10,6 +11,7 @@ export const STORE_USER = 'STORE_USER';
 export const PLAY_SONG = 'PLAY_SONG';
 
 export function addSong(song) {
+  socket.emit('test', 'asdf')
   return {
     type: ADD_SONG,
     payload: song

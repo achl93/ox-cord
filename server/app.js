@@ -36,6 +36,10 @@ MongoDB.connect(MongoURL, function (err, db) {
  */
 io.on('connection', (socket) => {
 
+  socket.on('test', () => {
+    console.log('test received from client')
+  })
+
   socket.on('add-user', (username) => {
     if (SHOW_DEBUG) { console.log(' + add-user : ', username) }
     socket.username = username;
