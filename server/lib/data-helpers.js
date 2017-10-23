@@ -27,6 +27,13 @@ module.exports = function dataHelpers(db) {
           items.forEach((item) => songsArray.push(item.playlist));
           callback(err, songsArray[0]);
         });
+    },
+
+    incrementSongVote: function(room_id, song_id, callback) {
+      db.collection("rooms").updateOne({'room_id': room_id, "playlist.id": song_id}, { $inc: { "playlist.$.votes" : 1 }}, (err, data) => {
+        if (err) throw err;
+        callback(null, data);
+      })
     }
 
   };
