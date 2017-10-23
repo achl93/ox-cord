@@ -20,8 +20,10 @@ export default function(state = dummyPlaylists, action) {
     case GET_PLAYLISTS :
       console.log('getPlaylists action received');
       const userPlaylists = action.payload.items.map((playlist) => {
+        console.log(playlist.owner.id)
         return {
           id: playlist.id,
+          owner: playlist.owner.id,
           name: playlist.name,
           trackCount: playlist.tracks.total
         }

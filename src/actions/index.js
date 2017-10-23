@@ -46,8 +46,8 @@ export function getPlaylists(userID) {
   }
 };
 
-export function importPlaylist(userID, playlistID) {
-  const request = spotifyApi.getPlaylistTracks(userID, playlistID);
+export function importPlaylist(owner, playlistID) {
+  const request = spotifyApi.getPlaylistTracks(owner, playlistID, {limit: 20});
   return {
     type: IMPORT_PLAYLIST,
     payload: request
