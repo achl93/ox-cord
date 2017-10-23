@@ -20,7 +20,7 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
 // const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
-const store = createStore(reducers, applyMiddleware(ReduxPromise));
+const store = createStore(reducers, applyMiddleware(ReduxPromise), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 ReactDOM.render(
   <Grid bsClass='container mt-5'>
