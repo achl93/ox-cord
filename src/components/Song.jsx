@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-
+import { ListGroupItem, Button } from 'react-bootstrap';
 
 export default class Song extends Component {
   render() {
     return (
-      <li>{ this.props.song.name } - ({ this.props.song.artist }) <button onClick={()=>{this.onHandleClick()}}>X</button></li>
+      <ListGroupItem > { this.props.song.name } - ({ this.props.song.artist }) <Button bsSize="small" onClick={()=>{this.onHandleClick()}}>X</Button></ListGroupItem>
     )
   }
 

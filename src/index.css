@@ -3,9 +3,6 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
-.text-overflow {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 500px;
+div[class*='row'] {
+  margin-bottom: 0.5rem;
 }

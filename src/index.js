@@ -9,12 +9,14 @@ import reducers from './reducers';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxPromise from 'redux-promise';
+import { Grid, Row } from 'react-bootstrap';
 
 import Home from './components/Home';
 import Join from './containers/Join';
 import Host from './containers/Host';
 import Playlist from './components/Playlist';
 import Settings from './components/Settings';
+
 
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -23,8 +25,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 const store = createStore(reducers, applyMiddleware(ReduxPromise));
 
 ReactDOM.render(
-  <div className='container'>
+  <Grid bsClass='container mt-5'>
     <div className='app-content mx-auto d-flex justify-content-center'>
+      <Row bsClass=' border p-3'>
       <Provider store={store}>
           <BrowserRouter>
             <Switch>
@@ -36,8 +39,9 @@ ReactDOM.render(
             </Switch>
           </BrowserRouter>
       </Provider>
+      </Row>
     </div>
-  </div>
+  </Grid>
   
   , document.getElementById('root'));
 registerServiceWorker();

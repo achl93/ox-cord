@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Row } from 'react-bootstrap';
 
 class NowPlaying extends Component {
   currentSong() {
     if (this.props.songs[0] !== undefined) {
     return (
-      <div>
+      <Row >
         {<h3>Now Playing: {this.props.songs[0].name}</h3>}
-      </div>
+      </Row>
     );
   };
   }

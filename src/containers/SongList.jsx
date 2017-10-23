@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { removeSong } from '../actions/index';
+import { Row, Col, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 
 import Song from '../components/Song';
 
@@ -18,15 +19,32 @@ class Songlist extends Component {
   }
 
   render () {
+    console.log(this.props.songs)
     return (
-      <div>
-        <p>Longitude: {this.props.coords.longitude}</p>
-        <p>Latitude: {this.props.coords.latitude}</p>
-        <ul>
-          { this.renderSongs() }
-        </ul>
-        <Link to='/settings'>Settings</Link>
-      </div>
+      <Row>
+        <Col md={12}>
+          <Row>
+            <Col md={12}>
+              <span>Lat: {this.props.coords.longitude}</span>
+                {"\u00a0\u00a0\u00a0\u00a0"}
+              <span>Lng: {this.props.coords.latitude}</span>
+              <Link to='/settings' className='float-right'>
+                <Button bsSize="small">Settings</Button>
+              </Link>
+           </Col>
+          </Row>
+          <Row>
+            <Col md={12}>
+              <ListGroup >
+                { this.props.songs.length === 0 && 
+                  <ListGroupItem> Please add songs </ListGroupItem>
+                }
+                { this.renderSongs() }
+              </ListGroup>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
     )
   }
 }

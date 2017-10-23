@@ -22,7 +22,7 @@ import { REMOVE_SONG } from '../actions/index';
 //   }
 // ];
 
-export default function(state = {}, action) {
+export default function(state = [], action) {
   switch (action.type) {
     case ADD_SONG:
       return [ ...state, action.payload ];
