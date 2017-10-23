@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 class Settings extends Component {
   render() {
-    if (this.props.user == 'empty') {
+    if (this.props.user === 'empty') {
       return <Redirect to='/' />
     } else {
       return (

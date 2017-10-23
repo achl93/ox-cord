@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import Songlist from '../containers/SongList';
 import SongSearch from '../containers/SongSearch';
 import PlayerControls from '../containers/PlayerControls';

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Button, ListGroupItem } from 'react-bootstrap';
 
 export default class SongSearchResult extends Component {
 
