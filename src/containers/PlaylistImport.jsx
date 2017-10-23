@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getPlaylists, importPlaylist } from '../actions/index';
+import { remoteGetUserPlaylists, importPlaylist } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PlaylistSearchResult from '../components/PlaylistSearchResult';
@@ -18,7 +18,6 @@ class PlaylistImport extends Component {
     });
   }
   render() {
-    console.log(this.props.remotePlatlist)
     return (
       <Row bsClass='row border p-3 text-center'>
         <Col md={12}>
@@ -48,22 +47,26 @@ class PlaylistImport extends Component {
   }
   componentDidMount(){
     console.log('import action created')
-    this.props.getPlaylists(this.props.user.id);
+    this.props.remoteGetUserPlaylists('226cqjufjm4lxdxg2zbfhqrti');
   }
 
 }
 
 function mapStateToProps(state) {
   return {
-    remotePlatlist: state.remotePlatlist,
     user: state.user,
     playlists: state.userPlaylists
   }
 }
 
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getPlaylists, importPlaylist }, dispatch)
-}
+// function mapDispatchToProps(dispatch) {
+//   return bindActionCreators({ remoteGetPlaylists, importPlaylist }, dispatch)
+// }
+
+const mapDispatchToProps = {
+  remoteGetUserPlaylists,
+  importPlaylist
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlaylistImport);

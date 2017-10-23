@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReduxThunk from 'redux-thunk';
+
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -21,7 +24,7 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
 // const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
-const store = createStore(reducers, applyMiddleware(ReduxPromise), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(reducers, composeWithDevTools(applyMiddleware(ReduxThunk, ReduxPromise)));
 
 ReactDOM.render(
   <Grid bsClass='container mt-5'>

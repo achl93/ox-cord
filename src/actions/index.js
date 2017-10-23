@@ -4,6 +4,7 @@ const spotifyApi = new SpotifyWebApi();
 
 export const ADD_SONG = 'ADD_SONG';
 export const IMPORT_PLAYLIST = 'IMPORT_PLAYLIST';
+export const CHECK_REMOTE = 'CHECK_REMOTE';
 export const REMOVE_SONG = 'REMOVE_SONG';
 export const SEARCH_SONGS = 'SEARCH_SONGS';
 export const GET_PLAYLISTS = 'GET_PLAYLISTS';
@@ -36,15 +37,51 @@ export function searchSongs(term) {
   }
 };
 
-export function getPlaylists(userID) {
+export function getUserPlaylists(playlists) {
   console.log('getPlaylists action dispatched')
+  //make the request here
+  //const request = spotifyApi.getUserPlaylists(userID);
+  return {
+    type: GET_PLAYLISTS,
+    payload: playlists
+  }
+};
+
+export function remoteGetUserPlaylists(userID) {
+  return (dispatch) => {
+    spotifyApi.getUserPlaylists(userID).then(
+      (results) => {
+        dispatch(getUserPlaylists(results))
+      }
+    )
+  }
+}
+
+// export function remoteFilterOxcordPlaylists(userID) {
+//   return dispatch => {
+//     spotifyApi.getUserPlaylists(userID)
+//       .then(results => {
+//         // filter results, search for oxcord in name
+//         // if no oxcord
+//           return request.post('/playlists', data);
+//         // if oxcord
+//           dispatch(addPlaylist(id));
+//       })
+//       .then(playlist => {
+//         dispatch(addPlaylist(playlist.id));
+//       });
+//   }
+// }
+
+export function checkRemotePlaylist(userID) {
+  console.log('check remote action dispatched')
   //make the request here
   const request = spotifyApi.getUserPlaylists(userID);
   return {
-    type: GET_PLAYLISTS,
-    payload: request
+    type: CHECK_REMOTE,
+    payload: {}//request
   }
-};
+}
 
 export function importPlaylist(userID, playlistID) {
   const request = spotifyApi.getPlaylistTracks(userID, playlistID);

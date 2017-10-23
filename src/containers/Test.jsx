@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getPlaylists } from '../actions/index';
+import { checkRemotePlaylist } from '../actions/index';
 
 class Test extends Component {
   render() {
@@ -22,7 +22,8 @@ class Test extends Component {
     )
   }
   onHandleClick(){
-    this.props.getPlaylists(this.props.user.id);
+    //this.props.getPlaylists(this.props.user.id);
+    this.props.checkRemotePlaylists('226cqjufjm4lxdxg2zbfhqrti');
   }
 }
 function mapStateToProps(state) {
@@ -33,7 +34,7 @@ function mapStateToProps(state) {
   }
 }
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getPlaylists }, dispatch)
+  return bindActionCreators({ checkRemotePlaylist }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Test);
