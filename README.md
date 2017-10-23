@@ -8,5 +8,3 @@ A collaborative Spotify jukebox for any social event! Requires a Spotify account
 - Express
 - React
 - Redux
-
-
