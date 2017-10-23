@@ -5,15 +5,14 @@ const MongoDB = require('mongodb').MongoClient;
 const MongoURL = 'mongodb://localhost:27017/oxcord';
 const cookieParser = require('cookie-parser');
 const spotifyRouteHelpers = require('./routes/spotify');
-let dataHelpers = require('./lib/data-helpers');
 
 const app = express();
 const server = http.Server(app);
 const io = socketIo(server);
 
-let numUsers = 0;
 let SHOW_DEBUG = true;
 let PORT = process.env.PORT | 8888;
+let dataHelpers = require('./lib/data-helpers');
 
 app.use(express.static(__dirname + '/public'))
     .use(cookieParser())
@@ -36,56 +35,41 @@ MongoDB.connect(MongoURL, function (err, db) {
  */
 io.on('connection', (socket) => {
 
-  socket.on('test', () => {
-    console.log('test received from client')
-  })
-
-  socket.on('add-user', (username) => {
-    if (SHOW_DEBUG) { console.log(' + add-user : ', username) }
-    socket.username = username;
-    ++numUsers;
-    socket.broadcast.emit('user-joined', {
-      username: username,
-      numUsers: numUsers
-    });
-  });
-
   socket.on('join-room', (room) => {
-    if (SHOW_DEBUG) { console.log(' + join-room : ', room) }
+    if (SHOW_DEBUG) { console.log(' + Client has joined the room : ', room) }
     socket.join(room);
-    socket.broadcast.emit('user-joined', {
-      room_id: room
-    });
-  });
-
-  socket.on('set-tokens', (tokens) => {
-    if (SHOW_DEBUG) { console.log(' + set-tokens : ', tokens) }
-    // socket.broadcast sends to all EXCEPT client that sent
-    socket.broadcast.emit('tokens-set', {
-      something: true
-    });
-    // io.sockets.emit sends to ALL clients, including client that sent
-    io.sockets.emit('tokens-set', {
-      something_else: true
-    });
-  })
-
-  socket.on('set-geolocation', (geolocation) => {
-    if (SHOW_DEBUG) { console.log(' + set-geolocation : ', geolocation) }
+    io.sockets.emit('user-joined', room);
   });
 
   socket.on('create-room', (data) => {
-    if (SHOW_DEBUG) { console.log(' + create-room : ', data) }
+    if (SHOW_DEBUG) { console.log(' + Client created a new room : ', data) }
     dataHelpers.createRoom(data, (err, result) => {
-      if (err !== null) {
-        if (SHOW_DEBUG) { console.log(' *** ROOM-CREATED (err) : ', err) }
-      }
-      if (SHOW_DEBUG) { console.log(' *** ROOM-CREATED (data) : ', data) }
       io.sockets.emit('room-created', data);
     });
-  })
+  });
 
-  console.log('Connected successfully to Socket.IO');
+  socket.on('add-vote', (data) => {
+    if (SHOW_DEBUG) { console.log(' + Client voted on a song!') }
+    dataHelpers.incrementSongVote(data.room_id, data.song_id, (err, data) => {
+      io.sockets.emit('vote-added');
+    });
+  });
+
+  socket.on('request-song-list', (room_id) => {
+    if (SHOW_DEBUG) { console.log(' + Client requested a song list!') }
+    dataHelpers.getSongsFromRoomID(room_id, (err, songs) => {
+      io.sockets.emit('song-list-sent', songs);
+    });
+  });
+
+  socket.on('request-active-rooms', () => {
+    if (SHOW_DEBUG) { console.log(' + Client requested an active room list!') }
+    dataHelpers.getActiveRooms((err, rooms) => {
+      io.sockets.emit('active-rooms-sent', rooms);
+    });
+  });
+
+  console.log('> Client Connected to Socket Server ', socket.id);
 });
 
-server.listen(PORT, () => console.log('Server running on ' + PORT));
+server.listen(PORT, () => console.log('Socket.IO Server running on ' + PORT));
