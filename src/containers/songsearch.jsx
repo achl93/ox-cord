@@ -58,10 +58,15 @@ class SongSearch extends Component {
   }
   onFormSubmit(event){
     event.preventDefault();
+    console.log("YOOYOYOYOYOYOOY:", this.state.term);
+    if (this.state.term === '') {
+      alert("Please enter the name of an artist or song!");
+    } else {
     this.props.searchSongs(this.state.term);
     this.setState({
       term: ''
     });
+  };
   }
   onInputChange(event) {
     this.setState({
