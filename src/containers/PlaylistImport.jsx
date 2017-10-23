@@ -18,6 +18,7 @@ class PlaylistImport extends Component {
     });
   }
   render() {
+    console.log(this.props.remotePlatlist)
     return (
       <Row bsClass='row border p-3 text-center'>
         <Col md={12}>
@@ -54,8 +55,9 @@ class PlaylistImport extends Component {
 
 function mapStateToProps(state) {
   return {
+    remotePlatlist: state.remotePlatlist,
     user: state.user,
-    playlists: state.playlists
+    playlists: state.userPlaylists
   }
 }
 

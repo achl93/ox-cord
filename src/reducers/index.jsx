@@ -5,16 +5,18 @@ import TokenReducer from './reducer_store_tokens';
 import GeoReducer from './reducer_geo';
 import UserReducer from './reducer_store_user';
 import PlayReducer from './reducer_play';
-import PlaylistsReducer from './reducer_playlists';
+import UserPlaylistsReducer from './reducer_user_playlists';
+import RemotePlaylistReducer from './reducer_remote_playlist';
 
 const rootReducer = combineReducers({
   songs: SongsReducer,
+  remotePlaylist: RemotePlaylistReducer,
   token: TokenReducer,
   songSearch: SongSearchReducer,
   coords: GeoReducer,
   user: UserReducer,
   nowPlaying: PlayReducer,
-  playlists: PlaylistsReducer
+  userPlaylists: UserPlaylistsReducer
 });
 
 export default rootReducer;
