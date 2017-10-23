@@ -17,7 +17,6 @@ class PlayerControls extends Component {
         <Col md={12}>
           <ButtonToolbar bsClass='d-flex justify-content-around'>
             <Button bsSize="small" onClick={() => this.onPlay()}>Play</Button>
-            <Button bsSize="small" onClick={() => this.onNext()}>Next</Button>
             <Button bsSize="small" onClick={() => this.startParty()}>Start Party </Button>
             <Link to='/settings' className='float-right'>
                 <Button bsSize="small">Settings</Button>
@@ -40,8 +39,6 @@ class PlayerControls extends Component {
     });
   }
   onPlay(e) {
-    // Currently plays songs dynamically, but from position 3 after the dummy data
-    // TODO: Plays next song in our playlist
     if (this.props.songs[0]) {
       this.props.playSong({"uris": [`spotify:track:${this.props.songs[0].id}`]});
       console.log(`spotify:track:${this.props.songs[0].id}`);
@@ -49,16 +46,10 @@ class PlayerControls extends Component {
       // Do nothing or pop an alert maybe?
     }
   }
-  // onNext(e) {
-  //   // Plays next song in our virtual playlist
-  //   this.props.removeSong(this.props.songs[0]);
-  //   this.props.playSong({"uris": [`spotify:track:${this.props.songs[0].id}`]});
-  // }
 }
 
 function mapStateToProps(state) {
   return {
-    // TODO: Set state of nowPlaying to current song name
     songs: state.songs,
     coords: state.coords,
     user: state.user,
