@@ -3,7 +3,13 @@ import { ADD_SONG, REMOVE_SONG, IMPORT_PLAYLIST } from '../actions/index';
 export default function(state = [], action) {
   switch (action.type) {
     case ADD_SONG:
-      return [ ...state, action.payload ];
+     if (!state.some( item => item.id === action.payload.id ))
+      {
+        return [ ...state, action.payload ];
+      } else {
+        return state;
+      }
+
     case IMPORT_PLAYLIST:
       const importedTracks = action.payload.items.map((result) => {
         return {

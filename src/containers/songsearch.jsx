@@ -58,7 +58,6 @@ class SongSearch extends Component {
   }
   onFormSubmit(event){
     event.preventDefault();
-    console.log("YOOYOYOYOYOYOOY:", this.state.term);
     if (this.state.term === '') {
       alert("Please enter the name of an artist or song!");
     } else {
@@ -77,7 +76,8 @@ class SongSearch extends Component {
 
 function mapStateToProps(state) {
   return {
-    results: state.songSearch
+    results: state.songSearch,
+    songs: state.songs
   }
 }
 

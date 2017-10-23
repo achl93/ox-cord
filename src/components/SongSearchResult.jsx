@@ -12,5 +12,6 @@ export default class SongSearchResult extends Component {
   onHandleClick() {
     console.log('clicked');
     this.props.addSong(this.props.song)
+
   }
 }
