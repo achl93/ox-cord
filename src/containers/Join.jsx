@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getGeo } from '../actions/index';
 import socket from '../lib/SocketAPI';
+import JoinRoom from '../components/JoinRoom';
 
 class Join extends Component {
 
@@ -45,9 +46,12 @@ class Join extends Component {
     return (
       <div>
         Join a room!
-        { this.state.rooms.map((room) => { 
+        {/* { this.state.rooms.map((room) => { 
           return(<p key={room.room_id}>{room.name}</p>)  
-          }) }
+          }) } */}
+        { this.state.rooms.map((room) => {
+          return(<JoinRoom room_name={room.name} room_id={room.room_id} />);
+        }) }
         <p>Longitude: {this.props.coords.longitude}</p>
         <p>Latitude: {this.props.coords.latitude}</p>
       </div>
