@@ -10,3 +10,9 @@ div[class*='row'] {
 form {
   width: 100%;
 }
+.text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 50px;
+}

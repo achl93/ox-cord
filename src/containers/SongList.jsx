@@ -19,15 +19,14 @@ class Songlist extends Component {
   }
 
   render () {
-    console.log(this.props.songs)
+    console.log( typeof this.props.longitude)
     return (
       <Row>
         <Col md={12}>
           <Row>
             <Col md={12}>
-              <span>Lat: {this.props.coords.longitude}</span>
-                {"\u00a0\u00a0\u00a0\u00a0"}
-              <span>Lng: {this.props.coords.latitude}</span>
+              <div className='text-overflow float-left'>Lat: {this.props.coords.longitude}</div>
+              <div className='text-overflow float-left'>Lng: {this.props.coords.latitude}</div>
               <Link to='/settings' className='float-right'>
                 <Button bsSize="small">Settings</Button>
               </Link>
