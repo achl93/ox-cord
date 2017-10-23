@@ -3,6 +3,7 @@ import { searchSongs } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addSong } from '../actions/index';
+import { Row, Col, Form, FormControl, FormGroup, InputGroup, Button, ListGroup } from 'react-bootstrap';
 
 import SongSearchResult from '../components/SongSearchResult';
 
@@ -23,21 +24,36 @@ class SongSearch extends Component {
   }
   render() {
     return (
-      <div>
-        <form onSubmit={this.onFormSubmit}>
-          <input 
-            placeholder='Search songs on Spotify'
-            value={this.state.term}
-            onChange={this.onInputChange}
-          />
-          <button type='submit'>Search</button>
-        </form>
-        <div>
-          <ul>
-           { this.renderResults() }
-          </ul>
-        </div>
-      </div>
+      <Row>
+        <Col md={12}>
+        <h4 className='text-center'> Search </h4>
+          <Row>
+            <form onSubmit={this.onFormSubmit}>
+              <FormGroup bsClass='form-group px-3'>
+                <InputGroup>
+                  <FormControl
+                    type="text"
+                    placeholder='Search Spotify'
+                    value={this.state.term}
+                    onChange={this.onInputChange}
+                  />
+                  <InputGroup.Button>
+                    <Button type='submit' bsSize="small">Search</Button>
+                  </InputGroup.Button>
+                </InputGroup>
+              </FormGroup>
+            </form>
+          </Row>
+          <Row>
+            <Col md={12}>
+            
+              <ListGroup>
+                { this.renderResults() }
+              </ListGroup>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
     )
   }
   onFormSubmit(event){
