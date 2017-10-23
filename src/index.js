@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-
-
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import reducers from './reducers';
@@ -16,7 +14,6 @@ import Join from './containers/Join';
 import Host from './containers/Host';
 import Playlist from './components/Playlist';
 import Settings from './components/Settings';
-
 
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';

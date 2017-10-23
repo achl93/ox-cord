@@ -19,7 +19,7 @@ class Songlist extends Component {
   }
 
   render () {
-    console.log(this.props.songs)
+    // console.log(this.props.songs)
     return (
       <Row>
         <Col md={12}>
