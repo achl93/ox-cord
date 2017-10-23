@@ -26,7 +26,8 @@ export default function(state = dummyResults, action) {
         return {
           id: song.id,
           name: song.name,
-          artist: song.artists[0].name
+          artist: song.artists[0].name,
+          votes: 0
         }
       })
       return newResults;
