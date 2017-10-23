@@ -3,7 +3,7 @@ import { searchSongs } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addSong } from '../actions/index';
-import { Row, Col, Form, FormControl, FormGroup, InputGroup, Button } from 'react-bootstrap';
+import { Row, Col, Form, FormControl, FormGroup, InputGroup, Button, ListGroup } from 'react-bootstrap';
 
 import SongSearchResult from '../components/SongSearchResult';
 
@@ -26,8 +26,9 @@ class SongSearch extends Component {
     return (
       <Row>
         <Col md={12}>
+        <h4 className='text-center'> Search </h4>
           <Row>
-            <Form onSubmit={this.onFormSubmit}>
+            <form onSubmit={this.onFormSubmit}>
               <FormGroup bsClass='form-group px-3'>
                 <InputGroup>
                   <FormControl
@@ -41,14 +42,15 @@ class SongSearch extends Component {
                   </InputGroup.Button>
                 </InputGroup>
               </FormGroup>
-            </Form>
+            </form>
           </Row>
           <Row>
-            <div>
-              <ul>
-              { this.renderResults() }
-              </ul>
-            </div>
+            <Col md={12}>
+            
+              <ListGroup>
+                { this.renderResults() }
+              </ListGroup>
+            </Col>
           </Row>
         </Col>
       </Row>

@@ -35,6 +35,7 @@ class Songlist extends Component {
           </Row>
           <Row>
             <Col md={12}>
+              <h4 className='text-center'> My Songs </h4>
               <ListGroup >
                 { this.props.songs.length === 0 && 
                   <ListGroupItem> Please add songs </ListGroupItem>
