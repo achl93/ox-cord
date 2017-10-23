@@ -18,4 +18,4 @@ function getGeolocation() {
 }
 
 export { getGeolocation };
-// Use by import { getGeolocation } from 'getGeolocation.js'
+// Use by import { getGeolocation } from 'getGeolocation'

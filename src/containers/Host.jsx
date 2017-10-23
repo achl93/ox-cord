@@ -36,8 +36,10 @@ class Host extends Component {
   render() {
     this.getGeolocation();
     var params = this.getSearchParams();
-    console.log(params)
-    return <Redirect to="/playlist"/>;
+     if (this.props.user != 'empty') {
+      return <Redirect to="/playlist"/>;
+     }
+     return <div> Welcome! </div>
   }
 
   componentWillMount() {

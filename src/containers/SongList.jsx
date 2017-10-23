@@ -19,7 +19,6 @@ class Songlist extends Component {
   }
 
   render () {
-    console.log( typeof this.props.longitude)
     return (
       <Row>
         <Col md={12}>
