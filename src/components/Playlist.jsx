@@ -13,7 +13,7 @@ class Playlist extends Component {
   render() {
     console.log(this.props.user);
     if (this.props.user === 'empty') {
-      //return <Redirect to="/" />
+      return <Redirect to="/" />
     } else {
       return (
         <Row bsClass='row border p-3'>
