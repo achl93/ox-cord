@@ -7,7 +7,6 @@ import PlayerControls from '../containers/PlayerControls';
 import NowPlaying from '../containers/NowPlaying';
 import { Row, Col } from 'react-bootstrap';
 
-
 class Playlist extends Component {
   render() {
     console.log(this.props.user);

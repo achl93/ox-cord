@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row, Col, Button, ButtonToolbar } from 'react-bootstrap';
-
+import { Link } from 'react-router-dom';
 import { playSong, removeSong } from '../actions/index';
 
 import socket from '../lib/SocketAPI';
@@ -16,9 +16,12 @@ class PlayerControls extends Component {
       <Row>
         <Col md={12}>
           <ButtonToolbar bsClass='d-flex justify-content-around'>
-            <Button onClick={() => this.onPlay()}>Play</Button>
-            <Button onClick={() => this.onNext()}>Next</Button>
-            <Button onClick={() => this.startParty()}>Start Party </Button>
+            <Button bsSize="small" onClick={() => this.onPlay()}>Play</Button>
+            <Button bsSize="small" onClick={() => this.onNext()}>Next</Button>
+            <Button bsSize="small" onClick={() => this.startParty()}>Start Party </Button>
+            <Link to='/settings' className='float-right'>
+                <Button bsSize="small">Settings</Button>
+            </Link>
           </ButtonToolbar>
         </Col>
       </Row>

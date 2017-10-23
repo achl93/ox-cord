@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router-dom';
 import { removeSong } from '../actions/index';
 import { Row, Col, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
-
+import { Link } from 'react-router-dom';
 import Song from '../components/Song';
 
 class Songlist extends Component {
@@ -26,8 +25,8 @@ class Songlist extends Component {
             <Col md={12}>
               <div className='text-overflow float-left'>Lat: {this.props.coords.longitude}</div>
               <div className='text-overflow float-left'>Lng: {this.props.coords.latitude}</div>
-              <Link to='/settings' className='float-right'>
-                <Button bsSize="small">Settings</Button>
+              <Link to='/import' className='float-right'>
+                <Button bsSize="small">Import Playlists</Button>
               </Link>
            </Col>
           </Row>

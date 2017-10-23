@@ -72,7 +72,7 @@ class SongSearch extends Component {
 
 function mapStateToProps(state) {
   return {
-    results: state.searchResults
+    results: state.songSearch
   }
 }
 
