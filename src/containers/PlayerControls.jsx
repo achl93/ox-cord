@@ -31,7 +31,8 @@ class PlayerControls extends Component {
     console.log('party started')
     console.log(this.props.songs)
     socket.emit('create-room', {
-      room_id: this.props.user.id,
+      uid: this.props.user.id,
+      room_id: socket.id,
       name: `${this.props.user.display_name}'s Playlist'`,
       active: true,
       lastActive: Date.now(),
