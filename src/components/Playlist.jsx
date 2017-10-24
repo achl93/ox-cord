@@ -9,7 +9,6 @@ import { Row, Col } from 'react-bootstrap';
 
 class Playlist extends Component {
   render() {
-    console.log(this.props.user);
     if (this.props.user === 'empty') {
       return <Redirect to="/" />
     } else {

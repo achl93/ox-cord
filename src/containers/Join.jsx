@@ -21,7 +21,6 @@ class Join extends Component {
       this.setState({
         rooms: rooms
       });
-      // console.log(this.state.rooms);
     });
   }
 
@@ -30,7 +29,6 @@ class Join extends Component {
       longitude: pos.coords.longitude,
       latitude: pos.coords.latitude
     });
-    console.log(pos);
   }
 
   getGeolocation() {

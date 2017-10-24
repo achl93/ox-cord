@@ -28,8 +28,6 @@ class PlayerControls extends Component {
     )
   }
   startParty() {
-    console.log('party started')
-    console.log(this.props.songs)
     socket.emit('create-room', {
       uid: this.props.user.id,
       room_id: socket.id,
