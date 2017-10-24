@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setSongs } from '../actions/index';
-import Songlist from '../containers/SongList';
+import UserSongList from '../containers/UserSongList';
 import NowPlaying from '../containers/NowPlaying';
 import { Row, Col } from 'react-bootstrap';
 import socket from '../lib/SocketAPI';
@@ -22,7 +22,7 @@ class UserPlaylist extends Component {
         <Row bsClass='row border p-3'>
           <Col md={12}>
             <NowPlaying />
-            <Songlist />
+            <UserSongList />
           </Col>
         </Row>
       )
