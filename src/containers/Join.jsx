@@ -43,17 +43,14 @@ class Join extends Component {
   
   render() {
     // this.getGeolocation();
+    // <p>Longitude: {this.props.coords.longitude}</p>
+    // <p>Latitude: {this.props.coords.latitude}</p>
     return (
       <div>
         Join a room!
-        {/* { this.state.rooms.map((room) => { 
-          return(<p key={room.room_id}>{room.name}</p>)  
-          }) } */}
         { this.state.rooms.map((room) => {
-          return(<JoinRoom room_name={room.name} room_id={room.room_id} />);
+          return(<JoinRoom key={room._id} room_name={room.name} room_id={room.room_id} />);
         }) }
-        <p>Longitude: {this.props.coords.longitude}</p>
-        <p>Latitude: {this.props.coords.latitude}</p>
       </div>
     )
   }
