@@ -21,7 +21,7 @@ class Join extends Component {
       this.setState({
         rooms: rooms
       });
-      console.log(this.state.rooms);
+      // console.log(this.state.rooms);
     });
   }
 
