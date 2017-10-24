@@ -14,6 +14,7 @@ import Join from './containers/Join';
 import Host from './containers/Host';
 import Playlist from './components/Playlist';
 import Settings from './components/Settings';
+import UserPlaylist from './components/UserPlaylist';
 import PlaylistImport from './containers/PlaylistImport';
 
 import './index.css';
@@ -28,6 +29,7 @@ ReactDOM.render(
           <Provider store={store}>
             <BrowserRouter>
               <Switch>
+                <Route path='/user-playlist' component={UserPlaylist} />
                 <Route path='/playlist' component={Playlist} />
                 <Route path='/join' component={Join} />
                 <Route path='/settings' component={Settings} />

@@ -5,6 +5,7 @@ import TokenReducer from './reducer_store_tokens';
 import GeoReducer from './reducer_geo';
 import UserReducer from './reducer_store_user';
 import PlayReducer from './reducer_play';
+import RoomReducer from './reducer_room';
 import PlaylistsReducer from './reducer_playlists';
 
 const rootReducer = combineReducers({
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   coords: GeoReducer,
   user: UserReducer,
   nowPlaying: PlayReducer,
-  playlists: PlaylistsReducer
+  playlists: PlaylistsReducer,
+  room: RoomReducer
 });
 
 export default rootReducer;

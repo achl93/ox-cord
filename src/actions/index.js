@@ -11,12 +11,21 @@ export const STORE_TOKEN = 'ADD_TOKEN';
 export const GET_GEO = 'GET_GEO';
 export const STORE_USER = 'STORE_USER';
 export const PLAY_SONG = 'PLAY_SONG';
+export const JOIN_ROOM = 'JOIN_ROOM';
+export const SET_SONGS = 'SET_SONGS';
 
 export function addSong(song) {
   return {
     type: ADD_SONG,
     payload: song
   };
+}
+
+export function setSongs(songs) {
+  return {
+    type: SET_SONGS,
+    payload: songs
+  }
 }
 
 
@@ -28,7 +37,6 @@ export function removeSong(id) {
 }
 
 export function searchSongs(term) {
-  //make the request here
   const request = spotifyApi.searchTracks(term, {limit: 5});
   return {
     type: SEARCH_SONGS,
@@ -37,8 +45,6 @@ export function searchSongs(term) {
 };
 
 export function getPlaylists(userID) {
-  console.log('getPlaylists action dispatched')
-  //make the request here
   const request = spotifyApi.getUserPlaylists(userID);
   return {
     type: GET_PLAYLISTS,
@@ -56,9 +62,6 @@ export function importPlaylist(userID, playlistID) {
 
 export function playSong(song) {
   const request = spotifyApi.play(song);
-  // request is a promise object
-  console.log('playing song');
-  console.log(request);
   return {
     type: PLAY_SONG,
     payload: request
@@ -80,6 +83,14 @@ export function storeUser() {
     payload: user
   }
 };
+
+export function joinRoom(room_id) {
+  socket.emit('join-room', room_id);
+  return {
+    type: JOIN_ROOM,
+    payload: room_id
+  }
+}
 
 export function getGeo(coords) {
   return {

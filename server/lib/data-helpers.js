@@ -13,7 +13,7 @@ module.exports = function dataHelpers(db) {
     },
 
     getActiveRooms: function (callback) {
-      db.collection("rooms").find({"active": true}, {_id: 0, "room_id": 1, "name": 1}).toArray(callback);
+      db.collection("rooms").find({"active": true}, {_id: 1, "room_id": 1, "name": 1}).toArray(callback);
     },
 
     getActiveRoomsNearby: function (coords, callback) {

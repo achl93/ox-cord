@@ -22,7 +22,6 @@ class Host extends Component {
       longitude: pos.coords.longitude,
       latitude: pos.coords.latitude
     });
-    console.log(pos);
   }
 
   getGeolocation() {

@@ -2,14 +2,33 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getGeo } from '../actions/index';
+import socket from '../lib/SocketAPI';
+import JoinRoom from '../components/JoinRoom';
 
 class Join extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      rooms: []
+    }
+  }
+
+
+  componentDidMount() {
+    socket.emit('request-active-rooms');
+    socket.on('active-rooms-sent', (rooms) => {
+      this.setState({
+        rooms: rooms
+      });
+    });
+  }
+
   setLocation(pos) {
     this.props.getGeo({
       longitude: pos.coords.longitude,
       latitude: pos.coords.latitude
     });
-    console.log(pos);
   }
 
   getGeolocation() {
@@ -21,12 +40,15 @@ class Join extends Component {
   }
   
   render() {
-    this.getGeolocation();
+    // this.getGeolocation();
+    // <p>Longitude: {this.props.coords.longitude}</p>
+    // <p>Latitude: {this.props.coords.latitude}</p>
     return (
       <div>
         Join a room!
-        <p>Longitude: {this.props.coords.longitude}</p>
-        <p>Latitude: {this.props.coords.latitude}</p>
+        { this.state.rooms.map((room) => {
+          return(<JoinRoom key={room._id} room_name={room.name} room_id={room.room_id} />);
+        }) }
       </div>
     )
   }

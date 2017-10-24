@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addSong } from '../actions/index';
 import { Row, Col, FormControl, FormGroup, InputGroup, Button, ListGroup } from 'react-bootstrap';
-
 import SongSearchResult from '../components/SongSearchResult';
 
 class SongSearch extends Component {
@@ -46,7 +45,6 @@ class SongSearch extends Component {
           </Row>
           <Row>
             <Col md={12}>
-            
               <ListGroup>
                 { this.renderResults() }
               </ListGroup>
