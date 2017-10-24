@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { searchSongs } from '../actions/index';
+import { searchSongs, remoteAddSongs } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { addSong } from '../actions/index';
 import { Row, Col, FormControl, FormGroup, InputGroup, Button, ListGroup } from 'react-bootstrap';
 import SongSearchResult from '../components/SongSearchResult';
 
@@ -17,7 +16,7 @@ class SongSearch extends Component {
   renderResults() {
     return this.props.results.map((song) => {
       return (
-          <SongSearchResult  addSong={this.props.addSong} key={song.id} song={song} />
+          <SongSearchResult  remoteAddSongs={this.props.remoteAddSongs} key={song.id} song={song} user={this.props.user} remotePlaylist={this.props.remotePlaylist}/>
       )
     });
   }
@@ -70,12 +69,14 @@ class SongSearch extends Component {
 
 function mapStateToProps(state) {
   return {
-    results: state.songSearch
+    results: state.songSearch,
+    remotePlaylist: state.remotePlaylist,
+    user: state.user
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ searchSongs, addSong }, dispatch)
+  return bindActionCreators({ searchSongs, remoteAddSongs }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SongSearch)

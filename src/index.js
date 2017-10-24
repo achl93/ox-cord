@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReduxThunk from 'redux-thunk';
+
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -12,6 +15,7 @@ import { Grid, Row } from 'react-bootstrap';
 import Home from './components/Home';
 import Join from './containers/Join';
 import Host from './containers/Host';
+import Create from './containers/Create';
 import Playlist from './components/Playlist';
 import Settings from './components/Settings';
 import UserPlaylist from './components/UserPlaylist';
@@ -21,7 +25,7 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
 // const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
-const store = createStore(reducers, applyMiddleware(ReduxPromise), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(reducers, composeWithDevTools(applyMiddleware(ReduxThunk, ReduxPromise)));
 
 ReactDOM.render(
   <Grid bsClass='container mt-5'>
@@ -35,6 +39,7 @@ ReactDOM.render(
                 <Route path='/settings' component={Settings} />
                 <Route path='/import' component={PlaylistImport} />
                 <Route path='/host' component={Host} />
+                <Route path='/create' component={Create} />
                 <Route path='/' component={Home} />
               </Switch>
             </BrowserRouter>

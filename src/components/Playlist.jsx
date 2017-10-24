@@ -6,6 +6,7 @@ import SongSearch from '../containers/SongSearch';
 import PlayerControls from '../containers/PlayerControls';
 import NowPlaying from '../containers/NowPlaying';
 import { Row, Col } from 'react-bootstrap';
+import  { Link } from 'react-router-dom';
 
 class Playlist extends Component {
   render() {
@@ -19,6 +20,9 @@ class Playlist extends Component {
             <Songlist />
             <SongSearch />
             <PlayerControls />
+            <Link to='test'>
+              Test
+            </Link>
           </Col>
         </Row>
       )

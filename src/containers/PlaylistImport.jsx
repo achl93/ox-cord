@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { getPlaylists, importPlaylist } from '../actions/index';
+import { remoteGetUserPlaylists, importPlaylist } from '../actions/index';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import PlaylistSearchResult from '../components/PlaylistSearchResult';
 import { Link } from 'react-router-dom';
 
@@ -43,7 +42,7 @@ class PlaylistImport extends Component {
   }
   componentDidMount(){
     console.log('import action created')
-    this.props.getPlaylists(this.props.user.id);
+    this.props.remoteGetUserPlaylists(this.props.user.id);
   }
 
 }
@@ -51,13 +50,13 @@ class PlaylistImport extends Component {
 function mapStateToProps(state) {
   return {
     user: state.user,
-    playlists: state.playlists
+    playlists: state.userPlaylists
   }
 }
 
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getPlaylists, importPlaylist }, dispatch)
-}
+const mapDispatchToProps = {
+  remoteGetUserPlaylists,
+  importPlaylist
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlaylistImport);
