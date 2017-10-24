@@ -14,8 +14,6 @@ class JoinRoom extends Component {
     this.sendToRoom = this.sendToRoom.bind(this);
   }
   sendToRoom() {
-    console.log("> Redirect to Room");
-    // console.log(this.props.room_id);
     this.props.joinRoom(this.props.room_id);
     socket.on('user-joined', (room_id) => {
       this.setState({ redirect: true });
