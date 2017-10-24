@@ -12,7 +12,7 @@ export const GET_PLAYLISTS = 'GET_PLAYLISTS';
 export const STORE_TOKEN = 'ADD_TOKEN';
 export const GET_GEO = 'GET_GEO';
 export const STORE_USER = 'STORE_USER';
-export const PLAY_SONG = 'PLAY_SONG';
+export const PLAYER_STATUS = 'PLAYER_STATUS';
 
 export function addSong(song) {
   return {
@@ -157,16 +157,72 @@ export function remoteCreateRemotePlaylist(userID) {
   }
 }
 
+// start remote Playlis from beginning
+export function remoteStartPlaylist( userID, remotePlaylistID) {
+  console.log('sending  start playlist request')
+  const context_uri = `spotify:user:${userID}:playlist:${remotePlaylistID}`;
+  return (dispatch) => {
+    spotifyApi.play({context_uri})
+    .then( () => {
+      dispatch(play())
+    })
+  }
+}
 
 
-export function playSong(song) {
-  const request = spotifyApi.play(song);
-  // request is a promise object
-  console.log('playing song');
-  console.log(request);
+// start or resume playback
+export function play() {
+  console.log('play successful')
   return {
-    type: PLAY_SONG,
-    payload: request
+    type: PLAYER_STATUS,
+    payload: 'PLAY'
+  }
+}
+
+export function remotePlay() {
+  console.log('sending play request')
+  return (dispatch) => {
+    spotifyApi.play({})
+    .then( () => {
+      dispatch(play())
+    })
+  }
+}
+// start or resume playback
+export function pause() {
+  console.log('pause successful')
+  return {
+    type: PLAYER_STATUS,
+    payload: 'PAUSE'
+  }
+}
+
+export function remotePause() {
+  console.log('sending play request')
+  return (dispatch) => {
+    spotifyApi.pause({})
+    .then(() => {
+      dispatch(pause())
+    })
+  }
+}
+
+export function skip() {
+  console.log('skip successful')
+  //this part doesn
+  return {
+    type: PLAYER_STATUS,
+    payload: 'PLAY'
+  }
+}
+
+export function remoteSkip() {
+  console.log('sending skip request')
+  return (dispatch) => {
+    spotifyApi.skipToNext({})
+      .then(() => {
+        dispatch(skip()) 
+      });
   }
 }
 

@@ -3,11 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row, Col, Button, ButtonToolbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { playSong, removeSong } from '../actions/index';
+import { remotePlay, remotePause, remoteStartPlaylist, remoteSkip, removeSong } from '../actions/index';
 
 import socket from '../lib/SocketAPI';
-
-
 
 class PlayerControls extends Component {
 
@@ -15,13 +13,26 @@ class PlayerControls extends Component {
     return (
       <Row>
         <Col md={12}>
-          <ButtonToolbar bsClass='d-flex justify-content-around'>
-            <Button bsSize="small" onClick={() => this.onPlay()}>Play</Button>
-            <Button bsSize="small" onClick={() => this.startParty()}>Start Party </Button>
-            <Link to='/settings' className='float-right'>
-                <Button bsSize="small">Settings</Button>
-            </Link>
-          </ButtonToolbar>
+          <Row>
+            <Col md={12}>
+              <ButtonToolbar bsClass='d-flex justify-content-around'>
+                <Button bsSize="small" onClick={() => this.props.remoteStartPlaylist(this.props.user.id, this.props.remotePlaylist.id)}>Begin</Button>
+                <Button bsSize="small" onClick={() => this.props.remotePlay()}>Play</Button>
+                <Button bsSize="small" onClick={() => this.props.remotePause()}>Pause</Button>
+                <Button bsSize="small" onClick={() => this.props.remoteSkip()}>Next</Button>
+              </ButtonToolbar>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={12}>
+              <ButtonToolbar bsClass='d-flex justify-content-around'>
+                <Button bsSize="small" onClick={() => this.startParty()}>Start Party </Button>
+                <Link to='/settings' className='float-right'>
+                    <Button bsSize="small">Settings</Button>
+                </Link>
+              </ButtonToolbar>
+            </Col>
+          </Row>
         </Col>
       </Row>
     )
@@ -38,14 +49,14 @@ class PlayerControls extends Component {
       playlist: this.props.songs
     });
   }
-  onPlay(e) {
-    if (this.props.songs[0]) {
-      this.props.playSong({"uris": [`spotify:track:${this.props.songs[0].id}`]});
-      console.log(`spotify:track:${this.props.songs[0].id}`);
-    } else {
-      // Do nothing or pop an alert maybe?
-    }
-  }
+  // onPlay(e) {
+  //   if (this.props.songs[0]) {
+  //     this.props.remotePlay({"uris": [`spotify:track:${this.props.songs[0].id}`]});
+  //     console.log(`spotify:track:${this.props.songs[0].id}`);
+  //   } else {
+  //     // Do nothing or pop an alert maybe?
+  //   }
+  // }
 }
 
 function mapStateToProps(state) {
@@ -54,11 +65,12 @@ function mapStateToProps(state) {
     coords: state.coords,
     user: state.user,
     nowPlaying: state.nowPlaying,
+    remotePlaylist: state.remotePlaylist
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ playSong, removeSong}, dispatch)
+  return bindActionCreators({ remotePlay, remotePause, remoteStartPlaylist, remoteSkip, removeSong }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayerControls)
