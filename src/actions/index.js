@@ -11,6 +11,7 @@ export const STORE_TOKEN = 'ADD_TOKEN';
 export const GET_GEO = 'GET_GEO';
 export const STORE_USER = 'STORE_USER';
 export const PLAY_SONG = 'PLAY_SONG';
+export const JOIN_ROOM = 'JOIN_ROOM';
 
 export function addSong(song) {
   return {
@@ -80,6 +81,14 @@ export function storeUser() {
     payload: user
   }
 };
+
+export function joinRoom(room_id) {
+  socket.emit('join-room', room_id);
+  return {
+    type: JOIN_ROOM,
+    payload: room_id
+  }
+}
 
 export function getGeo(coords) {
   return {
