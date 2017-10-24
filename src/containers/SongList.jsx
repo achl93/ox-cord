@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { remoteRemoveSongs, remoteCheckRemotePlaylists, importPlaylist } from '../actions/index';
 import { Row, Col, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Song from '../components/Song';
 
 class Songlist extends Component {
@@ -28,38 +28,43 @@ class Songlist extends Component {
         return (
           <Song key={song.id} song={song} remoteRemoveSongs={this.props.remoteRemoveSongs} user={this.props.user} remotePlaylist={this.props.remotePlaylist} />
         )
-      });
+      }
+    );
+    } else {
+      return (<ListGroupItem> No songs added </ListGroupItem>)
     }
   }
 
   render () {
-    this.importRemote();
-    return (
-      <Row>
-        <Col md={12}>
+    
+    if (!this.props.remotePlaylist.exists) {
+      return <Redirect to="/create"/>;
+     } else {
+      this.importRemote();
+        return (
           <Row>
             <Col md={12}>
-              <div className='text-overflow float-left'>Lat: {this.props.coords.longitude}</div>
-              <div className='text-overflow float-left'>Lng: {this.props.coords.latitude}</div>
-              <Link to='/import' className='float-right'>
-                <Button bsSize="small">Import Playlists</Button>
-              </Link>
-           </Col>
-          </Row>
-          <Row>
-            <Col md={12}>
-              <h4 className='text-center'> My Songs </h4>
-              <ListGroup >
-                { this.props.songs.length === 0 && 
-                  <ListGroupItem> Please add songs </ListGroupItem>
-                }
-                { this.renderSongs() }
-              </ListGroup>
+              <Row>
+                <Col md={12}>
+                  <div className='text-overflow float-left'>Lat: {this.props.coords.longitude}</div>
+                  <div className='text-overflow float-left'>Lng: {this.props.coords.latitude}</div>
+                  <Link to='/import' className='float-right'>
+                    <Button bsSize="small">Import Playlists</Button>
+                  </Link>
+              </Col>
+              </Row>
+              <Row>
+                <Col md={12}>
+                  <h4 className='text-center'> My Songs </h4>
+                  <ListGroup >
+                    { this.renderSongs() }
+                  </ListGroup>
+                </Col>
+              </Row>
             </Col>
           </Row>
-        </Col>
-      </Row>
-    )
+        )
+      }
   }
   componentDidMount(){
     this.props.remoteCheckRemotePlaylists(this.props.user.id);

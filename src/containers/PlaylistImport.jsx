@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { remoteGetUserPlaylists, importPlaylist } from '../actions/index';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import PlaylistSearchResult from '../components/PlaylistSearchResult';
 import { Link } from 'react-router-dom';
 
@@ -47,7 +46,7 @@ class PlaylistImport extends Component {
   }
   componentDidMount(){
     console.log('import action created')
-    this.props.remoteGetUserPlaylists('226cqjufjm4lxdxg2zbfhqrti');
+    this.props.remoteGetUserPlaylists(this.props.user.id);
   }
 
 }

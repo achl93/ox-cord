@@ -15,7 +15,7 @@ import { Grid, Row } from 'react-bootstrap';
 import Home from './components/Home';
 import Join from './containers/Join';
 import Host from './containers/Host';
-import Test from './containers/Test';
+import Create from './containers/Create';
 import Playlist from './components/Playlist';
 import Settings from './components/Settings';
 import PlaylistImport from './containers/PlaylistImport';
@@ -37,7 +37,7 @@ ReactDOM.render(
                 <Route path='/settings' component={Settings} />
                 <Route path='/import' component={PlaylistImport} />
                 <Route path='/host' component={Host} />
-                <Route path='/test' component={Test} />
+                <Route path='/create' component={Create} />
                 <Route path='/' component={Home} />
               </Switch>
             </BrowserRouter>

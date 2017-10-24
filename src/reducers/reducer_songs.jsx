@@ -1,4 +1,4 @@
-import { ADD_SONG, ADD_SONGS, REMOVE_SONG, REMOVE_SONGS, IMPORT_PLAYLIST } from '../actions/index';
+import { ADD_SONG, ADD_SONGS, REMOVE_SONG, IMPORT_PLAYLIST } from '../actions/index';
 
 export default function(state = [], action) {
   switch (action.type) {
@@ -17,7 +17,7 @@ export default function(state = [], action) {
       } );
       return [...state, ...importedTracks];  
     case REMOVE_SONG:
-      return state.filter(song => song.id !== action.payload[0]);
+      return state.filter(song => song.id !== action.payload);
     default:
       return state;
   } 

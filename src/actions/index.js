@@ -116,7 +116,7 @@ export function remoteCheckRemotePlaylists(userID) {
   return (dispatch) => {
     spotifyApi.getUserPlaylists(userID).then((results) => {
       // check for name 'Oxcord'
-      const found = results.items.find(playlist => playlist.name == 'Oxcord');
+      const found = results.items.find(playlist => playlist.name === 'Oxcord');
       let result;
       if (found){
         result = {
