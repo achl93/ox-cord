@@ -8,10 +8,6 @@ import { Link } from 'react-router-dom';
 import { Row, Col, Button, ListGroup } from 'react-bootstrap';
 
 class PlaylistImport extends Component {
-  // constructor(props){
-  //   super(props);
-  //   this.onImport = this.onImport.bind(this);
-  // }
   renderPlaylists(){
     return this.props.playlists.map((playlist) => {
       return (<PlaylistSearchResult key={playlist.id} playlist={playlist} userID={this.props.user.id} importPlaylist={this.props.importPlaylist}/>)

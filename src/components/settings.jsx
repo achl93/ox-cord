@@ -8,10 +8,8 @@ class Settings extends Component {
       return <Redirect to='/' />
     } else {
       return (
-        // Route login button to Spotify login endpoint
-        // then when they come back, redirect to playlist
         <div>
-          <h1> Yo Settings </h1>
+          <h1>Settings </h1>
           <Link to='/playlist'>Back</Link>
         </div>
       )
