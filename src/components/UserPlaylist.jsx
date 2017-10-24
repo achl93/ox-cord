@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setSongs } from '../actions/index';
 import Songlist from '../containers/SongList';
 import NowPlaying from '../containers/NowPlaying';
 import { Row, Col } from 'react-bootstrap';
@@ -11,7 +13,7 @@ class UserPlaylist extends Component {
     super(props);
     socket.emit('request-song-list', this.props.room);
     socket.on('song-list-sent', (songs) => {
-      
+      this.props.setSongs(songs);
     });
   }
 
@@ -33,4 +35,8 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(UserPlaylist);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ setSongs }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserPlaylist);
