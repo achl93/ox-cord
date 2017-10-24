@@ -68,14 +68,6 @@ export function remoteRemoveSongs(userID, remotePlaylistID, tracks) {
   }
 }
 
-export function importPlaylist(userID, playlistID) {
-  const request = spotifyApi.getPlaylistTracks(userID, playlistID);
-  return {
-    type: IMPORT_PLAYLIST,
-    payload: request
-  };
-}
-
 export function removeSong(id) {
   return {
     type: REMOVE_SONG,
@@ -111,13 +103,25 @@ export function remoteGetUserPlaylists(userID) {
 export function checkRemotePlaylist(remotePlaylist) {
   console.log('event triggered checkRemotePlaylist');
   console.log(remotePlaylist)
-};
-
-export function importPlaylist(owner, playlistID) {
-  const request = spotifyApi.getPlaylistTracks(owner, playlistID, {limit: 20});
   return {
     type: UPDATE_REMOTE,
     payload: remotePlaylist
+  }
+};
+
+// export function importPlaylist(owner, playlistID) {
+//   const request = spotifyApi.getPlaylistTracks(owner, playlistID, {limit: 20});
+//   return {
+//     type: UPDATE_REMOTE,
+//     payload: remotePlaylist
+//   }
+// };
+
+export function importPlaylist(userID, playlistID) {
+  const request = spotifyApi.getPlaylistTracks(userID, playlistID, {limit: 20});
+  return {
+    type: IMPORT_PLAYLIST,
+    payload: request
   }
 };
 
@@ -142,7 +146,7 @@ export function remoteCheckRemotePlaylists(userID) {
       dispatch(checkRemotePlaylist(result));
     });
   }
-};
+}
 
 export function createRemotePlaylist(newRemotePlaylist) {
   console.log('event triggered createRemotePlaylist');
@@ -168,12 +172,12 @@ export function remoteCreateRemotePlaylist(userID) {
 };
 
 // start remote playlist from beginning
-export function remoteStartPlaylist( userID, remotePlaylistID) {
+export function remoteStartPlaylist(userID, remotePlaylistID) {
   console.log('sending start playlist request')
   const context_uri = `spotify:user:${userID}:playlist:${remotePlaylistID}`;
   return (dispatch) => {
     spotifyApi.play({context_uri})
-    .then( () => {
+    .then(() => {
       dispatch(play())
     })
   }
@@ -193,7 +197,7 @@ export function remotePlay() {
   console.log('sending play request')
   return (dispatch) => {
     spotifyApi.play({})
-    .then( () => {
+    .then(() => {
       dispatch(play())
     })
   }

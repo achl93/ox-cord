@@ -2,13 +2,16 @@ import { ADD_SONG, ADD_SONGS, REMOVE_SONG, IMPORT_PLAYLIST, SET_SONGS } from '..
 
 export default function(state = [], action) {
   switch (action.type) {
+    case ADD_SONGS:
+      return [...state, ...action.payload]
+    //  if (!state.some( item => item.id === action.payload.id ))
+    //   {
+    //     return [ ...state, action.payload ];
+    //   } else {
+    //     return state;
+    //   }
     case ADD_SONG:
-     if (!state.some( item => item.id === action.payload.id ))
-      {
-        return [ ...state, action.payload ];
-      } else {
-        return state;
-      }
+      return [...state, action.payload]
 
     case IMPORT_PLAYLIST:
       const importedTracks = action.payload.items.map((result) => {
