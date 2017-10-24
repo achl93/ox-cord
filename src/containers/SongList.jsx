@@ -63,7 +63,7 @@ class Songlist extends Component {
               <Row>
                 <Col md={12}>
                   <h4 className='text-center'> My Songs </h4>
-                  <ListGroup >
+                  <ListGroup>
                     { this.renderSongs() }
                   </ListGroup>
                 </Col>

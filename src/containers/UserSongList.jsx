@@ -29,7 +29,7 @@ class UserSongList extends Component {
           <Row>
             <Col md={12}>
               <h4 className='text-center'>Songs</h4>
-              <ListGroup >
+              <ListGroup>
                 {this.renderSongs()}
               </ListGroup>
             </Col>

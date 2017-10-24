@@ -8,7 +8,7 @@ export default class UserSong extends Component {
   render() {
     return (
       <ListGroupItem className="col-md-12" > { this.props.song.name } - ({ this.props.song.artist })
-        <Button bsClass='btn btn-sm btn-outline-danger badge float-right' onClick={()=>{this.onHandleClick()}}>{this.props.song.votes}</Button>
+        <Button bsClass='btn btn-sm btn-outline-warning badge float-right' onClick={()=>{this.onHandleClick()}}>{this.props.song.votes}</Button>
       </ListGroupItem>
     )
   }

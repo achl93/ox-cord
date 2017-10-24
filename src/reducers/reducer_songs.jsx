@@ -1,7 +1,11 @@
 import { ADD_SONG, ADD_SONGS, REMOVE_SONG, IMPORT_PLAYLIST, SET_SONGS, SET_VOTE } from '../actions/index';
 const INITIAL = [
-  {id: 0,
-  name: 'No Songs'}
+  {
+    id: 0,
+    name: 'No songs',
+    votes: 0,
+    artist: 'Please add some'
+  }
 ]
 
 export default function(state = INITIAL, action) {
@@ -26,7 +30,7 @@ export default function(state = INITIAL, action) {
           votes: 0
         }
       } );
-      return [...state, ...importedTracks];  
+      return [state, ...importedTracks];  
     case REMOVE_SONG:
       return state.filter(song => song.id !== action.payload);
     case SET_SONGS:

@@ -12,25 +12,32 @@ import { Redirect } from 'react-router-dom';
 class UserPlaylist extends Component {
   constructor(props) {
     super(props);
-    socket.emit('request-song-list', this.props.room);
-    socket.on('song-list-sent', (songs) => {
-      this.props.setSongs(songs);
-    });
+    if (Object.keys(this.props.room).length === 0) {
+      <Redirect to="/" />
+    } else {
+      socket.emit('request-song-list', this.props.room);
+      socket.on('song-list-sent', (songs) => {
+        this.props.setSongs(songs);
+      });
+    }
   }
 
   render() {
-    console.log("YOOOOO", Object.keys(this.props.room).length);
-    console.log("YOOOOO", this.props.room);
+    // console.log("YOOOOO", Object.keys(this.props.room).length);
+    // console.log("YOOOOO", this.props.room);
     if (Object.keys(this.props.room).length === 0) {
       return <Redirect to="/" />
     } else {
       return (
-        <Row bsClass='row border p-3'>
-          <Col md={12}>
-            <NowPlaying />
-            <UserSongList />
-          </Col>
-        </Row>
+        <main>
+          <h1 className="title">Ox Cord</h1>
+          <Row bsClass='row border p-3'>
+            <Col md={12}>
+              <NowPlaying />
+              <UserSongList />
+            </Col>
+          </Row>
+        </main>
       )
     }
   }
