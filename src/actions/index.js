@@ -37,7 +37,6 @@ export function removeSong(id) {
 }
 
 export function searchSongs(term) {
-  //make the request here
   const request = spotifyApi.searchTracks(term, {limit: 5});
   return {
     type: SEARCH_SONGS,
@@ -46,8 +45,6 @@ export function searchSongs(term) {
 };
 
 export function getPlaylists(userID) {
-  console.log('getPlaylists action dispatched')
-  //make the request here
   const request = spotifyApi.getUserPlaylists(userID);
   return {
     type: GET_PLAYLISTS,
@@ -65,9 +62,6 @@ export function importPlaylist(userID, playlistID) {
 
 export function playSong(song) {
   const request = spotifyApi.play(song);
-  // request is a promise object
-  console.log('playing song');
-  console.log(request);
   return {
     type: PLAY_SONG,
     payload: request
