@@ -27,14 +27,12 @@ export function addSongs(tracks) {
     payload: tracks
   };
 }
+
 export function remoteAddSongs(userID, remotePlaylistID, tracks) {
   const tracksString = tracks.map((track) => {
     return `spotify:track:${track.id}`
   }).join();
-  console.log('making api request')
-  console.log('user:', userID)
-  console.log('playlist:', remotePlaylistID)
-  console.log('tracks:', tracksString)
+
   return (dispatch) => {
     spotifyApi.addTracksToPlaylist(userID, remotePlaylistID, [tracksString])
       .then(() => {
