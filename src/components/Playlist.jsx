@@ -6,10 +6,10 @@ import SongSearch from '../containers/SongSearch';
 import PlayerControls from '../containers/PlayerControls';
 import NowPlaying from '../containers/NowPlaying';
 import { Row, Col } from 'react-bootstrap';
-import  { Link } from 'react-router-dom';
 
 class Playlist extends Component {
   render() {
+    console.log(this.props.user);
     if (this.props.user === 'empty') {
       return <Redirect to="/" />
     } else {
