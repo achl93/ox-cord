@@ -3,8 +3,21 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+html {
+  background-color: rgb(32, 32, 32);
+  color: rgb(228, 228, 228);
+}
+
+#root {
+  background-color: rgb(32, 32, 32);
+  color: rgb(228, 228, 228);
+}
+
 div[class*='row'] {
   margin-bottom: 0.5rem;
+  background-color: rgb(43, 42, 42);
+  color: rgb(228, 228, 228);
 }
 
 form {
@@ -15,4 +28,9 @@ form {
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 50px;
+}
+
+.title {
+  font-family: 'Josefin Sans', sans-serif;
+  text-align: center;
 }
