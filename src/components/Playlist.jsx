@@ -14,14 +14,17 @@ class Playlist extends Component {
       return <Redirect to="/" />
     } else {
       return (
-        <Row bsClass='row border p-3 col-md-9'>
-          <Col md={12}>
-            <NowPlaying />
-            <Songlist />
-            <SongSearch />
-            <PlayerControls />
-          </Col>
-        </Row>
+        <main >
+          <h1 class="title">Ox Cord</h1>
+          <Row bsClass='row border p-3 col-md-9'>
+            <Col md={12}>
+              <NowPlaying />
+              <Songlist />
+              <SongSearch />
+              <PlayerControls />
+            </Col>
+          </Row>
+        </main>
       )
     }
   }
