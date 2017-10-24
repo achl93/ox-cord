@@ -46,7 +46,8 @@ class PlayerControls extends Component {
       active: true,
       lastActive: Date.now(),
       geolocation: this.props.coords,
-      playlist: this.props.songs
+      playlist: this.props.songs,
+      auth_token: this.props.token
     });
   }
   // onPlay(e) {
@@ -65,7 +66,8 @@ function mapStateToProps(state) {
     coords: state.coords,
     user: state.user,
     nowPlaying: state.nowPlaying,
-    remotePlaylist: state.remotePlaylist
+    remotePlaylist: state.remotePlaylist,
+    token: state.token
   }
 }
 
