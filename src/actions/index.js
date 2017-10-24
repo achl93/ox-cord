@@ -12,12 +12,20 @@ export const GET_GEO = 'GET_GEO';
 export const STORE_USER = 'STORE_USER';
 export const PLAY_SONG = 'PLAY_SONG';
 export const JOIN_ROOM = 'JOIN_ROOM';
+export const SET_SONGS = 'SET_SONGS';
 
 export function addSong(song) {
   return {
     type: ADD_SONG,
     payload: song
   };
+}
+
+export function setSongs(songs) {
+  return {
+    type: SET_SONGS,
+    payload: songs
+  }
 }
 
 
