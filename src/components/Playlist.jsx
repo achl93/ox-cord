@@ -6,23 +6,20 @@ import SongSearch from '../containers/SongSearch';
 import PlayerControls from '../containers/PlayerControls';
 import NowPlaying from '../containers/NowPlaying';
 import { Row, Col } from 'react-bootstrap';
-import  { Link } from 'react-router-dom';
 
 class Playlist extends Component {
   render() {
+    console.log(this.props.user);
     if (this.props.user === 'empty') {
       return <Redirect to="/" />
     } else {
       return (
-        <Row bsClass='row border p-3'>
+        <Row bsClass='row border p-3 col-md-9'>
           <Col md={12}>
             <NowPlaying />
             <Songlist />
             <SongSearch />
             <PlayerControls />
-            <Link to='test'>
-              Test
-            </Link>
           </Col>
         </Row>
       )
