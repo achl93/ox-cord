@@ -42,7 +42,7 @@ MongoDB.connect(MongoURL, function (err, db) {
             oauth_token: 'BQDVlg-qVI-obIjYecQ_Zcq6Ak2Be76vQ1Qjo0eU5M7WKv0qCZRJg7uhyXrwOizeX4z76_g9YYClnzJ2tJ3vnjzO3bhsdsxwpJ8JkoycdDjCywoiWfXWBmCMclxOFVjesmTKoeJaRp8ipbeIvurkyYFDMb11j1Nkt9dPfso'
           },
           {
-            room_id: 'q6tubv3icueaamst4xw6h7go2332',
+            room_id: '8gdds4icueaamst4xw6h7go2332',
             name: 'Vlad\'s Playlist',
             active: true,
             lastActive: Date.now,
