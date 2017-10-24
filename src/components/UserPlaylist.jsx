@@ -12,7 +12,7 @@ import { Redirect } from 'react-router-dom';
 class UserPlaylist extends Component {
   constructor(props) {
     super(props);
-    // socket.emit('request-song-list', this.props.room);
+    socket.emit('request-song-list', this.props.room);
     socket.on('song-list-sent', (songs) => {
       this.props.setSongs(songs);
     });
@@ -20,6 +20,7 @@ class UserPlaylist extends Component {
 
   render() {
     console.log("YOOOOO", Object.keys(this.props.room).length);
+    console.log("YOOOOO", this.props.room);
     if (Object.keys(this.props.room).length === 0) {
       return <Redirect to="/" />
     } else {

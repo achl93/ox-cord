@@ -28,16 +28,18 @@ class Songlist extends Component {
     }
   }
   renderSongs() {
-    if (Object.keys(this.props.songs).length !== 0) {
-      return this.props.songs.map((song) => {
-        return (
-          <Song key={song.id} song={song} remoteRemoveSongs={this.props.remoteRemoveSongs} user={this.props.user} remotePlaylist={this.props.remotePlaylist} />
-        )
-      }
-    );
+    if (this.props.songs !== null && this.props.songs !== undefined) {
+      if (Object.keys(this.props.songs).length !== 0) {
+        return this.props.songs.map((song) => {
+          return (
+            <Song key={song.id} song={song} remoteRemoveSongs={this.props.remoteRemoveSongs} user={this.props.user} remotePlaylist={this.props.remotePlaylist} />
+          )
+        }
+      );
     } else {
       return (<ListGroupItem> No songs added </ListGroupItem>)
     }
+  }
   }
 
   render () {

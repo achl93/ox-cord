@@ -5,13 +5,21 @@ import { Row } from 'react-bootstrap';
 
 class NowPlaying extends Component {
   currentSong() {
-    if (this.props.songs[0] !== undefined) {
-    return (
-      <Row >
-        {<h3>Now Playing: {this.props.songs[0].name}</h3>}
-      </Row>
-    );
-  };
+    if (this.props.songs !== null) {
+      if (this.props.songs[0] !== undefined) {
+        return (
+          <Row >
+            {<h3>Now Playing: {this.props.songs[0].name}</h3>}
+          </Row>
+        );
+      }
+    } else {
+      return (
+        <Row >
+          {<h3>Now Playing: No Songs</h3>}
+        </Row>
+      )
+    }
 }
 
   render () {
