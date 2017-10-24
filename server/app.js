@@ -49,9 +49,11 @@ io.on('connection', (socket) => {
   });
 
   socket.on('add-vote', (data) => {
-    if (SHOW_DEBUG) { console.log(' + Client voted on a song!') }
-    dataHelpers.incrementSongVote(data.room_id, data.song_id, (err, data) => {
-      io.sockets.emit('vote-added');
+    if (SHOW_DEBUG) { console.log(' + Client voted on a song!', data) }
+    dataHelpers.incrementSongVote(data.room_id, data.song_id, (err, res) => {
+      dataHelpers.getSongsFromRoomID(data.room_id, (err, songs) => {
+        io.sockets.emit('song-list-sent', songs);
+      });
     });
   });
 

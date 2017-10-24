@@ -15,6 +15,7 @@ export const STORE_USER = 'STORE_USER';
 export const JOIN_ROOM = 'JOIN_ROOM';
 export const SET_SONGS = 'SET_SONGS';
 export const PLAYER_STATUS = 'PLAYER_STATUS';
+export const SET_VOTE = 'SET_VOTE';
 
 export function addSong(song) {
   return {
@@ -270,3 +271,12 @@ export function getGeo(coords) {
     payload: coords
   }
 };
+
+export function voteSong(room_id, song_id) {
+  console.log(song_id, room_id);
+  socket.emit('add-vote', { room_id: room_id, song_id: song_id })
+  return {
+    type: SET_VOTE,
+    payload: {}
+  }
+}
