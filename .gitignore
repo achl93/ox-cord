@@ -61,3 +61,4 @@ typings/
 package-lock.json
 
 test.js
+reorder.js
