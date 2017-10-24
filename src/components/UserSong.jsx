@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ListGroupItem, Button } from 'react-bootstrap';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+// import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
 // import { voteSong } from '../actions/index';
 
 export default class UserSong extends Component {

@@ -6,18 +6,23 @@ import UserSongList from '../containers/UserSongList';
 import NowPlaying from '../containers/NowPlaying';
 import { Row, Col } from 'react-bootstrap';
 import socket from '../lib/SocketAPI';
+import { Redirect } from 'react-router-dom';
 
 
 class UserPlaylist extends Component {
   constructor(props) {
     super(props);
-    socket.emit('request-song-list', this.props.room);
+    // socket.emit('request-song-list', this.props.room);
     socket.on('song-list-sent', (songs) => {
       this.props.setSongs(songs);
     });
   }
 
   render() {
+    console.log("YOOOOO", Object.keys(this.props.room).length);
+    if (Object.keys(this.props.room).length === 0) {
+      return <Redirect to="/" />
+    } else {
       return (
         <Row bsClass='row border p-3'>
           <Col md={12}>
@@ -26,6 +31,7 @@ class UserPlaylist extends Component {
           </Col>
         </Row>
       )
+    }
   }
 }
 

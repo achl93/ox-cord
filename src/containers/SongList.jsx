@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { remoteRemoveSongs, remoteCheckRemotePlaylists, importPlaylist } from '../actions/index';
+import { remoteRemoveSongs, remoteCheckRemotePlaylists, importPlaylist, setSongs } from '../actions/index';
 import { Row, Col, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 import Song from '../components/Song';
+import socket from '../lib/SocketAPI';
 
 class Songlist extends Component {
   constructor(props){
     super(props);
+    // socket.emit('request-song-list', this.props.room);
+    socket.on('song-list-sent', (songs) => {
+      this.props.setSongs(songs);
+    });
     this.state = {
       imported: false
     }
@@ -82,7 +87,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ remoteRemoveSongs, remoteCheckRemotePlaylists, importPlaylist }, dispatch)
+  return bindActionCreators({ remoteRemoveSongs, remoteCheckRemotePlaylists, importPlaylist, setSongs }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Songlist);

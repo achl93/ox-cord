@@ -1,6 +1,10 @@
 import { ADD_SONG, ADD_SONGS, REMOVE_SONG, IMPORT_PLAYLIST, SET_SONGS, SET_VOTE } from '../actions/index';
+const INITIAL = [
+  {id: 0,
+  name: 'No Songs'}
+]
 
-export default function(state = [], action) {
+export default function(state = INITIAL, action) {
   switch (action.type) {
     case ADD_SONGS:
       return [...state, ...action.payload]
@@ -26,6 +30,7 @@ export default function(state = [], action) {
     case REMOVE_SONG:
       return state.filter(song => song.id !== action.payload);
     case SET_SONGS:
+    // console.log("HIIIIIIIIII", action.payload);
       return action.payload;
     case SET_VOTE:
       return state;

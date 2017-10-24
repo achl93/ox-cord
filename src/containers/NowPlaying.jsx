@@ -12,7 +12,7 @@ class NowPlaying extends Component {
       </Row>
     );
   };
-  }
+}
 
   render () {
     return (
