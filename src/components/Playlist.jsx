@@ -14,7 +14,7 @@ class Playlist extends Component {
       return <Redirect to="/" />
     } else {
       return (
-        <Row bsClass='row border p-3'>
+        <Row bsClass='row border p-3 col-md-9'>
           <Col md={12}>
             <NowPlaying />
             <Songlist />
