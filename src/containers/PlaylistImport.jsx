@@ -59,11 +59,6 @@ function mapStateToProps(state) {
   }
 }
 
-
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators({ remoteGetPlaylists, importPlaylist }, dispatch)
-// }
-
 const mapDispatchToProps = {
   remoteGetUserPlaylists,
   importPlaylist

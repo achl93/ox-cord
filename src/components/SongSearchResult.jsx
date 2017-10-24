@@ -11,6 +11,6 @@ export default class SongSearchResult extends Component {
 
   onHandleClick() {
     console.log('clicked');
-    this.props.addSong(this.props.song)
+    this.props.remoteAddSongs(this.props.user.id, this.props.remotePlaylist.id, [this.props.song])
   }
 }

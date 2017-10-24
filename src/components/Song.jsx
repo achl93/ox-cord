@@ -9,6 +9,6 @@ export default class Song extends Component {
   }
 
   onHandleClick() {
-    this.props.removeSong(this.props.song.id);
+    this.props.remoteRemoveSongs(this.props.user.id, this.props.remotePlaylist.id, [this.props.song])
   }
 }

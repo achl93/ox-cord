@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Row, Col, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { checkRemotePlaylist } from '../actions/index';
+import { remoteCheckRemotePlaylists, remoteCreateRemotePlaylist } from '../actions/index';
 
 class Test extends Component {
   render() {
@@ -12,18 +12,32 @@ class Test extends Component {
       // Route login button to Spotify login endpoint
       // then when they come back, redirect to playlist
       <Row bsClass='row w-100 border'>
-        <Col md={4}>
+        <Col md={12}>
           <h4> Test </h4>
-          <Button  onClick={()=>{this.onHandleClick()}}>
-            Check
-          </Button>
+          {
+            (!this.props.remotePlaylist.exists)
+            && (
+              <div>
+                <div> Public Playlist named 'Oxcord Not found on your acount' </div>
+                <Button  onClick={()=>{this.onCreateRemote()}}>
+                  Create
+                </Button>
+              </div>
+            )
+          }
+          <Link to='/playlist'>
+            playlist
+            </Link>
+
         </Col>
       </Row>
     )
   }
-  onHandleClick(){
-    //this.props.getPlaylists(this.props.user.id);
-    this.props.checkRemotePlaylists('226cqjufjm4lxdxg2zbfhqrti');
+  componentDidMount(){
+    this.props.remoteCheckRemotePlaylists(this.props.user.id);
+  }
+  onCreateRemote(){
+    this.props.remoteCreateRemotePlaylist(this.props.user.id);
   }
 }
 function mapStateToProps(state) {
@@ -34,7 +48,7 @@ function mapStateToProps(state) {
   }
 }
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ checkRemotePlaylist }, dispatch)
+  return bindActionCreators({ remoteCheckRemotePlaylists, remoteCreateRemotePlaylist }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Test);

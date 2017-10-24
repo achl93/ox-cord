@@ -1,9 +1,11 @@
-import { ADD_SONG, REMOVE_SONG, IMPORT_PLAYLIST } from '../actions/index';
+import { ADD_SONG, ADD_SONGS, REMOVE_SONG, REMOVE_SONGS, IMPORT_PLAYLIST } from '../actions/index';
 
 export default function(state = [], action) {
   switch (action.type) {
     case ADD_SONG:
       return [ ...state, action.payload ];
+    case ADD_SONGS:
+      return [ ...state, ...action.payload ];
     case IMPORT_PLAYLIST:
       const importedTracks = action.payload.items.map((result) => {
         return {
@@ -15,7 +17,7 @@ export default function(state = [], action) {
       } );
       return [...state, ...importedTracks];  
     case REMOVE_SONG:
-      return state.filter(song => song.id !== action.payload);
+      return state.filter(song => song.id !== action.payload[0]);
     default:
       return state;
   } 

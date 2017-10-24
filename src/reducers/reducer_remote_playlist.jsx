@@ -1,4 +1,11 @@
-const initial = {id: 'none'};
+import { UPDATE_REMOTE } from '../actions/index';
+
+const initial = {id: 'NOT_CHECKED', exists: false};
 export default function(state = initial, action) {
-  return state;
+  switch (action.type) {
+    case UPDATE_REMOTE:
+      return action.payload;
+    default:
+      return state;
+  } 
 }
