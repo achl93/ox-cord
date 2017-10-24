@@ -106,16 +106,20 @@ export function remoteGetUserPlaylists(userID) {
       }
     )
   }
-}
+};
 
 export function checkRemotePlaylist(remotePlaylist) {
   console.log('event triggered checkRemotePlaylist');
   console.log(remotePlaylist)
+};
+
+export function importPlaylist(owner, playlistID) {
+  const request = spotifyApi.getPlaylistTracks(owner, playlistID, {limit: 20});
   return {
     type: UPDATE_REMOTE,
     payload: remotePlaylist
   }
-}
+};
 
 export function remoteCheckRemotePlaylists(userID) {
   console.log('event triggered remoteCheckRemotePlaylist');
@@ -138,7 +142,7 @@ export function remoteCheckRemotePlaylists(userID) {
       dispatch(checkRemotePlaylist(result));
     });
   }
-}
+};
 
 export function createRemotePlaylist(newRemotePlaylist) {
   console.log('event triggered createRemotePlaylist');
@@ -147,7 +151,7 @@ export function createRemotePlaylist(newRemotePlaylist) {
     type: UPDATE_REMOTE,
     payload: newRemotePlaylist
   }
-}
+};
 
 export function remoteCreateRemotePlaylist(userID) {
   console.log('event triggered remoteCreateRemotePlaylist');
@@ -161,11 +165,11 @@ export function remoteCreateRemotePlaylist(userID) {
       dispatch(createRemotePlaylist(result));
     })
   }
-}
+};
 
-// start remote Playlis from beginning
+// start remote playlist from beginning
 export function remoteStartPlaylist( userID, remotePlaylistID) {
-  console.log('sending  start playlist request')
+  console.log('sending start playlist request')
   const context_uri = `spotify:user:${userID}:playlist:${remotePlaylistID}`;
   return (dispatch) => {
     spotifyApi.play({context_uri})
@@ -173,7 +177,7 @@ export function remoteStartPlaylist( userID, remotePlaylistID) {
       dispatch(play())
     })
   }
-}
+};
 
 
 // start or resume playback
@@ -183,7 +187,7 @@ export function play() {
     type: PLAYER_STATUS,
     payload: 'PLAY'
   }
-}
+};
 
 export function remotePlay() {
   console.log('sending play request')
@@ -193,7 +197,8 @@ export function remotePlay() {
       dispatch(play())
     })
   }
-}
+};
+
 // start or resume playback
 export function pause() {
   console.log('pause successful')
@@ -201,7 +206,7 @@ export function pause() {
     type: PLAYER_STATUS,
     payload: 'PAUSE'
   }
-}
+};
 
 export function remotePause() {
   console.log('sending play request')
@@ -211,16 +216,15 @@ export function remotePause() {
       dispatch(pause())
     })
   }
-}
+};
 
 export function skip() {
   console.log('skip successful')
-  //this part doesn
   return {
     type: PLAYER_STATUS,
     payload: 'PLAY'
   }
-}
+};
 
 export function remoteSkip() {
   console.log('sending skip request')
@@ -230,7 +234,7 @@ export function remoteSkip() {
         dispatch(skip()) 
       });
   }
-}
+};
 
 export function storeToken(token) {
   spotifyApi.setAccessToken(token);
@@ -254,7 +258,7 @@ export function joinRoom(room_id) {
     type: JOIN_ROOM,
     payload: room_id
   }
-}
+};
 
 export function getGeo(coords) {
   return {

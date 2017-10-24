@@ -55,10 +55,14 @@ class SongSearch extends Component {
   }
   onFormSubmit(event){
     event.preventDefault();
+    if (this.state.term === '') {
+      alert("Please enter the name of an artist or song!");
+    } else {
     this.props.searchSongs(this.state.term);
     this.setState({
       term: ''
     });
+  };
   }
   onInputChange(event) {
     this.setState({
@@ -72,6 +76,7 @@ function mapStateToProps(state) {
     results: state.songSearch,
     remotePlaylist: state.remotePlaylist,
     user: state.user
+    // songs: state.songs
   }
 }
 
