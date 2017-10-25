@@ -5,10 +5,10 @@ import { Row } from 'react-bootstrap';
 
 class NowPlaying extends Component {
   currentSong() {
-    if (this.props.songs[0] !== undefined) {
+    if (this.props.nowPlaying.name !== undefined) {
     return (
       <Row >
-        {<h3>Now Playing: {this.props.songs[0].name}</h3>}
+        {<h3>Now Playing: {this.props.nowPlaying.name}</h3>}
       </Row>
     );
   };
@@ -25,7 +25,8 @@ class NowPlaying extends Component {
 
 function mapStateToProps(state) {
   return {
-    songs: state.songs
+    songs: state.songs,
+    nowPlaying: this.props.nowPlaying
   }
 }
 

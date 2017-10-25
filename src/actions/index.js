@@ -1,5 +1,7 @@
 import socket from '../lib/SocketAPI';
-const SpotifyWebApi = require('spotify-web-api-js');
+import SpotifyWebApi from 'spotify-web-api-js';
+import currentSongChecker from '../lib/trackPlayStatus';
+
 const spotifyApi = new SpotifyWebApi();
 
 export const ADD_SONG = 'ADD_SONG';
@@ -15,6 +17,7 @@ export const STORE_USER = 'STORE_USER';
 export const JOIN_ROOM = 'JOIN_ROOM';
 export const SET_SONGS = 'SET_SONGS';
 export const PLAYER_STATUS = 'PLAYER_STATUS';
+export const UPDATE_NOW_PLAYING = 'UPDATE_NOW_PLAYING';
 
 export function addSong(song) {
   return {
@@ -270,3 +273,10 @@ export function getGeo(coords) {
     payload: coords
   }
 };
+
+export function updateNowPlaying(nowPlaying) {
+  return {
+    type: UPDATE_NOW_PLAYING,
+    payload: nowPlaying
+  }
+}

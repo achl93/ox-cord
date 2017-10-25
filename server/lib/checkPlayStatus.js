@@ -1,0 +1,3 @@
+class checkPlayStatus extends EventEmitter {
+  
+}
