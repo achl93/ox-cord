@@ -16,7 +16,7 @@ class SongSearch extends Component {
   renderResults() {
     return this.props.results.map((song) => {
       return (
-          <SongSearchResult  remoteAddSongs={this.props.remoteAddSongs} key={song.id} song={song} user={this.props.user} remotePlaylist={this.props.remotePlaylist}/>
+          <SongSearchResult  remoteAddSongs={this.props.remoteAddSongs} key={song.id} song={song} user={this.props.user} remotePlaylist={this.props.remotePlaylist} room_id={this.props.room} />
       )
     });
   }
@@ -75,7 +75,8 @@ function mapStateToProps(state) {
   return {
     results: state.songSearch,
     remotePlaylist: state.remotePlaylist,
-    user: state.user
+    user: state.user,
+    room: state.room
     // songs: state.songs
   }
 }
