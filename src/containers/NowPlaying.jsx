@@ -15,7 +15,13 @@ class NowPlaying extends Component {
         {<h3>Now Playing: {this.props.nowPlaying.name}</h3>}
       </Row>
     );
-  };
+  } else {
+      return (
+        <Row >
+          {<h3>Now Playing: No Songs</h3>}
+        </Row>
+      )
+    };
   }
 
   render () {

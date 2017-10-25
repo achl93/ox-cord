@@ -16,7 +16,7 @@ class SongSearch extends Component {
   renderResults() {
     return this.props.results.map((song) => {
       return (
-          <SongSearchResult  remoteAddSongs={this.props.remoteAddSongs} key={song.id} song={song} user={this.props.user} remotePlaylist={this.props.remotePlaylist}/>
+          <SongSearchResult remoteAddSongs={this.props.remoteAddSongs} songs={this.props.songs} key={song.id} song={song} user={this.props.user} remotePlaylist={this.props.remotePlaylist} room_id={this.props.room} />
       )
     });
   }
@@ -24,7 +24,6 @@ class SongSearch extends Component {
     return (
       <Row>
         <Col md={12}>
-        <h4 className='text-center'> Search </h4>
           <Row>
             <form onSubmit={this.onFormSubmit}>
               <FormGroup bsClass='form-group px-3'>
@@ -36,7 +35,11 @@ class SongSearch extends Component {
                     onChange={this.onInputChange}
                   />
                   <InputGroup.Button>
-                    <Button type='submit' bsSize="small">Search</Button>
+                    { this.state.term ? (
+                    <Button type='submit' bsClass="btn btn-outline-info" bsSize="small"><i class="fa fa-search" aria-hidden="true"></i></Button>
+                    ) : (
+                    <Button type='submit' bsClass="btn btn-outline-secondary" bsSize="small" disabled><i class="fa fa-search" aria-hidden="true"></i></Button>
+                    )}
                   </InputGroup.Button>
                 </InputGroup>
               </FormGroup>
@@ -55,14 +58,10 @@ class SongSearch extends Component {
   }
   onFormSubmit(event){
     event.preventDefault();
-    if (this.state.term === '') {
-      alert("Please enter the name of an artist or song!");
-    } else {
     this.props.searchSongs(this.state.term);
     this.setState({
       term: ''
     });
-  };
   }
   onInputChange(event) {
     this.setState({
@@ -75,8 +74,9 @@ function mapStateToProps(state) {
   return {
     results: state.songSearch,
     remotePlaylist: state.remotePlaylist,
-    user: state.user
-    // songs: state.songs
+    user: state.user,
+    room: state.room,
+    songs: state.songs
   }
 }
 

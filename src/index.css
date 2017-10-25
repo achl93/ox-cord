@@ -6,18 +6,18 @@ body {
 
 html {
   background-color: rgb(32, 32, 32);
-  color: rgb(228, 228, 228);
 }
 
 #root {
   background-color: rgb(32, 32, 32);
-  color: rgb(228, 228, 228);
+  color: rgb(243, 243, 243);
 }
 
 div[class*='row'] {
   margin-bottom: 0.5rem;
   background-color: rgb(43, 42, 42);
-  color: rgb(228, 228, 228);
+  color: rgb(243, 243, 243);
+  font-family: "Noto sans";
 }
 
 form {
@@ -31,6 +31,38 @@ form {
 }
 
 .title {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Satisfy', sans-serif;
   text-align: center;
+  font-size: 3em;
+}
+
+span.list-group-item {
+  background-color: rgb(43, 42, 42);
+  color: rgb(243, 243, 243);
+}
+
+li.list-group-item {
+  background-color: rgb(43, 42, 42);
+  color: rgb(243, 243, 243);
+}
+
+input.form-control {
+  background-color: rgb(43, 42, 42);
+  color: rgb(25, 162, 184);
+  border-color: rgb(25, 162, 184);
+}
+
+.artist {
+  color: rgb(161, 161, 161);
+}
+
+.fa-circle-o-notch {
+  color: rgb(25, 162, 184);
+}
+
+.album_cover {
+  min-width: 64px;
+  min-height: 64px;
+  float: left;
+  margin-right: 1em;
 }

@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { storeToken } from '../actions/index';
 import { storeUser } from '../actions/index';
 import { getGeo } from '../actions/index';
+// import socket from '../lib/SocketAPI';
 
 class Host extends Component {
   getSearchParams() {
@@ -37,7 +38,12 @@ class Host extends Component {
      if (this.props.user !== 'empty') {
       return <Redirect to="/playlist"/>;
      }
-     return <div> Welcome! </div>
+     return (
+      <div>
+        <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+        <span class="sr-only">Loading...</span>
+      </div>
+     )
   }
 
   componentWillMount() {
@@ -45,6 +51,10 @@ class Host extends Component {
     this.props.storeToken(params.access_token);
     this.props.storeUser();
   }
+
+//   componentDidMount() {
+//     socket.emit('join-room', this.props.user.id);
+//   }
 }
 
 function mapStateToProps(state) {

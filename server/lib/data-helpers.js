@@ -8,6 +8,18 @@ module.exports = function dataHelpers(db) {
       });
     },
 
+    addSongToPlaylist: function (songObj, room_id, callback) {
+      db.collection("rooms").update({"room_id": room_id}, { "$push": { "playlist": songObj }}, (err, data) => {
+        callback(err, data);
+      });
+    },
+
+    removeSongFromPlaylist: function (song_id, room_id, callback) {
+      db.collection("rooms").update({"room_id": room_id}, { "$pull": { "playlist": { "id": song_id }}}, (err, data) => {
+        callback(err, data);
+      });
+    },
+
     getRoomDataByID: function (room_id, callback) {
       db.collection("rooms").find({ "room_id": room_id }).toArray(callback);
     },
