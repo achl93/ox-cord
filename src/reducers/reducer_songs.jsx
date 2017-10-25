@@ -32,7 +32,8 @@ export default function(state = initial, action) {
           id: result.track.id,
           name: result.track.name,
           artist: result.track.artists[0].name,
-          votes: 0
+          votes: 0,
+          cover_art: result.track.album.images[2].url
         }
       } );
       return importedTracks;  
