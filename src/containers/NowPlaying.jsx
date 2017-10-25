@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row } from 'react-bootstrap';
-
+import { remoteCheckNowPlaying } from '../actions/index';
 class NowPlaying extends Component {
+  constructor(props) {
+    super(props)
+    this.props.remoteCheckNowPlaying(this.props.nowPlaying.id)
+  }
   currentSong() {
     if (this.props.nowPlaying.name !== undefined) {
     return (
@@ -26,12 +30,12 @@ class NowPlaying extends Component {
 function mapStateToProps(state) {
   return {
     songs: state.songs,
-    nowPlaying: this.props.nowPlaying
+    nowPlaying: state.nowPlaying
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({})
+  return bindActionCreators({remoteCheckNowPlaying}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NowPlaying);

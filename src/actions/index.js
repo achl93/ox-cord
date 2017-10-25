@@ -1,6 +1,6 @@
 import socket from '../lib/SocketAPI';
 import SpotifyWebApi from 'spotify-web-api-js';
-import currentSongChecker from '../lib/trackPlayStatus';
+import checkNowPlaying from '../lib/trackPlayStatus';
 
 const spotifyApi = new SpotifyWebApi();
 
@@ -111,14 +111,6 @@ export function checkRemotePlaylist(remotePlaylist) {
     payload: remotePlaylist
   }
 };
-
-// export function importPlaylist(owner, playlistID) {
-//   const request = spotifyApi.getPlaylistTracks(owner, playlistID, {limit: 20});
-//   return {
-//     type: UPDATE_REMOTE,
-//     payload: remotePlaylist
-//   }
-// };
 
 export function importPlaylist(userID, playlistID) {
   const request = spotifyApi.getPlaylistTracks(userID, playlistID, {limit: 20});
@@ -278,5 +270,24 @@ export function updateNowPlaying(nowPlaying) {
   return {
     type: UPDATE_NOW_PLAYING,
     payload: nowPlaying
+  }
+}
+
+
+// checking code
+
+// currentSongChecker((nowPlaying)=>{
+//   console.log('checker triggerd in actions')
+//   console.log('track ID:', nowPlaying)
+//   updateNowPlaying(nowPlaying)
+// })
+export function remoteCheckNowPlaying(currentSongID){
+  return (dispatch) => {
+    checkNowPlaying.on('songChange', (nowPlaying) => {
+      console.log('action ready to dispatch', nowPlaying.id )
+      if (nowPlaying.id !== currentSongID){
+        dispatch(updateNowPlaying(nowPlaying));
+      }
+    })
   }
 }

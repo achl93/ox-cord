@@ -5,7 +5,7 @@ import { updateNowPlaying } from '../actions/index';
 
 class Test extends Component {
   componentDidMount(){
-    currentSongChecker((trackID)=>this.updateSong(trackID))
+   // currentSongChecker((trackID)=>this.updateSong(trackID))
   }
   render(){
     return (

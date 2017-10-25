@@ -21,6 +21,10 @@ class trackPlayStatus extends EventEmitter {
   constructor() {
     super();
     this.statInterval();
+    this.nowPlaying = {
+      id: 0,
+      name: 'unknown'
+    }
   }
     statInterval(){
     const interval = setInterval(()=>{
@@ -28,20 +32,19 @@ class trackPlayStatus extends EventEmitter {
     }, 1000);
   }
   checkSong(){
-    remoteCheckCurrentPlayingTrack((trackID) => {
-      this.emit('songCheck', trackID)
+    remoteCheckCurrentPlayingTrack((nowPlaying) => {
+      if (nowPlaying.id !== this.nowPlaying.id){
+        console.log('song change detected')
+        this.emit('songChange', nowPlaying)
+        this.nowPlaying = nowPlaying;
+      }
     });
   }
 }
 
-const checker = new trackPlayStatus();
-
-
-function currentSongChecker(cb){
-  checker.on('songCheck', cb);
-}
+const nowPlaying = new trackPlayStatus();
 
 
 
 
-export default currentSongChecker;
+export default nowPlaying;
