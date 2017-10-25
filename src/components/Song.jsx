@@ -7,14 +7,14 @@ export default class Song extends Component {
   render() {
     return (
       <ListGroupItem className="col-md-12" > { this.props.song.name } - ({ this.props.song.artist })
-      <Button bsClass='btn btn-sm btn-outline-warning badge float-right' onClick={()=>{this.onHandleClick()}}>x</Button>
-      <Button bsClass='btn btn-sm btn-outline-warning badge float-right'>{this.props.song.votes}</Button>
+        <Button bsClass='btn btn-sm btn-outline-warning badge float-right' onClick={()=>{this.onHandleClick()}}>x</Button>
+        <Button bsClass='btn btn-sm btn-outline-warning badge float-right'>{this.props.song.votes}</Button>
       </ListGroupItem>
     )
   }
 
   onHandleClick() {
-    this.props.remoteRemoveSongs(this.props.user.id, this.props.remotePlaylist.id, [this.props.song])
+    this.props.remoteRemoveSongs(this.props.user.id, this.props.remotePlaylist.id, [this.props.song], this.props.room)
   }
 }
 
