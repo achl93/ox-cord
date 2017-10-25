@@ -17,5 +17,5 @@ function distanceInKmBetweenEarthCoordinates(lat1, lon1, lat2, lon2) {
   return earthRadiusKm * c;
 }
 
-export { distanceInKmBetweenEarthCoordinates }
+module.exports = distanceInKmBetweenEarthCoordinates;
 // Use by import { distanceInKmBetweenEarthCoordinates } from 'coordCalculator'

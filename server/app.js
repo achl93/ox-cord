@@ -10,6 +10,8 @@ const app = express();
 const server = http.Server(app);
 const io = socketIo(server);
 
+const distanceInKmBetweenEarthCoordinates = require('../src/lib/coordCalculator');
+
 let SHOW_DEBUG = true;
 let PORT = process.env.PORT | 8888;
 let dataHelpers = require('./lib/data-helpers');
@@ -82,10 +84,15 @@ io.on('connection', (socket) => {
     });
   });
 
-  socket.on('request-active-rooms', () => {
-    if (SHOW_DEBUG) { console.log(' + Client requested an active room list!') }
+  socket.on('request-active-rooms', (coordsObj) => {
+    if (SHOW_DEBUG) { console.log(' + Client requested an active room list!', coordsObj) }
     dataHelpers.getActiveRooms((err, rooms) => {
-      io.sockets.emit('active-rooms-sent', rooms);
+      let nearbyRooms = rooms.map((room) => {
+        if (distanceInKmBetweenEarthCoordinates(room.geolocation.latitude, room.geolocation.longitude, coordsObj.latitude, coordsObj.longitude) <= 0.5) {
+          return room;
+        }
+      })
+      io.sockets.emit('active-rooms-sent', nearbyRooms);
     });
   });
 

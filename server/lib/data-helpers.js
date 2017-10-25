@@ -25,11 +25,11 @@ module.exports = function dataHelpers(db) {
     },
 
     getActiveRooms: function (callback) {
-      db.collection("rooms").find({"active": true}, {_id: 1, "room_id": 1, "name": 1}).toArray(callback);
+      db.collection("rooms").find({"active": true}, {_id: 1, "room_id": 1, "name": 1, "geolocation": 1}).toArray(callback);
     },
 
     getActiveRoomsNearby: function (coords, callback) {
-      // TO DO
+      //
     },
 
     getSongsFromRoomID: function(room_id, callback) {

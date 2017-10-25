@@ -10,18 +10,18 @@ class Join extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rooms: []
+      rooms: [],
+      flag: false
     }
   }
-
-
+  
   componentDidMount() {
-    socket.emit('request-active-rooms');
-    socket.on('active-rooms-sent', (rooms) => {
-      this.setState({
-        rooms: rooms
-      });
-    });
+    // socket.emit('request-active-rooms', this.props.coords);
+    // socket.on('active-rooms-sent', (rooms) => {
+    //   this.setState({
+    //     rooms: rooms
+    //   });
+    // });
   }
 
   setLocation(pos) {
@@ -29,6 +29,7 @@ class Join extends Component {
       longitude: pos.coords.longitude,
       latitude: pos.coords.latitude
     });
+    this.setState({hasLocation: true});
   }
 
   getGeolocation() {
@@ -40,17 +41,36 @@ class Join extends Component {
   }
   
   render() {
-    // this.getGeolocation();
-    // <p>Longitude: {this.props.coords.longitude}</p>
-    // <p>Latitude: {this.props.coords.latitude}</p>
-    return (
+    this.getGeolocation();
+    if (this.props.coords.longitude !== 0 && this.props.coords.latitude !== 0 && this.state.flag === false) {
+      socket.emit('request-active-rooms', this.props.coords);
+      socket.on('active-rooms-sent', (rooms) => {
+        this.setState({
+          rooms: rooms,
+          flag: true
+        });
+      });
+      return (
+        // this is pretty much not required
+        <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+      )
+    } else if (this.props.coords.longitude === 0 && this.props.coords.latitude === 0){
+      return (
+        <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+      )
+    }
+      else {
+      return (
       <div>
         Join a room!
         { this.state.rooms.map((room) => {
           return(<JoinRoom key={room._id} room_name={room.name} room_id={room.room_id} />);
         }) }
       </div>
-    )
+      )
+    }
+    // <p>Longitude: {this.props.coords.longitude}</p>
+    // <p>Latitude: {this.props.coords.latitude}</p>
   }
 }
 
