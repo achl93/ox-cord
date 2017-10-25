@@ -21,9 +21,9 @@ class Playlist extends Component {
           <Row bsClass='row border p-3 col-md-9'>
             <Col md={12}>
               <NowPlaying />
+              <PlayerControls />
               <Songlist />
               <SongSearch />
-              <PlayerControls />
             </Col>
           </Row>  
       )

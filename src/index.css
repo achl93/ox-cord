@@ -18,6 +18,8 @@ div[class*='row'] {
   background-color: rgb(43, 42, 42);
   color: rgb(243, 243, 243);
   font-family: "Noto sans";
+  max-height: 50em;
+  overflow: auto;
 }
 
 form {
@@ -27,7 +29,6 @@ form {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 50px;
 }
 
 .title {
@@ -61,8 +62,12 @@ input.form-control {
 }
 
 .album_cover {
-  min-width: 64px;
-  min-height: 64px;
   float: left;
   margin-right: 1em;
+}
+
+.list-group {
+  display: block !important;
+  max-height: 20em;
+  overflow-y: scroll;
 }

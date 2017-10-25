@@ -344,6 +344,7 @@ export function remoteCheckNowPlaying(remotePlaylistID, userID){
     checkNowPlaying.on('songChange', (nowPlaying, previous) => {
       if ((nowPlaying.track.id !== previous.id) && (remotePlaylistID === nowPlaying.playlist)){
         dispatch(updateNowPlaying(nowPlaying.track));
+        //BEFORE REMOVING SONG, ADD TO ARCHIVE 
         dispatch(remoteRemoveSongs(userID, remotePlaylistID, [previous], ''))
       }
     })
