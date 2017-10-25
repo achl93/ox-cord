@@ -12,11 +12,16 @@ class Host extends Component {
     var searchParams = {};
     var e, r = /([^&;=]+)=?([^&;]*)/g,
         q = window.location.search.substring(1);
-    while ( e = r.exec(q)) {
+        
+    e = r.exec(q)
+    while (e) {
        searchParams[e[1]] = decodeURIComponent(e[2]);
+       e = r.exec(q);
     }
     return searchParams;
   }
+
+
 
   setLocation(pos) {
     this.props.getGeo({
