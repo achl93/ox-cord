@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { storeToken } from '../actions/index';
 import { storeUser } from '../actions/index';
 import { getGeo } from '../actions/index';
+// import socket from '../lib/SocketAPI';
 
 class Host extends Component {
   getSearchParams() {
@@ -50,6 +51,10 @@ class Host extends Component {
     this.props.storeToken(params.access_token);
     this.props.storeUser();
   }
+
+//   componentDidMount() {
+//     socket.emit('join-room', this.props.user.id);
+//   }
 }
 
 function mapStateToProps(state) {

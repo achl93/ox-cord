@@ -13,7 +13,8 @@ export default class SongSearchResult extends Component {
   }
 
   onHandleClick() {
-    console.log('clicked');
-    this.props.remoteAddSongs(this.props.user.id, this.props.remotePlaylist.id, [this.props.song], this.props.room_id)
+    if (!this.props.songs.find((track) => {return track.id === this.props.song.id})) {
+      this.props.remoteAddSongs(this.props.user.id, this.props.remotePlaylist.id, [this.props.song], this.props.room_id);
+    }
   }
 }
