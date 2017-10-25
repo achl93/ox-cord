@@ -30,7 +30,6 @@ class UserPlaylist extends Component {
     } else {
       return (
         <main>
-          <h1 className="title">Ox Cord</h1>
           <Row bsClass='row border p-3'>
             <Col md={12}>
               <NowPlaying />

@@ -3,7 +3,7 @@ const SpotifyWebApi = require('spotify-web-api-js');
 const spotifyApi = new SpotifyWebApi();
 
 export const ADD_SONG = 'ADD_SONG';
-export const ADD_SONGS = 'ADD_SONGS';
+// export const ADD_SONGS = 'ADD_SONGS';
 export const IMPORT_PLAYLIST = 'IMPORT_PLAYLIST';
 export const UPDATE_REMOTE = 'UPDATE_REMOTE';
 export const REMOVE_SONG = 'REMOVE_SONG';
@@ -31,12 +31,12 @@ export function setSongs(songs) {
   }
 }
 
-export function addSongs(tracks) {
-  return {
-    type: ADD_SONGS,
-    payload: tracks
-  };
-}
+// export function addSongs(tracks) {
+//   return {
+//     type: ADD_SONGS,
+//     payload: tracks
+//   };
+// }
 
 export function remoteAddSongs(userID, remotePlaylistID, tracks, room_id) {
   const tracksString = tracks.map((track) => {
@@ -52,7 +52,7 @@ export function remoteAddSongs(userID, remotePlaylistID, tracks, room_id) {
           songObj: tracks
         });
         socket.emit('request-song-list', room_id);
-        dispatch(addSongs(tracks));
+        dispatch(addSong(tracks));
       })
   }
 }
