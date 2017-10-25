@@ -21,7 +21,7 @@ export function addSong(song) {
   return {
     type: ADD_SONG,
     payload: song
-  };
+  }
 }
 
 export function setSongs(songs) {
@@ -52,7 +52,7 @@ export function remoteAddSongs(userID, remotePlaylistID, tracks, room_id) {
           songObj: tracks
         });
         socket.emit('request-song-list', room_id);
-        dispatch(addSong(tracks));
+        dispatch(addSong(tracks[0]));
       })
   }
 }
