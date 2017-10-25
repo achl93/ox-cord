@@ -61,7 +61,7 @@ export function remoteAddSongs(userID, remotePlaylistID, tracks, room_id) {
   }
 }
 
-export function remoteRemoveSongs(userID, remotePlaylistID, tracks, room_id) {
+export function remoteRemoveSongs(userID, remotePlaylistID, tracks /*, room_id*/) {
   const tracksString = tracks.map((track) => {
     return `spotify:track:${track.id}`
   }).join();
@@ -73,11 +73,11 @@ export function remoteRemoveSongs(userID, remotePlaylistID, tracks, room_id) {
     spotifyApi.removeTracksFromPlaylist(userID, remotePlaylistID, [tracksString])
       .then(() => {
         console.log('song removed successfully');
-        socket.emit('remove-song', {
-          room_id: room_id,
-          song_id: tracks[0].id
-        });
-        socket.emit('request-song-list', room_id);
+        // socket.emit('remove-song', {
+        //   room_id: room_id,
+        //   song_id: tracks[0].id
+        // });
+        //socket.emit('request-song-list', room_id);
         dispatch(removeSong(tracks[0].id)); // assumes only one song is being removed
       })
   }
@@ -343,8 +343,7 @@ class CheckNowPlaying extends EventEmitter {
   remoteCheckCurrentPlayingTrack(previous, cb){
     spotifyApi.getMyCurrentPlayingTrack({})
     .then((result) => {
-      console.log('resutl from spotify')
-      console.log(result)
+
       const track = {
         id: result.item.id,
         name: result.item.name
@@ -367,9 +366,11 @@ export function remoteCheckNowPlaying(remotePlaylistID, userID){
   return (dispatch) => {
     checkNowPlaying.on('songChange', (nowPlaying, previous) => {
       if ((nowPlaying.track.id !== previous.id) && (remotePlaylistID === nowPlaying.playlist)){
-        // update song in state
         console.log('dispatching song change!')
         dispatch(updateNowPlaying(nowPlaying.track));
+        //removeTracksFromPlaylist(userID, remotePlaylistID, [tracksString])
+        //remoteRemoveSongs(userID, remotePlaylistID, tracks /*, room_id*/)
+        dispatch(remoteRemoveSongs(userID, remotePlaylistID, [previous]))
       }
     })
   }
