@@ -12,7 +12,9 @@ class Songlist extends Component {
     super(props);
     // socket.emit('request-song-list', this.props.room);
     socket.on('song-list-sent', (songs) => {
-      this.props.setSongs(songs);
+      if (songs !== null) {
+        this.props.setSongs(songs);
+      }
     });
     this.state = {
       imported: false

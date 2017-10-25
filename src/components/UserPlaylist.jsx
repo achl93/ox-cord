@@ -17,7 +17,9 @@ class UserPlaylist extends Component {
     } else {
       socket.emit('request-song-list', this.props.room);
       socket.on('song-list-sent', (songs) => {
-        this.props.setSongs(songs);
+        if (songs !== null) {
+          this.props.setSongs(songs);
+        }
       });
     }
   }
