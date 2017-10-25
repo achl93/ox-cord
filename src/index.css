@@ -59,3 +59,10 @@ input.form-control {
 .fa-circle-o-notch {
   color: rgb(25, 162, 184);
 }
+
+.album_cover {
+  min-width: 64px;
+  min-height: 64px;
+  float: left;
+  margin-right: 1em;
+}
