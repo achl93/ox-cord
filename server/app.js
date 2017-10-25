@@ -66,6 +66,15 @@ io.on('connection', (socket) => {
     });
   });
 
+  socket.on('remove-song', (data) => {
+    if (SHOW_DEBUG) { console.log(' + Host removed a song!', data) }
+    dataHelpers.removeSongFromPlaylist(data.song_id, data.room_id, (err, res) => {
+      dataHelpers.getSongsFromRoomID(data.room_id, (err, songs) => {
+        io.to(data.room_id).emit('song-list-sent', songs);
+      });
+    });
+  });
+
   socket.on('request-song-list', (room_id) => {
     if (SHOW_DEBUG) { console.log(' + Client requested a song list!') }
     dataHelpers.getSongsFromRoomID(room_id, (err, songs) => {
