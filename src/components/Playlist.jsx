@@ -14,8 +14,6 @@ class Playlist extends Component {
       return <Redirect to="/" />
     } else {
       return (
-        <main>
-          <h1 className="title">Ox Cord</h1>
           <Row bsClass='row border p-3 col-md-9'>
             <Col md={12}>
               <NowPlaying />
@@ -23,8 +21,7 @@ class Playlist extends Component {
               <SongSearch />
               <PlayerControls />
             </Col>
-          </Row> 
-        </main>   
+          </Row>  
       )
     }
   }
