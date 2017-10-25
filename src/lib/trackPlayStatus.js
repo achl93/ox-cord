@@ -3,15 +3,21 @@ const SpotifyWebApi = require('spotify-web-api-js');
 const spotifyApi = new SpotifyWebApi();
 
 // don't forget auth token scope when implementing
-spotifyApi.setAccessToken('BQCgDXXWA9WOgY-NY5rkAMuPOJtaJjM_T3yby-7DXMoyFCkAh4Vk21T2zqQWlNTIInEwOvACs85LVx9cbuDaY4E5nx-R2UYkPuHXm2mlXI0Lr4SeTDYm4wlrpBdLR7qC89tkSidk8pKzab7HAC2tsFY3bkKLcdoAR6jBLx0');
+spotifyApi.setAccessToken('BQDmMjPIpbRL7XVGOv46MksqpTBIpVwjve4KXVQDzq61obRvQnyZX_F1KKzFSbimSb00bxDh58Tq8H5Klw-9Y1soppQycGLxivb_Jx_Lk404l12r3PwY8IB_LcRoLBSHB6PAzXC4r0kVsFs3lXgUwV5xLfwC-3S_GMReLcw');
 // https://developer.spotify.com/web-api/console/get-users-currently-playing-track/
 
 function remoteCheckCurrentPlayingTrack(cb){
   spotifyApi.getMyCurrentPlayingTrack({})
   .then((result) => {
-    const nowPlaying = {
+    const track = {
       id: result.item.id,
       name: result.item.name
+    }
+    const playlist = result.context.uri.split('playlist:')[1];
+    console.log('now playing playlist:', playlist)
+    const nowPlaying = {
+      track,
+      playlist
     }
     cb(nowPlaying)
   })
@@ -22,18 +28,27 @@ class trackPlayStatus extends EventEmitter {
     super();
     this.statInterval();
     this.nowPlaying = {
-      id: 0,
-      name: 'unknown'
+      track: {
+        id: 0,
+        name: 'unknown'
+      },
+      playlist: '0v5AO6ONWuqz3t7Vo83u6d'
     }
   }
     statInterval(){
     const interval = setInterval(()=>{
       this.checkSong()
     }, 1000);
+
+    // const clear = setTimeout(()=>{
+    //   clearTimeout(interval)
+    // }, 3000)
   }
   checkSong(){
     remoteCheckCurrentPlayingTrack((nowPlaying) => {
-      if (nowPlaying.id !== this.nowPlaying.id){
+      console.log('Now playing in class', nowPlaying.track)
+      console.log('This Now playing in class', this.nowPlaying.track)
+      if (nowPlaying.track.id !== this.nowPlaying.track.id){
         console.log('song change detected')
         this.emit('songChange', nowPlaying)
         this.nowPlaying = nowPlaying;
