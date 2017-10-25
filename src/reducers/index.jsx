@@ -8,6 +8,7 @@ import RoomReducer from './reducer_room';
 import PlayerReducer from './reducer_player';
 import UserPlaylistsReducer from './reducer_user_playlists';
 import RemotePlaylistReducer from './reducer_remote_playlist';
+import nowPlayingReducer from './reducer_now_playing';
 
 const rootReducer = combineReducers({
   songs: SongsReducer,
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   user: UserReducer,
   room: RoomReducer,
   player: PlayerReducer,
-  userPlaylists: UserPlaylistsReducer
+  userPlaylists: UserPlaylistsReducer,
+  nowPlaying: nowPlayingReducer
 });
 
 export default rootReducer;

@@ -1,5 +1,8 @@
 import socket from '../lib/SocketAPI';
-const SpotifyWebApi = require('spotify-web-api-js');
+import SpotifyWebApi from 'spotify-web-api-js';
+import EventEmitter from 'events';
+// import CheckNowPlaying from '../lib/CheckNowPlaying';
+
 const spotifyApi = new SpotifyWebApi();
 
 export const ADD_SONG = 'ADD_SONG';
@@ -15,6 +18,7 @@ export const STORE_USER = 'STORE_USER';
 export const JOIN_ROOM = 'JOIN_ROOM';
 export const SET_SONGS = 'SET_SONGS';
 export const PLAYER_STATUS = 'PLAYER_STATUS';
+export const UPDATE_NOW_PLAYING = 'UPDATE_NOW_PLAYING';
 export const SET_VOTE = 'SET_VOTE';
 
 export function addSong(song) {
@@ -112,21 +116,11 @@ export function remoteGetUserPlaylists(userID) {
 };
 
 export function checkRemotePlaylist(remotePlaylist) {
-  console.log('event triggered checkRemotePlaylist');
-  console.log(remotePlaylist)
   return {
     type: UPDATE_REMOTE,
     payload: remotePlaylist
   }
 };
-
-// export function importPlaylist(owner, playlistID) {
-//   const request = spotifyApi.getPlaylistTracks(owner, playlistID, {limit: 20});
-//   return {
-//     type: UPDATE_REMOTE,
-//     payload: remotePlaylist
-//   }
-// };
 
 export function importPlaylist(userID, playlistID) {
   const request = spotifyApi.getPlaylistTracks(userID, playlistID, {limit: 20});
@@ -282,11 +276,101 @@ export function getGeo(coords) {
   }
 };
 
+export function updateNowPlaying(nowPlaying) {
+  return {
+    type: UPDATE_NOW_PLAYING,
+    payload: nowPlaying
+  }
+}
+
+
+
 export function voteSong(room_id, song_id) {
   console.log(song_id, room_id);
   socket.emit('add-vote', { room_id: room_id, song_id: song_id })
   return {
     type: SET_VOTE,
     payload: {}
+  }
+}
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////
+// check now playing -- this will be refactored to a different function
+////////////////////////////////////////////////////////////////////////////////////
+
+class CheckNowPlaying extends EventEmitter {
+  constructor() {
+    super();
+    this.statInterval();
+    this.nowPlaying = {
+      track: {
+        id: 0,
+        name: 'unknown(server)'
+      },
+      playlist: 'unknownPlaylist'
+    }
+    this.previousTrack = {
+      id: 99,
+      name: 'previous'
+    }
+  }
+    statInterval(){
+    const interval = setInterval(()=>{
+      const token = spotifyApi.getAccessToken()
+      if (token){
+        this.checkSong();
+      }
+    }, 1000);
+
+    // const clear = setTimeout(()=>{
+    //   clearTimeout(interval)
+    // }, 3000)
+  }
+  checkSong(){
+    this.remoteCheckCurrentPlayingTrack(this.nowPlaying.track, (nowPlaying, previous) => {
+        this.emit('songChange', nowPlaying, previous)
+        this.nowPlaying = nowPlaying;
+        this.previousTrack = previous;
+    });
+  }
+  remoteCheckCurrentPlayingTrack(previous, cb){
+    spotifyApi.getMyCurrentPlayingTrack({})
+    .then((result) => {
+      console.log('resutl from spotify')
+      console.log(result)
+      const track = {
+        id: result.item.id,
+        name: result.item.name
+      }
+      const playlist = result.context.uri.split('playlist:')[1];
+      const nowPlaying = {
+        track,
+        playlist
+      }
+      cb(nowPlaying, previous)
+    })
+  }
+}
+
+
+const checkNowPlaying = new CheckNowPlaying();
+
+
+export function remoteCheckNowPlaying(remotePlaylistID, userID){
+  return (dispatch) => {
+    checkNowPlaying.on('songChange', (nowPlaying, previous) => {
+      if ((nowPlaying.track.id !== previous.id) && (remotePlaylistID === nowPlaying.playlist)){
+        // update song in state
+        console.log('dispatching song change!')
+        dispatch(updateNowPlaying(nowPlaying.track));
+      }
+    })
   }
 }
