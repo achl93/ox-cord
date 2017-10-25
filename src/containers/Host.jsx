@@ -38,7 +38,12 @@ class Host extends Component {
      if (this.props.user !== 'empty') {
       return <Redirect to="/playlist"/>;
      }
-     return <div> Welcome! </div>
+     return (
+      <div>
+        <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+        <span class="sr-only">Loading...</span>
+      </div>
+     )
   }
 
   componentWillMount() {

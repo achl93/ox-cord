@@ -33,6 +33,7 @@ form {
 .title {
   font-family: 'Satisfy', sans-serif;
   text-align: center;
+  font-size: 3em;
 }
 
 span.list-group-item {
@@ -53,4 +54,8 @@ input.form-control {
 
 .artist {
   color: rgb(161, 161, 161);
+}
+
+.fa-circle-o-notch {
+  color: rgb(25, 162, 184);
 }
