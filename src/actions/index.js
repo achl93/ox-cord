@@ -277,13 +277,6 @@ export function voteSong(room_id, song_id) {
   }
 }
 
-
-
-
-
-
-
-
 ////////////////////////////////////////////////////////////////////////////////////
 // check now playing -- this will be refactored to a different function
 ////////////////////////////////////////////////////////////////////////////////////
@@ -311,11 +304,12 @@ class CheckNowPlaying extends EventEmitter {
         this.checkSong();
       }
     }, 1000);
+  }
 
     // const clear = setTimeout(()=>{
     //   clearTimeout(interval)
     // }, 3000)
-  }
+  // }
   checkSong(){
     this.remoteCheckCurrentPlayingTrack(this.nowPlaying.track, (nowPlaying, previous) => {
         this.emit('songChange', nowPlaying, previous)

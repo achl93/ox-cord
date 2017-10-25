@@ -55,8 +55,8 @@ class Songlist extends Component {
             <Col md={12}>
               <Row>
                 <Col md={12}>
-                  <div className='text-overflow float-left'>Lat: {this.props.coords.longitude}</div>
-                  <div className='text-overflow float-left'>Lng: {this.props.coords.latitude}</div>
+                  {/* <div className='text-overflow float-left'>Lat: {this.props.coords.longitude}</div>
+                  <div className='text-overflow float-left'>Lng: {this.props.coords.latitude}</div> */}
                   <Link to='/import' className='float-right'>
                     <Button bsClass="btn btn-outline-info" bsSize="small">Import Playlists</Button>
                   </Link>

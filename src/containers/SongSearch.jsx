@@ -36,9 +36,9 @@ class SongSearch extends Component {
                   />
                   <InputGroup.Button>
                     { this.state.term ? (
-                    <Button type='submit' bsClass="btn btn-outline-info" bsSize="small"><i class="fa fa-search" aria-hidden="true"></i></Button>
+                    <Button type='submit' bsClass="btn btn-outline-info" bsSize="small"><i className="fa fa-search" aria-hidden="true"></i></Button>
                     ) : (
-                    <Button type='submit' bsClass="btn btn-outline-secondary" bsSize="small" disabled><i class="fa fa-search" aria-hidden="true"></i></Button>
+                    <Button type='submit' bsClass="btn btn-outline-secondary" bsSize="small" disabled><i className="fa fa-search" aria-hidden="true"></i></Button>
                     )}
                   </InputGroup.Button>
                 </InputGroup>
