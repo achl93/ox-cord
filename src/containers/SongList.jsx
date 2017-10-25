@@ -32,7 +32,7 @@ class Songlist extends Component {
       if (Object.keys(this.props.songs).length !== 0) {
         return this.props.songs.map((song) => {
           return (
-            <Song key={song.id} song={song} remoteRemoveSongs={this.props.remoteRemoveSongs} user={this.props.user} remotePlaylist={this.props.remotePlaylist} />
+            <Song key={song.id} song={song} remoteRemoveSongs={this.props.remoteRemoveSongs} user={this.props.user} remotePlaylist={this.props.remotePlaylist} room={this.props.room} />
           )
         }
       );
@@ -84,7 +84,8 @@ function mapStateToProps(state) {
     token: state.token,
     user: state.user,
     remotePlaylist: state.remotePlaylist,
-    coords: state.coords
+    coords: state.coords,
+    room: state.room
   }
 }
 
