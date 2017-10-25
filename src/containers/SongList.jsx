@@ -26,13 +26,13 @@ class Songlist extends Component {
               <div className='text-overflow float-left'>Lat: {this.props.coords.longitude}</div>
               <div className='text-overflow float-left'>Lng: {this.props.coords.latitude}</div>
               <Link to='/import' className='float-right'>
-                <Button bsSize="small">Import Playlists</Button>
+                <Button bsClass="btn btn-outline-info" bsSize="small">Import Playlists</Button>
               </Link>
            </Col>
           </Row>
           <Row>
             <Col md={12}>
-              <h4 className='text-center'> My Songs </h4>
+              <h4 className='text-center'> Queue </h4>
               <ListGroup >
                 { this.props.songs.length === 0 && 
                   <ListGroupItem> Please add songs </ListGroupItem>

@@ -16,10 +16,10 @@ class PlayerControls extends Component {
       <Row>
         <Col md={12}>
           <ButtonToolbar bsClass='d-flex justify-content-around'>
-            <Button bsSize="small" onClick={() => this.onPlay()}>Play</Button>
-            <Button bsSize="small" onClick={() => this.startParty()}>Start Party </Button>
+            <Button bsClass="btn btn-outline-info" bsSize="small" onClick={() => this.onPlay()}><i class="fa fa-play" aria-hidden="true"></i></Button>
+            <Button bsClass="btn btn-outline-info" bsSize="small" onClick={() => this.startParty()}>Start Party! </Button>
             <Link to='/settings' className='float-right'>
-                <Button bsSize="small">Settings</Button>
+                <Button bsClass="btn btn-outline-info" bsSize="small"><i class="fa fa-wrench" aria-hidden="true"></i></Button>
             </Link>
           </ButtonToolbar>
         </Col>

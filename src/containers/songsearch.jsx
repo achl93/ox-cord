@@ -26,7 +26,6 @@ class SongSearch extends Component {
     return (
       <Row>
         <Col md={12}>
-        <h4 className='text-center'> Search </h4>
           <Row>
             <form onSubmit={this.onFormSubmit}>
               <FormGroup bsClass='form-group px-3'>
@@ -38,7 +37,7 @@ class SongSearch extends Component {
                     onChange={this.onInputChange}
                   />
                   <InputGroup.Button>
-                    <Button type='submit' bsSize="small">Search</Button>
+                    <Button type='submit' bsClass="btn btn-outline-info" bsSize="small"><i class="fa fa-search" aria-hidden="true"></i></Button>
                   </InputGroup.Button>
                 </InputGroup>
               </FormGroup>

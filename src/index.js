@@ -24,6 +24,7 @@ const store = createStore(reducers, applyMiddleware(ReduxPromise), window.__REDU
 
 ReactDOM.render(
   <Grid bsClass='container mt-5'>
+            <h1 class = "title">Ox Cord</h1>
       <Row bsClass='app-content mx-auto d-flex justify-content-center'>
           <Provider store={store}>
             <BrowserRouter>
