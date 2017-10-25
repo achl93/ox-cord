@@ -273,24 +273,15 @@ export function updateNowPlaying(nowPlaying) {
 }
 
 
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////
 // check now playing -- this will be refactored to a different function
-
-
-function remoteCheckCurrentPlayingTrack(previous, cb){
-  spotifyApi.getMyCurrentPlayingTrack({})
-  .then((result) => {
-    const track = {
-      id: result.item.id,
-      name: result.item.name
-    }
-    const playlist = result.context.uri.split('playlist:')[1];
-    const nowPlaying = {
-      track,
-      playlist
-    }
-    cb(nowPlaying, previous)
-  })
-}
+////////////////////////////////////////////////////////////////////////////////////
 
 class trackPlayStatus extends EventEmitter {
   constructor() {
@@ -301,7 +292,7 @@ class trackPlayStatus extends EventEmitter {
         id: 0,
         name: 'unknown(server)'
       },
-      playlist: '0v5AO6ONWuqz3t7Vo83u6d'
+      playlist: 'unknownPlaylist'
     }
     this.previousTrack = {
       id: 99,
@@ -321,11 +312,28 @@ class trackPlayStatus extends EventEmitter {
     // }, 3000)
   }
   checkSong(){
-    remoteCheckCurrentPlayingTrack(this.nowPlaying.track, (nowPlaying, previous) => {
+    this.remoteCheckCurrentPlayingTrack(this.nowPlaying.track, (nowPlaying, previous) => {
         this.emit('songChange', nowPlaying, previous)
         this.nowPlaying = nowPlaying;
         this.previousTrack = previous;
     });
+  }
+  remoteCheckCurrentPlayingTrack(previous, cb){
+    spotifyApi.getMyCurrentPlayingTrack({})
+    .then((result) => {
+      console.log('resutl from spotify')
+      console.log(result)
+      const track = {
+        id: result.item.id,
+        name: result.item.name
+      }
+      const playlist = result.context.uri.split('playlist:')[1];
+      const nowPlaying = {
+        track,
+        playlist
+      }
+      cb(nowPlaying, previous)
+    })
   }
 }
 
