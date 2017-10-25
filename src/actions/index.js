@@ -15,6 +15,7 @@ export const STORE_USER = 'STORE_USER';
 export const JOIN_ROOM = 'JOIN_ROOM';
 export const SET_SONGS = 'SET_SONGS';
 export const PLAYER_STATUS = 'PLAYER_STATUS';
+export const SET_VOTE = 'SET_VOTE';
 
 export function addSong(song) {
   return {
@@ -37,7 +38,7 @@ export function addSongs(tracks) {
   };
 }
 
-export function remoteAddSongs(userID, remotePlaylistID, tracks) {
+export function remoteAddSongs(userID, remotePlaylistID, tracks, room_id) {
   const tracksString = tracks.map((track) => {
     return `spotify:track:${track.id}`
   }).join();
@@ -45,13 +46,18 @@ export function remoteAddSongs(userID, remotePlaylistID, tracks) {
   return (dispatch) => {
     spotifyApi.addTracksToPlaylist(userID, remotePlaylistID, [tracksString])
       .then(() => {
-        console.log('song added successfully')
+        console.log('song added successfully');
+        socket.emit('add-song', {
+          room_id: room_id,
+          songObj: tracks
+        });
+        socket.emit('request-song-list', room_id);
         dispatch(addSongs(tracks));
       })
   }
 }
 
-export function remoteRemoveSongs(userID, remotePlaylistID, tracks) {
+export function remoteRemoveSongs(userID, remotePlaylistID, tracks, room_id) {
   const tracksString = tracks.map((track) => {
     return `spotify:track:${track.id}`
   }).join();
@@ -62,7 +68,12 @@ export function remoteRemoveSongs(userID, remotePlaylistID, tracks) {
   return (dispatch) => {
     spotifyApi.removeTracksFromPlaylist(userID, remotePlaylistID, [tracksString])
       .then(() => {
-        console.log('song removed successfully')
+        console.log('song removed successfully');
+        socket.emit('remove-song', {
+          room_id: room_id,
+          song_id: tracks[0].id
+        });
+        socket.emit('request-song-list', room_id);
         dispatch(removeSong(tracks[0].id)); // assumes only one song is being removed
       })
   }
@@ -270,3 +281,12 @@ export function getGeo(coords) {
     payload: coords
   }
 };
+
+export function voteSong(room_id, song_id) {
+  console.log(song_id, room_id);
+  socket.emit('add-vote', { room_id: room_id, song_id: song_id })
+  return {
+    type: SET_VOTE,
+    payload: {}
+  }
+}

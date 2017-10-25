@@ -49,16 +49,36 @@ io.on('connection', (socket) => {
   });
 
   socket.on('add-vote', (data) => {
-    if (SHOW_DEBUG) { console.log(' + Client voted on a song!') }
-    dataHelpers.incrementSongVote(data.room_id, data.song_id, (err, data) => {
-      io.sockets.emit('vote-added');
+    if (SHOW_DEBUG) { console.log(' + Client voted on a song!', data) }
+    dataHelpers.incrementSongVote(data.room_id, data.song_id, (err, res) => {
+      dataHelpers.getSongsFromRoomID(data.room_id, (err, songs) => {
+        io.to(data.room_id).emit('song-list-sent', songs);
+      });
+    });
+  });
+
+  socket.on('add-song', (data) => {
+    if (SHOW_DEBUG) { console.log(' + Host added a song!', data) }
+    dataHelpers.addSongToPlaylist(data.songObj[0], data.room_id, (err, res) => {
+      dataHelpers.getSongsFromRoomID(data.room_id, (err, songs) => {
+        io.to(data.room_id).emit('song-list-sent', songs);
+      });
+    });
+  });
+
+  socket.on('remove-song', (data) => {
+    if (SHOW_DEBUG) { console.log(' + Host removed a song!', data) }
+    dataHelpers.removeSongFromPlaylist(data.song_id, data.room_id, (err, res) => {
+      dataHelpers.getSongsFromRoomID(data.room_id, (err, songs) => {
+        io.to(data.room_id).emit('song-list-sent', songs);
+      });
     });
   });
 
   socket.on('request-song-list', (room_id) => {
     if (SHOW_DEBUG) { console.log(' + Client requested a song list!') }
     dataHelpers.getSongsFromRoomID(room_id, (err, songs) => {
-      io.sockets.emit('song-list-sent', songs);
+      io.to(room_id).emit('song-list-sent', songs);
     });
   });
 

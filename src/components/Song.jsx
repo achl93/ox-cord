@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { ListGroupItem, Button } from 'react-bootstrap';
+// import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
 
 export default class Song extends Component {
   render() {
@@ -13,6 +15,18 @@ export default class Song extends Component {
   }
 
   onHandleClick() {
-    this.props.remoteRemoveSongs(this.props.user.id, this.props.remotePlaylist.id, [this.props.song])
+    this.props.remoteRemoveSongs(this.props.user.id, this.props.remotePlaylist.id, [this.props.song], this.props.room)
   }
 }
+
+// function mapStateToProps(state) {
+//   return {
+//     songs: state.songs
+//   }
+// }
+
+// function mapDispatchToProps(dispatch) {
+//   return bindActionCreators({}, dispatch)
+// }
+
+// export default connect(mapStateToProps, mapDispatchToProps)(Song);

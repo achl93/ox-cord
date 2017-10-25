@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { remoteRemoveSongs, remoteCheckRemotePlaylists, importPlaylist } from '../actions/index';
+import { remoteRemoveSongs, remoteCheckRemotePlaylists, importPlaylist, setSongs } from '../actions/index';
 import { Row, Col, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 import Song from '../components/Song';
+import socket from '../lib/SocketAPI';
 
 class Songlist extends Component {
   constructor(props){
     super(props);
+    // socket.emit('request-song-list', this.props.room);
+    socket.on('song-list-sent', (songs) => {
+      this.props.setSongs(songs);
+    });
     this.state = {
       imported: false
     }
@@ -23,16 +28,18 @@ class Songlist extends Component {
     }
   }
   renderSongs() {
-    if (Object.keys(this.props.songs).length !== 0) {
-      return this.props.songs.map((song) => {
-        return (
-          <Song key={song.id} song={song} remoteRemoveSongs={this.props.remoteRemoveSongs} user={this.props.user} remotePlaylist={this.props.remotePlaylist} />
-        )
-      }
-    );
+    if (this.props.songs !== null && this.props.songs !== undefined) {
+      if (Object.keys(this.props.songs).length !== 0) {
+        return this.props.songs.map((song) => {
+          return (
+            <Song key={song.id} song={song} remoteRemoveSongs={this.props.remoteRemoveSongs} user={this.props.user} remotePlaylist={this.props.remotePlaylist} room={this.props.room} />
+          )
+        }
+      );
     } else {
       return (<ListGroupItem> No songs added </ListGroupItem>)
     }
+  }
   }
 
   render () {
@@ -77,12 +84,13 @@ function mapStateToProps(state) {
     token: state.token,
     user: state.user,
     remotePlaylist: state.remotePlaylist,
-    coords: state.coords
+    coords: state.coords,
+    room: state.room
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ remoteRemoveSongs, remoteCheckRemotePlaylists, importPlaylist }, dispatch)
+  return bindActionCreators({ remoteRemoveSongs, remoteCheckRemotePlaylists, importPlaylist, setSongs }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Songlist);
