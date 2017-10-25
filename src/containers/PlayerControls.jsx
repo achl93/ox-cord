@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row, Col, Button, ButtonToolbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { remotePlay, remotePause, remoteStartPlaylist, remoteSkip, removeSong } from '../actions/index';
+import { remotePlay, remotePause, remoteStartPlaylist, remoteSkip, removeSong, joinRoom } from '../actions/index';
 
 import socket from '../lib/SocketAPI';
 
@@ -49,6 +49,7 @@ class PlayerControls extends Component {
       playlist: this.props.songs,
       auth_token: this.props.token
     });
+    this.props.joinRoom(socket.id);
   }
   // onPlay(e) {
   //   if (this.props.songs[0]) {
@@ -72,7 +73,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ remotePlay, remotePause, remoteStartPlaylist, remoteSkip, removeSong }, dispatch)
+  return bindActionCreators({ remotePlay, remotePause, remoteStartPlaylist, remoteSkip, removeSong, joinRoom }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayerControls)
