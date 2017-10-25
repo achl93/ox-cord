@@ -16,19 +16,19 @@ class PlayerControls extends Component {
           <Row>
             <Col md={12}>
               <ButtonToolbar bsClass='d-flex justify-content-around'>
-                <Button bsSize="small" onClick={() => this.props.remoteStartPlaylist(this.props.user.id, this.props.remotePlaylist.id)}>Begin</Button>
-                <Button bsSize="small" onClick={() => this.props.remotePlay()}>Play</Button>
-                <Button bsSize="small" onClick={() => this.props.remotePause()}>Pause</Button>
-                <Button bsSize="small" onClick={() => this.props.remoteSkip()}>Next</Button>
+                <Button bsClass= "btn btn-outline-info" bsSize="small" onClick={() => this.props.remoteStartPlaylist(this.props.user.id, this.props.remotePlaylist.id)}>Begin</Button>
+                <Button bsClass="btn btn-outline-info" bsSize="small" onClick={() => this.props.remotePlay()}><i class="fa fa-play" aria-hidden="true"></i></Button>
+                <Button bsClass= "btn btn-outline-info" bsSize="small" onClick={() => this.props.remotePause()}><i class="fa fa-pause" aria-hidden="true"></i></Button>
+                <Button bsClass= "btn btn-outline-info" bsSize="small" onClick={() => this.props.remoteSkip()}><i class="fa fa-step-forward" aria-hidden="true"></i></Button>
               </ButtonToolbar>
             </Col>
           </Row>
           <Row>
             <Col md={12}>
               <ButtonToolbar bsClass='d-flex justify-content-around'>
-                <Button bsSize="small" onClick={() => this.startParty()}>Start Party </Button>
+                <Button bsClass="btn btn-outline-info" bsSize="small" onClick={() => this.startParty()}>Start Party </Button>
                 <Link to='/settings' className='float-right'>
-                    <Button bsSize="small">Settings</Button>
+                    <Button bsClass= "btn btn-outline-info" bsSize="small"><i class="fa fa-wrench" aria-hidden="true"></i></Button>
                 </Link>
               </ButtonToolbar>
             </Col>
