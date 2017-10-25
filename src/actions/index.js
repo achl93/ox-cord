@@ -1,6 +1,6 @@
 import socket from '../lib/SocketAPI';
 import SpotifyWebApi from 'spotify-web-api-js';
-import checkNowPlaying from '../lib/trackPlayStatus';
+import EventEmitter from 'events';
 
 const spotifyApi = new SpotifyWebApi();
 
@@ -55,6 +55,7 @@ export function remoteAddSongs(userID, remotePlaylistID, tracks) {
 }
 
 export function remoteRemoveSongs(userID, remotePlaylistID, tracks) {
+  console.log('removing song!')
   const tracksString = tracks.map((track) => {
     return `spotify:track:${track.id}`
   }).join();
@@ -104,8 +105,6 @@ export function remoteGetUserPlaylists(userID) {
 };
 
 export function checkRemotePlaylist(remotePlaylist) {
-  console.log('event triggered checkRemotePlaylist');
-  console.log(remotePlaylist)
   return {
     type: UPDATE_REMOTE,
     payload: remotePlaylist
@@ -274,17 +273,72 @@ export function updateNowPlaying(nowPlaying) {
 }
 
 
-// checking code
+// check now playing -- this will be refactored to a different function
 
-// currentSongChecker((nowPlaying)=>{
-//   console.log('checker triggerd in actions')
-//   console.log('track ID:', nowPlaying)
-//   updateNowPlaying(nowPlaying)
-// })
-export function remoteCheckNowPlaying(currentSongID, remotePlaylistID){
+
+function remoteCheckCurrentPlayingTrack(previous, cb){
+  spotifyApi.getMyCurrentPlayingTrack({})
+  .then((result) => {
+    const track = {
+      id: result.item.id,
+      name: result.item.name
+    }
+    const playlist = result.context.uri.split('playlist:')[1];
+    const nowPlaying = {
+      track,
+      playlist
+    }
+    cb(nowPlaying, previous)
+  })
+}
+
+class trackPlayStatus extends EventEmitter {
+  constructor() {
+    super();
+    this.statInterval();
+    this.nowPlaying = {
+      track: {
+        id: 0,
+        name: 'unknown(server)'
+      },
+      playlist: '0v5AO6ONWuqz3t7Vo83u6d'
+    }
+    this.previousTrack = {
+      id: 99,
+      name: 'previous'
+    }
+  }
+    statInterval(){
+    const interval = setInterval(()=>{
+      const token = spotifyApi.getAccessToken()
+      if (token){
+        this.checkSong();
+      }
+    }, 1000);
+
+    // const clear = setTimeout(()=>{
+    //   clearTimeout(interval)
+    // }, 3000)
+  }
+  checkSong(){
+    remoteCheckCurrentPlayingTrack(this.nowPlaying.track, (nowPlaying, previous) => {
+        this.emit('songChange', nowPlaying, previous)
+        this.nowPlaying = nowPlaying;
+        this.previousTrack = previous;
+    });
+  }
+}
+
+
+const checkNowPlaying = new trackPlayStatus();
+
+
+export function remoteCheckNowPlaying(remotePlaylistID, userID){
   return (dispatch) => {
-    checkNowPlaying.on('songChange', (nowPlaying) => {
-      if ((nowPlaying.track.id !== currentSongID) && (remotePlaylistID === nowPlaying.playlist)){
+    checkNowPlaying.on('songChange', (nowPlaying, previous) => {
+      if ((nowPlaying.track.id !== previous.id) && (remotePlaylistID === nowPlaying.playlist)){
+        // update song in state
+        console.log('dispatching song change!')
         dispatch(updateNowPlaying(nowPlaying.track));
       }
     })
