@@ -9,9 +9,13 @@ module.exports = function dataHelpers(db) {
     },
 
     addSongToPlaylist: function (songObj, room_id, callback) {
-      console.log('PARMAMAMAMAMAMAM', room_id);
       db.collection("rooms").update({"room_id": room_id}, { "$push": { "playlist": songObj }}, (err, data) => {
-        console.log("Attempted addSongToPlaylist", songObj, room_id);
+        callback(err, data);
+      });
+    },
+
+    removeSongFromPlaylist: function (song_id, room_id, callback) {
+      db.collection("rooms").update({"room_id": room_id}, { "$pull": { "playlist": { "id": song_id }}}, (err, data) => {
         callback(err, data);
       });
     },
