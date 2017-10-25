@@ -37,7 +37,11 @@ class SongSearch extends Component {
                     onChange={this.onInputChange}
                   />
                   <InputGroup.Button>
+                    { this.state.term ? (
                     <Button type='submit' bsClass="btn btn-outline-info" bsSize="small"><i class="fa fa-search" aria-hidden="true"></i></Button>
+                    ) : (
+                    <Button type='submit' bsClass="btn btn-outline-secondary" bsSize="small" disabled><i class="fa fa-search" aria-hidden="true"></i></Button>
+                    )}
                   </InputGroup.Button>
                 </InputGroup>
               </FormGroup>
@@ -57,14 +61,10 @@ class SongSearch extends Component {
   }
   onFormSubmit(event){
     event.preventDefault();
-    if (this.state.term === '') {
-      alert("Please enter the name of an artist or song!");
-    } else {
     this.props.searchSongs(this.state.term);
     this.setState({
       term: ''
     });
-  };
   }
   onInputChange(event) {
     this.setState({
