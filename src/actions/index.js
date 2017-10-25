@@ -50,7 +50,6 @@ export function remoteAddSongs(userID, remotePlaylistID, tracks, room_id) {
   return (dispatch) => {
     spotifyApi.addTracksToPlaylist(userID, remotePlaylistID, [tracksString])
       .then(() => {
-        console.log('song added successfully');
         socket.emit('add-song', {
           room_id: room_id,
           songObj: tracks
@@ -61,23 +60,19 @@ export function remoteAddSongs(userID, remotePlaylistID, tracks, room_id) {
   }
 }
 
-export function remoteRemoveSongs(userID, remotePlaylistID, tracks /*, room_id*/) {
+export function remoteRemoveSongs(userID, remotePlaylistID, tracks , room_id) {
   const tracksString = tracks.map((track) => {
     return `spotify:track:${track.id}`
   }).join();
-  console.log('making api request')
-  console.log('user:', userID)
-  console.log('playlist:', remotePlaylistID)
-  console.log('tracks:', tracksString)
   return (dispatch) => {
     spotifyApi.removeTracksFromPlaylist(userID, remotePlaylistID, [tracksString])
       .then(() => {
         console.log('song removed successfully');
-        // socket.emit('remove-song', {
-        //   room_id: room_id,
-        //   song_id: tracks[0].id
-        // });
-        //socket.emit('request-song-list', room_id);
+        socket.emit('remove-song', {
+          room_id: room_id,
+          song_id: tracks[0].id
+        });
+        socket.emit('request-song-list', room_id);
         dispatch(removeSong(tracks[0].id)); // assumes only one song is being removed
       })
   }
@@ -131,7 +126,6 @@ export function importPlaylist(userID, playlistID) {
 };
 
 export function remoteCheckRemotePlaylists(userID) {
-  console.log('event triggered remoteCheckRemotePlaylist');
   return (dispatch) => {
     spotifyApi.getUserPlaylists(userID).then((results) => {
       // check for name 'Oxcord'
@@ -154,8 +148,6 @@ export function remoteCheckRemotePlaylists(userID) {
 }
 
 export function createRemotePlaylist(newRemotePlaylist) {
-  console.log('event triggered createRemotePlaylist');
-  console.log(newRemotePlaylist)
   return {
     type: UPDATE_REMOTE,
     payload: newRemotePlaylist
@@ -163,7 +155,6 @@ export function createRemotePlaylist(newRemotePlaylist) {
 };
 
 export function remoteCreateRemotePlaylist(userID) {
-  console.log('event triggered remoteCreateRemotePlaylist');
   return (dispatch) => {
   spotifyApi.createPlaylist(userID, {name: 'Oxcord', public: true, description: 'Playlist created by Oxcord'})
     .then((createdPlaylist) => {
@@ -178,7 +169,6 @@ export function remoteCreateRemotePlaylist(userID) {
 
 // start remote playlist from beginning
 export function remoteStartPlaylist(userID, remotePlaylistID) {
-  console.log('sending start playlist request')
   const context_uri = `spotify:user:${userID}:playlist:${remotePlaylistID}`;
   return (dispatch) => {
     spotifyApi.play({context_uri})
@@ -191,7 +181,6 @@ export function remoteStartPlaylist(userID, remotePlaylistID) {
 
 // start or resume playback
 export function play() {
-  console.log('play successful')
   return {
     type: PLAYER_STATUS,
     payload: 'PLAY'
@@ -199,7 +188,6 @@ export function play() {
 };
 
 export function remotePlay() {
-  console.log('sending play request')
   return (dispatch) => {
     spotifyApi.play({})
     .then(() => {
@@ -210,7 +198,6 @@ export function remotePlay() {
 
 // start or resume playback
 export function pause() {
-  console.log('pause successful')
   return {
     type: PLAYER_STATUS,
     payload: 'PAUSE'
@@ -218,7 +205,6 @@ export function pause() {
 };
 
 export function remotePause() {
-  console.log('sending play request')
   return (dispatch) => {
     spotifyApi.pause({})
     .then(() => {
@@ -228,7 +214,6 @@ export function remotePause() {
 };
 
 export function skip() {
-  console.log('skip successful')
   return {
     type: PLAYER_STATUS,
     payload: 'PLAY'
@@ -236,7 +221,6 @@ export function skip() {
 };
 
 export function remoteSkip() {
-  console.log('sending skip request')
   return (dispatch) => {
     spotifyApi.skipToNext({})
       .then(() => {
@@ -286,7 +270,6 @@ export function updateNowPlaying(nowPlaying) {
 
 
 export function voteSong(room_id, song_id) {
-  console.log(song_id, room_id);
   socket.emit('add-vote', { room_id: room_id, song_id: song_id })
   return {
     type: SET_VOTE,
@@ -366,11 +349,8 @@ export function remoteCheckNowPlaying(remotePlaylistID, userID){
   return (dispatch) => {
     checkNowPlaying.on('songChange', (nowPlaying, previous) => {
       if ((nowPlaying.track.id !== previous.id) && (remotePlaylistID === nowPlaying.playlist)){
-        console.log('dispatching song change!')
         dispatch(updateNowPlaying(nowPlaying.track));
-        //removeTracksFromPlaylist(userID, remotePlaylistID, [tracksString])
-        //remoteRemoveSongs(userID, remotePlaylistID, tracks /*, room_id*/)
-        dispatch(remoteRemoveSongs(userID, remotePlaylistID, [previous]))
+        dispatch(remoteRemoveSongs(userID, remotePlaylistID, [previous], ''))
       }
     })
   }
