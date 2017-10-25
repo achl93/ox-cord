@@ -42,7 +42,7 @@ class PlayerControls extends Component {
     socket.emit('create-room', {
       room_id: this.props.user.id,
       uid: socket.id,
-      name: `${this.props.user.display_name ? this.props.user.display_name : this.props.user.id}'s Playlist'`,
+      name: `${this.props.user.display_name ? this.props.user.display_name : this.props.user.id}'s Playlist`,
       active: true,
       lastActive: Date.now(),
       geolocation: this.props.coords,

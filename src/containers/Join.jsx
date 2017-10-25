@@ -52,11 +52,11 @@ class Join extends Component {
       });
       return (
         // this is pretty much not required
-        <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+        <i className="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
       )
     } else if (this.props.coords.longitude === 0 && this.props.coords.latitude === 0){
       return (
-        <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+        <i className="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
       )
     }
       else {

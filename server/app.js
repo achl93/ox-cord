@@ -87,7 +87,7 @@ io.on('connection', (socket) => {
   socket.on('request-active-rooms', (coordsObj) => {
     if (SHOW_DEBUG) { console.log(' + Client requested an active room list!', coordsObj) }
     dataHelpers.getActiveRooms((err, rooms) => {
-      let nearbyRooms = rooms.map((room) => {
+      let nearbyRooms = rooms.filter((room) => {
         if (distanceInKmBetweenEarthCoordinates(room.geolocation.latitude, room.geolocation.longitude, coordsObj.latitude, coordsObj.longitude) <= 0.5) {
           return room;
         }
