@@ -20,7 +20,6 @@ export default function(state = INITIAL, action) {
     //   }
     case ADD_SONG:
       return [...state, action.payload]
-
     case IMPORT_PLAYLIST:
       const importedTracks = action.payload.items.map((result) => {
         return {
@@ -30,11 +29,10 @@ export default function(state = INITIAL, action) {
           votes: 0
         }
       } );
-      return [state, ...importedTracks];  
+      return importedTracks;  
     case REMOVE_SONG:
       return state.filter(song => song.id !== action.payload);
     case SET_SONGS:
-    // console.log("HIIIIIIIIII", action.payload);
       return action.payload;
     case SET_VOTE:
       return state;
