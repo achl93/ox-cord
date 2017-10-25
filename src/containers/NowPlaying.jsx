@@ -2,18 +2,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row } from 'react-bootstrap';
-
+import { remoteCheckNowPlaying } from '../actions/index';
 class NowPlaying extends Component {
+  constructor(props) {
+    super(props)
+    this.props.remoteCheckNowPlaying(this.props.remotePlaylist.id, this.props.user.id);
+  }
   currentSong() {
-    if (this.props.songs !== null) {
-      if (this.props.songs[0] !== undefined) {
-        return (
-          <Row >
-            {<h3>Now Playing: {this.props.songs[0].name}</h3>}
-          </Row>
-        );
-      }
-    } else {
+    if (this.props.nowPlaying.name) {
+    return (
+      <Row >
+        {<h3>Now Playing: {this.props.nowPlaying.name}</h3>}
+      </Row>
+    );
+  } else {
       return (
         <Row >
           {<h3>Now Playing: No Songs</h3>}
@@ -33,12 +35,15 @@ class NowPlaying extends Component {
 
 function mapStateToProps(state) {
   return {
-    songs: state.songs
+    user: state.user,
+    songs: state.songs,
+    nowPlaying: state.nowPlaying,
+    remotePlaylist: state.remotePlaylist
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({})
+  return bindActionCreators({remoteCheckNowPlaying}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NowPlaying);

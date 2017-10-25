@@ -20,6 +20,7 @@ import Playlist from './components/Playlist';
 import Settings from './components/Settings';
 import UserPlaylist from './components/UserPlaylist';
 import PlaylistImport from './containers/PlaylistImport';
+import Test from './containers/Test';
 
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -41,6 +42,7 @@ ReactDOM.render(
                 <Route path='/import' component={PlaylistImport} />
                 <Route path='/host' component={Host} />
                 <Route path='/create' component={Create} />
+                <Route path='/test' component={Test} />
                 <Route path='/' component={Home} />
               </Switch>
             </BrowserRouter>
