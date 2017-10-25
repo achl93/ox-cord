@@ -1,6 +1,7 @@
 import socket from '../lib/SocketAPI';
 import SpotifyWebApi from 'spotify-web-api-js';
 import EventEmitter from 'events';
+// import CheckNowPlaying from '../lib/CheckNowPlaying';
 
 const spotifyApi = new SpotifyWebApi();
 
@@ -283,7 +284,7 @@ export function updateNowPlaying(nowPlaying) {
 // check now playing -- this will be refactored to a different function
 ////////////////////////////////////////////////////////////////////////////////////
 
-class trackPlayStatus extends EventEmitter {
+class CheckNowPlaying extends EventEmitter {
   constructor() {
     super();
     this.statInterval();
@@ -338,7 +339,7 @@ class trackPlayStatus extends EventEmitter {
 }
 
 
-const checkNowPlaying = new trackPlayStatus();
+const checkNowPlaying = new CheckNowPlaying();
 
 
 export function remoteCheckNowPlaying(remotePlaylistID, userID){

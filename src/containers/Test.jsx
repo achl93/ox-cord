@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import currentSongChecker from '../lib/trackPlayStatus';
 import { connect } from 'react-redux';
 import { updateNowPlaying } from '../actions/index';
 
