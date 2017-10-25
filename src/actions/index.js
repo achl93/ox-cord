@@ -6,7 +6,7 @@ import EventEmitter from 'events';
 const spotifyApi = new SpotifyWebApi();
 
 export const ADD_SONG = 'ADD_SONG';
-export const ADD_SONGS = 'ADD_SONGS';
+// export const ADD_SONGS = 'ADD_SONGS';
 export const IMPORT_PLAYLIST = 'IMPORT_PLAYLIST';
 export const UPDATE_REMOTE = 'UPDATE_REMOTE';
 export const REMOVE_SONG = 'REMOVE_SONG';
@@ -19,12 +19,13 @@ export const JOIN_ROOM = 'JOIN_ROOM';
 export const SET_SONGS = 'SET_SONGS';
 export const PLAYER_STATUS = 'PLAYER_STATUS';
 export const UPDATE_NOW_PLAYING = 'UPDATE_NOW_PLAYING';
+export const SET_VOTE = 'SET_VOTE';
 
 export function addSong(song) {
   return {
     type: ADD_SONG,
     payload: song
-  };
+  }
 }
 
 export function setSongs(songs) {
@@ -34,14 +35,14 @@ export function setSongs(songs) {
   }
 }
 
-export function addSongs(tracks) {
-  return {
-    type: ADD_SONGS,
-    payload: tracks
-  };
-}
+// export function addSongs(tracks) {
+//   return {
+//     type: ADD_SONGS,
+//     payload: tracks
+//   };
+// }
 
-export function remoteAddSongs(userID, remotePlaylistID, tracks) {
+export function remoteAddSongs(userID, remotePlaylistID, tracks, room_id) {
   const tracksString = tracks.map((track) => {
     return `spotify:track:${track.id}`
   }).join();
@@ -49,14 +50,18 @@ export function remoteAddSongs(userID, remotePlaylistID, tracks) {
   return (dispatch) => {
     spotifyApi.addTracksToPlaylist(userID, remotePlaylistID, [tracksString])
       .then(() => {
-        console.log('song added successfully')
-        dispatch(addSongs(tracks));
+        console.log('song added successfully');
+        socket.emit('add-song', {
+          room_id: room_id,
+          songObj: tracks
+        });
+        socket.emit('request-song-list', room_id);
+        dispatch(addSong(tracks[0]));
       })
   }
 }
 
-export function remoteRemoveSongs(userID, remotePlaylistID, tracks) {
-  console.log('removing song!')
+export function remoteRemoveSongs(userID, remotePlaylistID, tracks, room_id) {
   const tracksString = tracks.map((track) => {
     return `spotify:track:${track.id}`
   }).join();
@@ -67,7 +72,12 @@ export function remoteRemoveSongs(userID, remotePlaylistID, tracks) {
   return (dispatch) => {
     spotifyApi.removeTracksFromPlaylist(userID, remotePlaylistID, [tracksString])
       .then(() => {
-        console.log('song removed successfully')
+        console.log('song removed successfully');
+        socket.emit('remove-song', {
+          room_id: room_id,
+          song_id: tracks[0].id
+        });
+        socket.emit('request-song-list', room_id);
         dispatch(removeSong(tracks[0].id)); // assumes only one song is being removed
       })
   }
@@ -272,6 +282,19 @@ export function updateNowPlaying(nowPlaying) {
     payload: nowPlaying
   }
 }
+
+
+
+export function voteSong(room_id, song_id) {
+  console.log(song_id, room_id);
+  socket.emit('add-vote', { room_id: room_id, song_id: song_id })
+  return {
+    type: SET_VOTE,
+    payload: {}
+  }
+}
+
+
 
 
 

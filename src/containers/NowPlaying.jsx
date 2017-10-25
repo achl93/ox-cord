@@ -9,7 +9,7 @@ class NowPlaying extends Component {
     this.props.remoteCheckNowPlaying(this.props.remotePlaylist.id, this.props.user.id);
   }
   currentSong() {
-    if (this.props.nowPlaying.name !== undefined) {
+    if (this.props.nowPlaying.name) {
     return (
       <Row >
         {<h3>Now Playing: {this.props.nowPlaying.name}</h3>}
@@ -21,8 +21,8 @@ class NowPlaying extends Component {
           {<h3>Now Playing: No Songs</h3>}
         </Row>
       )
-    };
-  }
+    }
+}
 
   render () {
     return (
