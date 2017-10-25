@@ -46,10 +46,7 @@ class trackPlayStatus extends EventEmitter {
   }
   checkSong(){
     remoteCheckCurrentPlayingTrack((nowPlaying) => {
-      console.log('Now playing in class', nowPlaying.track)
-      console.log('This Now playing in class', this.nowPlaying.track)
       if (nowPlaying.track.id !== this.nowPlaying.track.id){
-        console.log('song change detected')
         this.emit('songChange', nowPlaying)
         this.nowPlaying = nowPlaying;
       }

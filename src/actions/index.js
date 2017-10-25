@@ -284,9 +284,6 @@ export function updateNowPlaying(nowPlaying) {
 export function remoteCheckNowPlaying(currentSongID, remotePlaylistID){
   return (dispatch) => {
     checkNowPlaying.on('songChange', (nowPlaying) => {
-      console.log('Dispatch trackID:', nowPlaying.track.id )
-      console.log('Dispatch playlist ID', nowPlaying.playlistID)
-      console.log('remote playlist id', remotePlaylistID)
       if ((nowPlaying.track.id !== currentSongID) && (remotePlaylistID === nowPlaying.playlist)){
         dispatch(updateNowPlaying(nowPlaying.track));
       }
