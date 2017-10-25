@@ -23,8 +23,8 @@ class Playlist extends Component {
               <SongSearch />
               <PlayerControls />
             </Col>
-          </Row>
-        </main>
+          </Row> 
+        </main>   
       )
     }
   }

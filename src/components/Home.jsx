@@ -7,18 +7,18 @@ export default class Home extends Component {
     return (
       // Route login button to Spotify login endpoint
       // then when they come back, redirect to playlist
-      <div className='row w-100 border'>
+      <div className='row w-25 border'>
         <div className='col-md-4 mx-auto'>
           <div className='row'>
             <a href='http://localhost:8888/login' className='w-100 mt-3'>
-              <Button bsStyle="default" bsSize="large" block>
+              <Button bsClass="btn btn-outline-info btn-block" block>
                 Host
               </Button>
             </a>
           </div>
           <div className='row'>
             <Link to='/join' className='w-100 mt-3'>
-              <Button bsStyle="default" bsSize="large" block>
+              <Button bsClass="btn btn-outline-info btn-block" block>
                 Join
               </Button>
             </Link>

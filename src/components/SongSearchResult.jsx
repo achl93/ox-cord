@@ -5,7 +5,10 @@ export default class SongSearchResult extends Component {
 
   render() {
     return (
-      <ListGroupItem>{ this.props.song.name } - ({ this.props.song.artist }) <Button bsClass='btn btn-sm float-right' onClick={()=>{this.onHandleClick()}}>+</Button></ListGroupItem>
+      <ListGroupItem>
+      <h5>{ this.props.song.name } <Button bsClass='btn btn-sm btn-outline-success badge float-right addButton' onClick={()=>{this.onHandleClick()}}><i class="fa fa-plus" aria-hidden="true"></i></Button></h5> 
+      <p class= "artist">{ this.props.song.artist }</p>
+      </ListGroupItem>
     )
   }
 

@@ -30,7 +30,7 @@ class PlaylistImport extends Component {
               {this.renderPlaylists()}
             </ListGroup>
             <Link to='/playlist'>
-              <Button bsSize='small'>
+              <Button  bsSize='small'>
                 View Songs
               </Button>
             </Link>
