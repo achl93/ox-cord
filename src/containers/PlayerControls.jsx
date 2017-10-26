@@ -49,7 +49,8 @@ class PlayerControls extends Component {
       playlist: this.props.songs,
       auth_token: this.props.token
     });
-    this.props.joinRoom(socket.id);
+    this.props.joinRoom(this.props.user.id);
+    // socket.emit('add-song-to-archive', { room_id: 'q6tubv3icueaamst4xw6h7go2', song_id: '3ZFTkvIE7kyPt6Nu3PEa7V' });
   }
   // onPlay(e) {
   //   if (this.props.songs[0]) {
