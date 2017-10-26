@@ -14,6 +14,12 @@ module.exports = function dataHelpers(db) {
       });
     },
 
+    addSongToArchive: function (songObj, room_id, callback) {
+      db.collection("rooms").update({"room_id": room_id}, { "$push": { "archive": songObj }}, (err, data) => {
+        callback(err, data);
+      });
+    },
+
     removeSongFromPlaylist: function (song_id, room_id, callback) {
       db.collection("rooms").update({"room_id": room_id}, { "$pull": { "playlist": { "id": song_id }}}, (err, data) => {
         callback(err, data);
@@ -28,9 +34,6 @@ module.exports = function dataHelpers(db) {
       db.collection("rooms").find({"active": true}, {_id: 1, "room_id": 1, "name": 1, "geolocation": 1}).toArray(callback);
     },
 
-    getActiveRoomsNearby: function (coords, callback) {
-      //
-    },
 
     getSongsFromRoomID: function(room_id, callback) {
       db.collection("rooms").find({"room_id": room_id}, {_id: 0, "playlist": 1})
@@ -39,6 +42,10 @@ module.exports = function dataHelpers(db) {
           items.forEach((item) => songsArray.push(item.playlist));
           callback(err, songsArray[0]);
         });
+    },
+
+    getSongFromRoomID: function(song_id, room_id, callback) {
+      db.collection("rooms").find({"room_id": room_id, "playlist.id": song_id}).toArray(callback);
     },
 
     incrementSongVote: function(room_id, song_id, callback) {

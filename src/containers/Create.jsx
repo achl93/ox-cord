@@ -11,23 +11,19 @@ class Create extends Component {
       return <Redirect to="/playlist"/>;
      } else {
           return (
-                <Row bsClass='row w-100 border'>
+                <Row bsClass=' text-center row w-50 border'>
                   <Col md={12}>
-                    <h4> Create </h4>
                     {
                       (!this.props.remotePlaylist.exists)
                       && (
                         <div>
-                          <div> Public Playlist named 'Oxcord Not found on your acount' </div>
-                          <Button  onClick={()=>{this.onCreateRemote()}}>
+                          <div> Public Playlist 'Oxcord' not found on your acount </div>
+                          <Button bsClass= "m-2 btn btn-outline-success"  onClick={()=>{this.onCreateRemote()}}>
                             Create
                           </Button>
                         </div>
                       )
                     }
-                    <Link to='/playlist'>
-                      playlist
-                      </Link>
 
                   </Col>
                 </Row>
