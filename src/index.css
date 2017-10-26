@@ -11,6 +11,11 @@ html {
 #root {
   background-color: rgb(32, 32, 32);
   color: rgb(243, 243, 243);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
 }
 
 div[class*='row'] {
@@ -18,7 +23,7 @@ div[class*='row'] {
   background-color: rgb(43, 42, 42);
   color: rgb(243, 243, 243);
   font-family: "Noto sans";
-  max-height: 50em;
+  max-height: 40em;
   overflow: auto;
 }
 
