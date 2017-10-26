@@ -81,12 +81,13 @@ io.on('connection', (socket) => {
     dataHelpers.getSongFromRoomID(data.song_id, data.room_id, (err, res) => {
       if (res[0] !== undefined) {
         dataHelpers.addSongToArchive(res[0].playlist[0], data.room_id, (err, res) => {
-          dataHelpers.removeSongFromPlaylist(data.song_id, data.room_id, (err, res) => {
-            dataHelpers.getSongsFromRoomID(data.room_id, (err, songs) => {
-              console.log('SENDING SONG LIST', data.room_id, data.song_id);
-              io.to(data.room_id).emit('song-list-sent', songs);
-            });
-          });
+          console.log('HIIIIII');
+          // dataHelpers.removeSongFromPlaylist(data.song_id, data.room_id, (err, res) => {
+            // dataHelpers.getSongsFromRoomID(data.room_id, (err, songs) => {
+            //   console.log('SENDING SONG LIST', data.room_id, data.song_id);
+            //   io.to(data.room_id).emit('song-list-sent', songs);
+            // });
+          // });
         });
       }
     });
