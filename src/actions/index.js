@@ -364,12 +364,10 @@ class CheckNowPlaying extends EventEmitter {
         if (!result.item){
           return;
         }
-
         const track = {
           id: result.item.id,
           name: result.item.name
         }
-        console.log()
         const playlist = result.context.uri.split('playlist:')[1];
         const nowPlaying = {
           track,
