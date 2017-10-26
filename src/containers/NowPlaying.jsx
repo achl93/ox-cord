@@ -6,7 +6,7 @@ import { remoteCheckNowPlaying } from '../actions/index';
 class NowPlaying extends Component {
   constructor(props) {
     super(props)
-    this.props.remoteCheckNowPlaying(this.props.remotePlaylist.id, this.props.user.id);
+    this.props.remoteCheckNowPlaying(this.props.remotePlaylist.id, this.props.user.id, this.props.room);
   }
   currentSong() {
     if (this.props.nowPlaying.name) {
@@ -38,7 +38,8 @@ function mapStateToProps(state) {
     user: state.user,
     songs: state.songs,
     nowPlaying: state.nowPlaying,
-    remotePlaylist: state.remotePlaylist
+    remotePlaylist: state.remotePlaylist,
+    room: state.room
   }
 }
 
