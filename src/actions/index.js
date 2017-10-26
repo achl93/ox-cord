@@ -6,7 +6,7 @@ import EventEmitter from 'events';
 const spotifyApi = new SpotifyWebApi();
 
 export const ADD_SONG = 'ADD_SONG';
-// export const ADD_SONGS = 'ADD_SONGS';
+export const ADD_SONGS = 'ADD_SONGS';
 export const IMPORT_PLAYLIST = 'IMPORT_PLAYLIST';
 export const UPDATE_REMOTE = 'UPDATE_REMOTE';
 export const REMOVE_SONG = 'REMOVE_SONG';
@@ -35,27 +35,37 @@ export function setSongs(songs) {
   }
 }
 
-// export function addSongs(tracks) {
-//   return {
-//     type: ADD_SONGS,
-//     payload: tracks
-//   };
-// }
+export function addSongs(tracks) {
+  return {
+    type: ADD_SONGS,
+    payload: tracks
+  };
+}
 
 export function remoteAddSongs(userID, remotePlaylistID, tracks, room_id) {
+  console.log('adding songs')
+
   const tracksString = tracks.map((track) => {
     return `spotify:track:${track.id}`
-  }).join();
-
+  });
   return (dispatch) => {
-    spotifyApi.addTracksToPlaylist(userID, remotePlaylistID, [tracksString])
+
+    spotifyApi.addTracksToPlaylist(userID, remotePlaylistID, tracksString)
       .then(() => {
         socket.emit('add-song', {
           room_id: room_id,
           songObj: tracks
-        });
+        })
+        ;
         socket.emit('request-song-list', room_id);
-        dispatch(addSong(tracks[0]));
+        if (tracks.length === 1) {
+          dispatch(addSong(tracks[0]));
+        } else {
+          console.log('adding songs locally ')
+          dispatch(addSongs(tracks));
+        }
+      }).catch(error => {
+        console.log('error:', error)
       })
   }
 }
@@ -117,6 +127,7 @@ export function checkRemotePlaylist(remotePlaylist) {
   }
 };
 
+<<<<<<< HEAD
 export function importPlaylist(userID, playlistID) {
   const request = spotifyApi.getPlaylistTracks(userID, playlistID, { limit: 20 });
   return {
@@ -125,6 +136,8 @@ export function importPlaylist(userID, playlistID) {
   }
 };
 
+=======
+>>>>>>> import-to-local
 export function remoteCheckRemotePlaylists(userID) {
   return (dispatch) => {
     spotifyApi.getUserPlaylists(userID).then((results) => {
@@ -147,6 +160,43 @@ export function remoteCheckRemotePlaylists(userID) {
   }
 }
 
+export function importPlaylist(userID, playlistID) {
+  const request = spotifyApi.getPlaylistTracks(userID, playlistID, {limit: 20});
+  return {
+    type: IMPORT_PLAYLIST,
+    payload: request
+  }
+};
+
+export function remoteImportPlaylist(userID, playlistID, songs, remotePlaylistID, room_id) {
+  return (dispatch) => {
+    // Get songs
+    spotifyApi.getPlaylistTracks(userID, playlistID, {limit: 20})
+      .then((response) => {
+        const pulledTracks = response.items.map((result) => {
+          return {
+            id: result.track.id,
+            name: result.track.name,
+            artist: result.track.artists[0].name,
+            votes: 0,
+            cover_art: result.track.album.images[2].url
+          }
+        });
+        // filter duplicates
+        const filteredTracks = pulledTracks.filter((song) => {
+          return !songs.some(item =>item.id === song.id )
+        })
+        // add to remote
+        //export function remoteAddSongs(userID, remotePlaylistID, tracks, room_id)
+        console.log('pulled tracks')
+        console.log(pulledTracks)
+        console.log('remote playlist:', remotePlaylistID)
+        console.log('user ID', userID)
+        console.log('room ID:', room_id)
+        dispatch(remoteAddSongs(userID, remotePlaylistID, filteredTracks, room_id))
+      })
+  }
+}
 export function createRemotePlaylist(newRemotePlaylist) {
   return {
     type: UPDATE_REMOTE,
@@ -303,7 +353,7 @@ class CheckNowPlaying extends EventEmitter {
       if (token) {
         this.checkSong();
       }
-    }, 1000);
+    }, 3000);
   }
 
   // const clear = setTimeout(()=>{

@@ -46,7 +46,7 @@ class Host extends Component {
      return (
       <div>
         <i className="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
-        <span clasName="sr-only">Loading...</span>
+        <span className="sr-only">Loading...</span>
       </div>
      )
   }

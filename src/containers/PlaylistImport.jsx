@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { remoteGetUserPlaylists, importPlaylist } from '../actions/index';
+import { remoteGetUserPlaylists, remoteImportPlaylist } from '../actions/index';
 import { connect } from 'react-redux';
 import PlaylistSearchResult from '../components/PlaylistSearchResult';
 import { Link } from 'react-router-dom';
@@ -9,7 +9,14 @@ import { Row, Col, Button, ListGroup } from 'react-bootstrap';
 class PlaylistImport extends Component {
   renderPlaylists(){
     return this.props.playlists.map((playlist) => {
-      return (<PlaylistSearchResult key={playlist.id} playlist={playlist} userID={this.props.user.id} importPlaylist={this.props.importPlaylist}/>)
+      return (<PlaylistSearchResult 
+                  key={playlist.id} playlist={playlist} 
+                  userID={this.props.user.id} 
+                  remoteImportPlaylist={this.props.remoteImportPlaylist} 
+                  songs={this.props.songs}
+                  remotePlaylist={this.props.remotePlaylist}
+                  room={this.props.room}
+                  />)
     });
   }
   render() {
@@ -50,13 +57,16 @@ class PlaylistImport extends Component {
 function mapStateToProps(state) {
   return {
     user: state.user,
-    playlists: state.userPlaylists
+    playlists: state.userPlaylists,
+    songs: state.songs,
+    remotePlaylist: state.remotePlaylist,
+    room: state.room
   }
 }
 
 const mapDispatchToProps = {
   remoteGetUserPlaylists,
-  importPlaylist
+  remoteImportPlaylist
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlaylistImport);

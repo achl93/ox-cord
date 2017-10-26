@@ -17,9 +17,9 @@ class PlayerControls extends Component {
             <Col md={12}>
               <ButtonToolbar bsClass='d-flex justify-content-around'>
                 <Button bsClass= "btn btn-outline-info" bsSize="small" onClick={() => this.props.remoteStartPlaylist(this.props.user.id, this.props.remotePlaylist.id)}>Begin</Button>
-                <Button bsClass="btn btn-outline-info" bsSize="small" onClick={() => this.props.remotePlay()}><i class="fa fa-play" aria-hidden="true"></i></Button>
-                <Button bsClass= "btn btn-outline-info" bsSize="small" onClick={() => this.props.remotePause()}><i class="fa fa-pause" aria-hidden="true"></i></Button>
-                <Button bsClass= "btn btn-outline-info" bsSize="small" onClick={() => this.props.remoteSkip()}><i class="fa fa-step-forward" aria-hidden="true"></i></Button>
+                <Button bsClass="btn btn-outline-info" bsSize="small" onClick={() => this.props.remotePlay()}><i className="fa fa-play" aria-hidden="true"></i></Button>
+                <Button bsClass= "btn btn-outline-info" bsSize="small" onClick={() => this.props.remotePause()}><i className="fa fa-pause" aria-hidden="true"></i></Button>
+                <Button bsClass= "btn btn-outline-info" bsSize="small" onClick={() => this.props.remoteSkip()}><i className="fa fa-step-forward" aria-hidden="true"></i></Button>
               </ButtonToolbar>
             </Col>
           </Row>
@@ -28,7 +28,7 @@ class PlayerControls extends Component {
               <ButtonToolbar bsClass='d-flex justify-content-around'>
                 <Button bsClass="btn btn-outline-info" bsSize="small" onClick={() => this.startParty()}>Start Party </Button>
                 <Link to='/settings' className='float-right'>
-                    <Button bsClass= "btn btn-outline-info" bsSize="small"><i class="fa fa-wrench" aria-hidden="true"></i></Button>
+                    <Button bsClass= "btn btn-outline-info" bsSize="small"><i className="fa fa-wrench" aria-hidden="true"></i></Button>
                 </Link>
               </ButtonToolbar>
             </Col>
