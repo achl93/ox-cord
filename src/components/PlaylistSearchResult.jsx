@@ -20,7 +20,7 @@ export default class PlaylistSearchResult extends Component {
   }
 
   onHandleClick() {
-    this.props.importPlaylist(this.props.playlist.owner, this.props.playlist.id)
+    this.props.remoteImportPlaylist(this.props.playlist.owner, this.props.playlist.id, this.props.songs, this.props.remotePlaylist.id, this.props.room.id)
     this.setState({
       redirect: true
     });

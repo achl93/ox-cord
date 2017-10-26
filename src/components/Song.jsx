@@ -10,8 +10,8 @@ export default class Song extends Component {
       <ListGroupItem className="col-md-12" > 
       <img className = "album_cover" src={this.props.song.cover_art} />
       <h5>{ this.props.song.name }</h5>
-      <p class= "artist"> { this.props.song.artist } 
-      <Button bsClass='btn btn-sm btn-outline-danger badge float-right' onClick={()=>{this.onHandleClick()}}><i class="fa fa-trash" aria-hidden="true"></i></Button>
+      <p className= "artist"> { this.props.song.artist } 
+      <Button bsClass='btn btn-sm btn-outline-danger badge float-right' onClick={()=>{this.onHandleClick()}}><i className="fa fa-trash" aria-hidden="true"></i></Button>
        <Button bsClass='btn btn-sm btn-outline-warning badge float-right' >Votes {this.props.song.votes}</Button>
       </p>
       </ListGroupItem>

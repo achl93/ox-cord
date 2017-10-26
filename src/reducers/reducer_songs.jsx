@@ -1,4 +1,4 @@
-import { ADD_SONG, REMOVE_SONG, IMPORT_PLAYLIST, SET_SONGS, SET_VOTE } from '../actions/index';
+import { ADD_SONG, ADD_SONGS, REMOVE_SONG, IMPORT_PLAYLIST, SET_SONGS, SET_VOTE } from '../actions/index';
 const initial = [
   {
     id: 0,
@@ -10,16 +10,19 @@ const initial = [
 
 export default function(state = initial, action) {
   switch (action.type) {
-    // case ADD_SONGS:
-    //   // return [...state, ...action.payload]
-    //  if (!state.some( item => item.id === action.payload.id ))
-    //   {
-    //     return [ ...state, action.payload ];
-    //   } else {
-    //     return state;
-    //   }
     case ADD_SONG:
       return [...state, action.payload]
+    case ADD_SONGS:
+      // return [...state, ...action.payload]
+      if (state.length > 0) {
+        const newSongs = action.payload.filter((song) => {
+        return !state.some( item => item.id === action.payload.id )
+      })
+        return [ ...state, ...newSongs ];
+      } else {
+        return action.payload
+      }
+
       // if (!state.some( item => item.id === action.payload.id ))
       // {
       //   return [ ...state, action.payload ];
