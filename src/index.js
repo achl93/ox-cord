@@ -31,7 +31,7 @@ const store = createStore(reducers, composeWithDevTools(applyMiddleware(ReduxThu
 
 ReactDOM.render(
   <Provider store={store}>
-  <Grid bsClass='mt-5'>
+  <Grid bsClass='mt-3'>
     <h1 className = "title">Ox Cord</h1>
     <Row bsClass='app-content mx-auto d-flex justify-content-center px-3'>
       <BGImg/>
