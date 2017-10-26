@@ -127,13 +127,7 @@ export function checkRemotePlaylist(remotePlaylist) {
   }
 };
 
-export function importPlaylist(userID, playlistID) {
-  const request = spotifyApi.getPlaylistTracks(userID, playlistID, { limit: 20 });
-  return {
-    type: IMPORT_PLAYLIST,
-    payload: request
-  }
-};
+
 
 export function remoteCheckRemotePlaylists(userID) {
   return (dispatch) => {
@@ -367,11 +361,15 @@ class CheckNowPlaying extends EventEmitter {
   remoteCheckCurrentPlayingTrack(previous, cb) {
     spotifyApi.getMyCurrentPlayingTrack({})
       .then((result) => {
+        if (!result.item){
+          return;
+        }
 
         const track = {
           id: result.item.id,
           name: result.item.name
         }
+        console.log()
         const playlist = result.context.uri.split('playlist:')[1];
         const nowPlaying = {
           track,
