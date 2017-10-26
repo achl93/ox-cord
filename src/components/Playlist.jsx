@@ -20,8 +20,10 @@ class Playlist extends Component {
       return (
           <Row bsClass='row border p-3 col-md-9'>
             <Col md={12}>
+            <Row bsClass= "p-3">
               <NowPlaying />
               <PlayerControls />
+            </Row>
               <Songlist />
               <SongSearch />
             </Col>
