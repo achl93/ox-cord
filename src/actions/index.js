@@ -368,7 +368,8 @@ class CheckNowPlaying extends EventEmitter {
   remoteCheckCurrentPlayingTrack(previous, cb) {
     spotifyApi.getMyCurrentPlayingTrack({})
       .then((result) => {
-        if (!result.item || !result.context){
+        console.log('RESULT HERE: ',result);
+        if (!result.item){
           return;
         }
         const track = {
@@ -379,7 +380,8 @@ class CheckNowPlaying extends EventEmitter {
           cover_background: result.item.album.images[0].url
         }
         console.log(result.item.artists[0].name);
-        const playlist = result.context.uri.split('playlist:')[1];
+        const playlist = !result.context ? null : result.context.uri.split('playlist:')[1];
+        console.log(playlist);
         const nowPlaying = {
           track,
           playlist
