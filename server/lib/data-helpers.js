@@ -3,7 +3,6 @@ module.exports = function dataHelpers(db) {
   return {
 
     createRoom: function (roomObj, callback) {
-      //db.collection("rooms").insertOne(roomObj, (err, result) => {
       db.collection("rooms").updateOne({"room_id": roomObj.room_id}, { "$set": roomObj }, { upsert: true }, (err, result) => {
         callback(err, result);
       });
