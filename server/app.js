@@ -77,6 +77,12 @@ io.on('connection', (socket) => {
     });
   });
 
+  socket.on('add-song-to-archive', (data) => {
+    dataHelpers.getSongFromRoomID(data.song_id, data.room_id, (err, res) => {
+      console.log('ADD TO ARCHIVE', res);
+    });
+  });
+
   socket.on('request-song-list', (room_id) => {
     if (SHOW_DEBUG) { console.log(' + Client requested a song list!') }
     dataHelpers.getSongsFromRoomID(room_id, (err, songs) => {
