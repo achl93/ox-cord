@@ -6,7 +6,7 @@ import Songlist from '../containers/SongList';
 import SongSearch from '../containers/SongSearch';
 import PlayerControls from '../containers/PlayerControls';
 import NowPlaying from '../containers/NowPlaying';
-import { Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
 import { joinRoom } from '../actions/index';
 // import socket from '../lib/SocketAPI';
 
@@ -18,7 +18,7 @@ class Playlist extends Component {
     } else {
       this.props.joinRoom(this.props.user.id);
       return (
-          <Row bsClass='row border p-3 col-md-9'>
+          <Row bsClass=' row border px-3 col-md-8 '>
             <Col md={12}>
             <Row bsClass= "p-3">
               <NowPlaying />
@@ -31,6 +31,7 @@ class Playlist extends Component {
       )
     }
   }
+
   // componentDidMount() {
   //   this.props.joinRoom(this.props.user.id);
   // }
@@ -39,6 +40,7 @@ class Playlist extends Component {
 function mapStateToProps(state) {
   return {
     user: state.user,
+    nowPlaying: state.nowPlaying
   }
 }
 

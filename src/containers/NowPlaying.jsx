@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 import { remoteCheckNowPlaying } from '../actions/index';
+import { remotePlay, remotePause, remoteSkip } from '../actions/index';
+
 class NowPlaying extends Component {
   constructor(props) {
     super(props)
@@ -11,17 +13,20 @@ class NowPlaying extends Component {
   currentSong() {
     if (this.props.nowPlaying.name) {
     return (
-      <div className="nowplayer ">
+      <div className=" nowplayer ">
       <Row >
-        <h5>Now Playing: </h5>
+        <h6>Now Playing: </h6>
       </Row >
       <Row>
         <Col>
         <img className="nowplayingcover" src={this.props.nowPlaying.cover_art} />
         </Col>
         <Col>
-        <h4 className= "mx-2">{this.props.nowPlaying.name}</h4>
-        <h5 className= "mx-2">{this.props.nowPlaying.artist}</h5>
+        <h5 className= "mx-2">{this.props.nowPlaying.name}</h5>
+        <h6 className= " artist mx-2">{this.props.nowPlaying.artist}</h6>
+        <Button bsClass="btn btn-outline-info mx-2" bsSize="tiny" onClick={() => this.props.remotePlay()}><i className="fa fa-play" aria-hidden="true"></i></Button>
+        <Button bsClass= "btn btn-outline-info" bsSize="small" onClick={() => this.props.remotePause()}><i className="fa fa-pause" aria-hidden="true"></i></Button>
+        <Button bsClass= "btn btn-outline-info mx-2" bsSize="small" onClick={() => this.props.remoteSkip()}><i className="fa fa-step-forward" aria-hidden="true"></i></Button>
         </Col>
       </Row>
       </div>
@@ -55,7 +60,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({remoteCheckNowPlaying}, dispatch)
+  return bindActionCreators({remoteCheckNowPlaying, remotePlay, remotePause, remoteSkip}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NowPlaying);

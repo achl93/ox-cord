@@ -29,25 +29,25 @@ import 'bootstrap/dist/css/bootstrap.css';
 const store = createStore(reducers, composeWithDevTools(applyMiddleware(ReduxThunk, ReduxPromise)));
 
 ReactDOM.render(
-  <Grid bsClass='container mt-5'>
+  <Grid bsClass='mt-5'>
     <h1 className = "title">Ox Cord</h1>
-      <Row bsClass='app-content mx-auto d-flex justify-content-center'>
-          <Provider store={store}>
-            <BrowserRouter>
-              <Switch>
-                <Route path='/user-playlist' component={UserPlaylist} />
-                <Route path='/playlist' component={Playlist} />
-                <Route path='/join' component={Join} />
-                <Route path='/settings' component={Settings} />
-                <Route path='/import' component={PlaylistImport} />
-                <Route path='/host' component={Host} />
-                <Route path='/create' component={Create} />
-                <Route path='/test' component={Test} />
-                <Route path='/' component={Home} />
-              </Switch>
-            </BrowserRouter>
-           </Provider>
-      </Row>
+    <Row bsClass='app-content mx-auto d-flex justify-content-center px-3'>
+        <Provider store={store}>
+          <BrowserRouter>
+            <Switch>
+              <Route path='/user-playlist' component={UserPlaylist} />
+              <Route path='/playlist' component={Playlist} />
+              <Route path='/join' component={Join} />
+              <Route path='/settings' component={Settings} />
+              <Route path='/import' component={PlaylistImport} />
+              <Route path='/host' component={Host} />
+              <Route path='/create' component={Create} />
+              <Route path='/test' component={Test} />
+              <Route path='/' component={Home} />
+            </Switch>
+          </BrowserRouter>
+          </Provider>
+    </Row>
   </Grid>
   
   , document.getElementById('root'));

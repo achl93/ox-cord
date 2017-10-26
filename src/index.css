@@ -78,8 +78,8 @@ input.form-control {
 }
 
 .nowplayingcover {
-  height: 8em;
-  width: 8em;
+  height: 5em;
+  width: 5em;
 }
 
 .nowplayer {
@@ -87,4 +87,18 @@ input.form-control {
   z-index: 999;
   background-color: rgb(43, 42, 42);
   width: 100%;
+}
+
+.blurr {
+  top: 0;
+  left: 0;
+  right: 0;
+  position: absolute ;
+  width:100%;
+  filter: blur(50px);
+  z-index: -10000;
+}
+
+.test {
+  margin-right: 0 !important;
 }
