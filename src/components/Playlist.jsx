@@ -27,7 +27,7 @@ class Playlist extends Component {
               <Songlist />
               <SongSearch />
             </Col>
-          </Row>  
+          </Row> 
       )
     }
   }

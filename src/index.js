@@ -21,18 +21,20 @@ import Settings from './components/Settings';
 import UserPlaylist from './components/UserPlaylist';
 import PlaylistImport from './containers/PlaylistImport';
 import Test from './containers/Test';
-
+import BGImg from './containers/BGImg';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
 // const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 const store = createStore(reducers, composeWithDevTools(applyMiddleware(ReduxThunk, ReduxPromise)));
 
+
 ReactDOM.render(
+  <Provider store={store}>
   <Grid bsClass='mt-5'>
     <h1 className = "title">Ox Cord</h1>
     <Row bsClass='app-content mx-auto d-flex justify-content-center px-3'>
-        <Provider store={store}>
+      <BGImg/>
           <BrowserRouter>
             <Switch>
               <Route path='/user-playlist' component={UserPlaylist} />
@@ -46,9 +48,9 @@ ReactDOM.render(
               <Route path='/' component={Home} />
             </Switch>
           </BrowserRouter>
-          </Provider>
     </Row>
   </Grid>
+  </Provider>
   
   , document.getElementById('root'));
 registerServiceWorker();
