@@ -71,6 +71,7 @@ export function remoteAddSongs(userID, remotePlaylistID, tracks, room_id) {
 }
 
 export function remoteRemoveSongs(userID, remotePlaylistID, tracks, room_id) {
+  console.log("LOUDSHIT", room_id);
   const tracksString = tracks.map((track) => {
     return `spotify:track:${track.id}`
   }).join();
@@ -78,6 +79,10 @@ export function remoteRemoveSongs(userID, remotePlaylistID, tracks, room_id) {
     spotifyApi.removeTracksFromPlaylist(userID, remotePlaylistID, [tracksString])
       .then(() => {
         console.log('song removed successfully');
+        socket.emit('add-song-to-archive', {
+          song_id: tracks[0].id,
+          room_id: room_id
+        })
         socket.emit('remove-song', {
           room_id: room_id,
           song_id: tracks[0].id
@@ -215,6 +220,8 @@ export function remoteStartPlaylist(userID, remotePlaylistID) {
     spotifyApi.play({ context_uri })
       .then(() => {
         dispatch(play())
+        // something stupid pls don't laugh
+        dispatch(remoteSkip())
       })
   }
 };
@@ -361,7 +368,7 @@ class CheckNowPlaying extends EventEmitter {
   remoteCheckCurrentPlayingTrack(previous, cb) {
     spotifyApi.getMyCurrentPlayingTrack({})
       .then((result) => {
-        if (!result.item){
+        if (!result.item || !result.context){
           return;
         }
         const track = {
@@ -389,12 +396,14 @@ const checkNowPlaying = new CheckNowPlaying();
 export function remoteCheckNowPlaying(remotePlaylistID, userID, room_id) {
   return (dispatch) => {
     checkNowPlaying.on('songChange', (nowPlaying, previous) => {
-      if ((nowPlaying.track.id !== previous.id) && (remotePlaylistID === nowPlaying.playlist)) {
+      if ((nowPlaying.track.id !== previous.id)) {
+        dispatch(remoteRemoveSongs(userID, remotePlaylistID, [previous], room_id));
+        // (remotePlaylistID === nowPlaying.playlist)
         dispatch(updateNowPlaying(nowPlaying.track));
-        console.log(nowPlaying.track);
-        socket.emit('add-song-to-archive', nowPlaying.track.id, room_id);
+        // console.log(nowPlaying.track);
+        // socket.emit('add-song-to-archive', { song_id: nowPlaying.track.id, room_id: room_id });
         //BEFORE REMOVING SONG, ADD TO ARCHIVE 
-        dispatch(remoteRemoveSongs(userID, remotePlaylistID, [previous], ''));
+        // dispatch(remoteRemoveSongs(userID, remotePlaylistID, [previous], room_id));
       }
     })
   }

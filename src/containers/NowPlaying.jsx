@@ -3,13 +3,25 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row, Col } from 'react-bootstrap';
 import { remoteCheckNowPlaying } from '../actions/index';
+import socket from '../lib/SocketAPI';
+
 class NowPlaying extends Component {
   constructor(props) {
     super(props)
     this.props.remoteCheckNowPlaying(this.props.remotePlaylist.id, this.props.user.id, this.props.room);
+    // this.state = {
+    //   currSong: 'unknown'
+    // }
   }
   currentSong() {
     if (this.props.nowPlaying.name) {
+      // if (this.props.nowPlaying.name !== this.state.currSong || this.state.currSong === 'unknown') {
+      //   this.state.currSong = this.props.nowPlaying.name;
+      //   socket.emit('add-song-to-archive', {
+      //     song_id: this.props.nowPlaying.id,
+      //     room_id: this.props.room
+      //   })
+      // }
     return (
       <div className="nowplayer ">
       <Row >
