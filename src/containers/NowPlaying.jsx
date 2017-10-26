@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Row } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { remoteCheckNowPlaying } from '../actions/index';
 class NowPlaying extends Component {
   constructor(props) {
@@ -11,9 +11,20 @@ class NowPlaying extends Component {
   currentSong() {
     if (this.props.nowPlaying.name) {
     return (
+      <div className="nowplayer ">
       <Row >
-        {<h3>Now Playing: {this.props.nowPlaying.name}</h3>}
+        <h5>Now Playing: </h5>
+      </Row >
+      <Row>
+        <Col>
+        <img className="nowplayingcover" src={this.props.nowPlaying.cover_art} />
+        </Col>
+        <Col>
+        <h4 className= "mx-2">{this.props.nowPlaying.name}</h4>
+        <h5 className= "mx-2">{this.props.nowPlaying.artist}</h5>
+        </Col>
       </Row>
+      </div>
     );
   } else {
       return (

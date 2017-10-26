@@ -366,8 +366,12 @@ class CheckNowPlaying extends EventEmitter {
         }
         const track = {
           id: result.item.id,
-          name: result.item.name
+          name: result.item.name,
+          artist: result.item.artists[0].name,
+          cover_art: result.item.album.images[1].url,
+          cover_background: result.item.album.images[0].url
         }
+        console.log(result.item.artists[0].name);
         const playlist = result.context.uri.split('playlist:')[1];
         const nowPlaying = {
           track,

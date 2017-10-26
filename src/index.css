@@ -76,3 +76,15 @@ input.form-control {
   max-height: 20em;
   overflow-y: scroll;
 }
+
+.nowplayingcover {
+  height: 8em;
+  width: 8em;
+}
+
+.nowplayer {
+  position: relative;
+  z-index: 999;
+  background-color: rgb(43, 42, 42);
+  width: 100%;
+}
