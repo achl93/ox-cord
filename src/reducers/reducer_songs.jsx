@@ -22,13 +22,6 @@ export default function(state = initial, action) {
       } else {
         return action.payload
       }
-
-      // if (!state.some( item => item.id === action.payload.id ))
-      // {
-      //   return [ ...state, action.payload ];
-      // } else {
-      //   return state;
-      // }
     case IMPORT_PLAYLIST:
       const importedTracks = action.payload.items.map((result) => {
         return {

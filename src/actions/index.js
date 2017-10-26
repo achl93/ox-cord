@@ -127,7 +127,6 @@ export function checkRemotePlaylist(remotePlaylist) {
   }
 };
 
-<<<<<<< HEAD
 export function importPlaylist(userID, playlistID) {
   const request = spotifyApi.getPlaylistTracks(userID, playlistID, { limit: 20 });
   return {
@@ -136,8 +135,6 @@ export function importPlaylist(userID, playlistID) {
   }
 };
 
-=======
->>>>>>> import-to-local
 export function remoteCheckRemotePlaylists(userID) {
   return (dispatch) => {
     spotifyApi.getUserPlaylists(userID).then((results) => {
