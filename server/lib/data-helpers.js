@@ -45,7 +45,7 @@ module.exports = function dataHelpers(db) {
     },
 
     getSongFromRoomID: function(song_id, room_id, callback) {
-      db.collection("rooms").find({"room_id": room_id, "playlist.id": song_id}).toArray(callback);
+      db.collection("rooms").find({"room_id": room_id, "playlist.id": song_id}, {"playlist.$": 1, "_id": 0}).toArray(callback);
     },
 
     incrementSongVote: function(room_id, song_id, callback) {

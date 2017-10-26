@@ -17,8 +17,8 @@ let PORT = process.env.PORT | 8888;
 let dataHelpers = require('./lib/data-helpers');
 
 app.use(express.static(__dirname + '/public'))
-    .use(cookieParser())
-    .use(spotifyRouteHelpers);
+  .use(cookieParser())
+  .use(spotifyRouteHelpers);
 
 /*
  *  MongoDB Connection 
@@ -79,7 +79,16 @@ io.on('connection', (socket) => {
 
   socket.on('add-song-to-archive', (data) => {
     dataHelpers.getSongFromRoomID(data.song_id, data.room_id, (err, res) => {
-      console.log('ADD TO ARCHIVE', res);
+      if (res[0] !== undefined) {
+        dataHelpers.addSongToArchive(res[0].playlist[0], data.room_id, (err, res) => {
+          dataHelpers.removeSongFromPlaylist(data.song_id, data.room_id, (err, res) => {
+            dataHelpers.getSongsFromRoomID(data.room_id, (err, songs) => {
+              console.log('SENDING SONG LIST', data.room_id, data.song_id);
+              io.to(data.room_id).emit('song-list-sent', songs);
+            });
+          });
+        });
+      }
     });
   });
 
