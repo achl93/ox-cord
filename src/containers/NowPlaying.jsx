@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row, Col, Button } from 'react-bootstrap';
 import { remoteCheckNowPlaying, remotePlay, remotePause, remoteSkip, remoteCheckOrder } from '../actions/index';
-import socket from '../lib/SocketAPI';
 
 class NowPlaying extends Component {
   constructor(props) {
@@ -29,12 +28,12 @@ class NowPlaying extends Component {
       </Row >
       <Row>
         <Col>
-        <img className="nowplayingcover" src={this.props.nowPlaying.cover_art} />
+        <img className="nowplayingcover" src={this.props.nowPlaying.cover_art} alt="Album Art" />
         </Col>
         <Col>
         <h5 className= "mx-2">{this.props.nowPlaying.name}</h5>
         <h6 className= " artist mx-2">{this.props.nowPlaying.artist}</h6>
-        <Button bsClass="btn btn-outline-info mx-2" bsSize="tiny" onClick={() => this.props.remotePlay()}><i className="fa fa-play" aria-hidden="true"></i></Button>
+        <Button bsClass="btn btn-outline-info mx-2" bsSize="small" onClick={() => this.props.remotePlay()}><i className="fa fa-play" aria-hidden="true"></i></Button>
         <Button bsClass= "btn btn-outline-info" bsSize="small" onClick={() => this.props.remotePause()}><i className="fa fa-pause" aria-hidden="true"></i></Button>
         <Button bsClass= "btn btn-outline-info mx-2" bsSize="small" onClick={() => this.props.remoteSkip()}><i className="fa fa-step-forward" aria-hidden="true"></i></Button>
         </Col>

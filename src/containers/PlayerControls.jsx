@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Row, Col, Button, ButtonToolbar } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { remotePlay, remotePause, remoteStartPlaylist, remoteSkip, removeSong, joinRoom } from '../actions/index';
 

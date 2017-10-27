@@ -344,17 +344,13 @@ class CheckNowPlaying extends EventEmitter {
     }
   }
   statInterval() {
-    const interval = setInterval(() => {
+    setInterval(() => {
       if (tokenSet) {
         this.checkSong();
       }
     }, 3000);
   }
-
-  // const clear = setTimeout(()=>{
-  //   clearTimeout(interval)
-  // }, 3000)
-  // }
+  
   checkSong() {
     this.remoteCheckCurrentPlayingTrack(this.nowPlaying.track, (nowPlaying, previous) => {
       this.emit('songChange', nowPlaying, previous)
@@ -434,7 +430,7 @@ function findReorderForSpotifyTopThree(livePlaylist, localPlaylist) {
 
 export function remoteCheckOrder(userID, remotePlaylistID, songs){
   return (dispatch) => {
-    if (songs[0].id === 0 || songs.length === 0)
+    if (songs.length === 0 || songs[0].id === 0)
     {
      // dispatch({type: 'DO_NOTHING', payload: ''})
     } else {
