@@ -393,23 +393,6 @@ export function remoteCheckNowPlaying(remotePlaylistID, userID, room_id, songs) 
   return (dispatch) => {
     checkNowPlaying.on('songChange', (nowPlaying, previous) => {
 
-      // song order
-      // if (remotePlaylistID !== 'NOT_CHECKED') {
-      //   console.log("checking remote top 3")
-      //   spotifyApi.getPlaylistTracks(userID, remotePlaylistID, {limit: 3}).then((response) => {
-      //     const pulledTracks = response.items.map((result) => {
-      //       return {
-      //         id: result.track.id,
-      //         name: result.track.name
-      //       }
-      //     });
-      //     console.log('---pulled tracks---')
-      //     console.log(pulledTracks)
-      //     console.log('---App top 3---')
-      //     console.log(songs.slice(0, 3))
-      //   })
-      // }
-
       // check now playing
       if (nowPlaying.track.id !== previous.id) {
         dispatch(updateNowPlaying(nowPlaying.track));
@@ -422,14 +405,68 @@ export function remoteCheckNowPlaying(remotePlaylistID, userID, room_id, songs) 
   }
 }
 
+function reorder(input, start, index) {
+  const reordered = [...input];
+  const offset = start < index ? -1 : 0;
+  const removed = reordered.splice(start, 1)[0];
+  reordered.splice(index + offset, 0, removed)
+  return reordered;
+}
 
-export function remoteCheckOrder(songs){
+function findReorderForSpotifyTopThree(livePlaylist, localPlaylist) {
+  const liveTopThree = livePlaylist.slice(0, 3);
+  const diff = liveTopThree.find((item, index)=>{
+    return localPlaylist[index].id !== item.id
+  })
+  if (diff){
+    const localDiffIndex = localPlaylist.findIndex((item) => {return item.id === diff.id});
+    const liveDiffIndex = livePlaylist.findIndex((item) => {return item.id === diff.id});
+    const reordered = reorder(localPlaylist, localDiffIndex, liveDiffIndex);
+    console.log('differencs found')
+    const output = {
+      exists: true,
+      start: localDiffIndex,
+      insert_before: liveDiffIndex
+    }
+    console.log(output)
+    return output;
+
+  } else {
+    console.log('No differences found')
+    return;
+  }
+}
+
+
+export function remoteCheckOrder(userID, remotePlaylistID, songs){
   return (dispatch) => {
     if (songs[0].id === 0)
     {
       dispatch({type: 'DO_NOTHING', payload: ''})
     } else {
+      console.log("----Local Top 3----")
       console.log(songs)
+      if (remotePlaylistID !== 'NOT_CHECKED') {
+        console.log("checking remote top 3")
+        spotifyApi.getPlaylistTracks(userID, remotePlaylistID, {limit: 100}).then((response) => {
+          const pulledTracks = response.items.map((result) => {
+            return {
+              id: result.track.id,
+              name: result.track.name
+            }
+          });
+          console.log('----Remote Top 3----')
+          console.log(pulledTracks)
+          console.log('----Checking order----')
+          const reorder = findReorderForSpotifyTopThree(songs, pulledTracks);
+          if (reorder) {
+            console.log('sending reorder to spotify')
+            console.log(reorder)
+            spotifyApi.reorderTracksInPlaylist(userID, remotePlaylistID, reorder.start, reorder.insert_before)
+          }
+            
+        })
+      }
     }
   }
 }

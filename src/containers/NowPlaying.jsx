@@ -10,7 +10,7 @@ class NowPlaying extends Component {
   constructor(props) {
     super(props)
     this.interval = setInterval(()=>{
-      this.props.remoteCheckOrder(this.props.songs);
+      this.props.remoteCheckOrder(this.props.user.id, this.props.remotePlaylist.id, this.props.songs.slice(0, 3));
     }, 1000)
     this.props.remoteCheckNowPlaying(this.props.remotePlaylist.id, this.props.user.id, this.props.room, this.props.songs);
   }
