@@ -166,11 +166,13 @@ export function importPlaylist(userID, playlistID) {
   }
 };
 
-export function remoteImportPlaylist(userID, playlistID, songs, remotePlaylistID, room_id) {
+export function remoteImportPlaylist(owner, userID, playlistID, songs, remotePlaylistID, room_id) {
+  console.log('LOOOOOOOL', owner );
   return (dispatch) => {
     // Get songs
-    spotifyApi.getPlaylistTracks(userID, playlistID, {limit: 20})
+    spotifyApi.getPlaylistTracks(owner, playlistID, {limit: 20})
       .then((response) => {
+        console.log("JOHNNYYYYYYYYYYY", response);
         const pulledTracks = response.items.map((result) => {
           return {
             id: result.track.id,
@@ -435,7 +437,7 @@ export function remoteCheckOrder(userID, remotePlaylistID, songs){
      // dispatch({type: 'DO_NOTHING', payload: ''})
     } else {
       if (remotePlaylistID !== 'NOT_CHECKED') {
-        spotifyApi.getPlaylistTracks(userID, remotePlaylistID, {limit: 100}).then((response) => {
+        spotifyApi.getPlaylistTracks(userID, remotePlaylistID, {limit: 20}).then((response) => {
           const pulledTracks = response.items.map((result) => {
             return {
               id: result.track.id,
