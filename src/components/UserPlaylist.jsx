@@ -21,7 +21,6 @@ class UserPlaylist extends Component {
         }
       });
       socket.on('now-playing-updated', (songObj) => {
-        console.log('now-playing-updated', songObj);
         this.props.updateNowPlaying(songObj);
       });
     }
