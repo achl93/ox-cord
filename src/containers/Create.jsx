@@ -24,7 +24,6 @@ class Create extends Component {
                         </div>
                       )
                     }
-
                   </Col>
                 </Row>
               )
