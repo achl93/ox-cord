@@ -19,9 +19,7 @@ export default function(state = dummyPlaylists, action) {
   switch (action.type) {
     case GET_PLAYLISTS :
       console.log('getPlaylists action received');
-      console.log(action.payload)
       const userPlaylists = action.payload.items.map((playlist) => {
-        console.log(playlist.owner.id)
         return {
           id: playlist.id,
           owner: playlist.owner.id,
@@ -29,8 +27,6 @@ export default function(state = dummyPlaylists, action) {
           trackCount: playlist.tracks.total
         }
       });
-      console.log(userPlaylists)
-      //return [ ...state, action.payload ];
       return userPlaylists;
     default:
       return state;

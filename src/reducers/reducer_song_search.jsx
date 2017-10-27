@@ -49,8 +49,6 @@ export default function (state = dummyResults, action) {
   switch (action.type) {
     case SEARCH_SONGS:
       const newResults = action.payload.tracks.items.map(track => {
-        console.log(track.album);
-        console.log(track.album.images[2].url);
         return {
           id: track.id,
           name: track.name,
