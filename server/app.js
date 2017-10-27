@@ -103,12 +103,10 @@ io.on('connection', (socket) => {
   });
 
   socket.on('request-now-playing', (room_id) => {
-    console.log('request-now-playing', room_id);
     io.to(room_id).emit('request-now-playing', room_id);
   })
 
   socket.on('update-now-playing', (data) => {
-    console.log('update-now-playing', data);
     io.to(data.room_id).emit('now-playing-updated', data.songObj);
   });
 
