@@ -21,6 +21,9 @@ export const PLAYER_STATUS = 'PLAYER_STATUS';
 export const UPDATE_NOW_PLAYING = 'UPDATE_NOW_PLAYING';
 export const SET_VOTE = 'SET_VOTE';
 
+let tokenSet = false;
+let remotePlaylistSet = false;
+
 export function addSong(song) {
   return {
     type: ADD_SONG,
@@ -43,8 +46,6 @@ export function addSongs(tracks) {
 }
 
 export function remoteAddSongs(userID, remotePlaylistID, tracks, room_id) {
-  console.log('adding songs');
-
   const tracksString = tracks.map((track) => {
     return `spotify:track:${track.id}`
   });
@@ -61,7 +62,6 @@ export function remoteAddSongs(userID, remotePlaylistID, tracks, room_id) {
         if (tracks.length === 1) {
           dispatch(addSong(tracks[0]));
         } else {
-          console.log('adding songs locally ')
           dispatch(addSongs(tracks));
         }
       }).catch(error => {
@@ -75,9 +75,11 @@ export function remoteRemoveSongs(userID, remotePlaylistID, tracks, room_id) {
     return `spotify:track:${track.id}`
   }).join();
   return (dispatch) => {
+    if (tracks[0].id === 0 || remotePlaylistID === 'NOT_CHECKED'){
+      return dispatch({type: 'DO_NOTHING', payload: ''})
+    }
     spotifyApi.removeTracksFromPlaylist(userID, remotePlaylistID, [tracksString])
       .then(() => {
-        console.log('song removed successfully');
         socket.emit('add-song-to-archive', {
           song_id: tracks[0].id,
           room_id: room_id
@@ -144,6 +146,7 @@ export function remoteCheckRemotePlaylists(userID) {
           id: found.id,
           exists: true
         }
+        remotePlaylistSet = true;
       } else {
         result = {
           id: 'NOT_FOUND',
@@ -182,12 +185,6 @@ export function remoteImportPlaylist(userID, playlistID, songs, remotePlaylistID
           return !songs.some(item =>item.id === song.id )
         })
         // add to remote
-        //export function remoteAddSongs(userID, remotePlaylistID, tracks, room_id)
-        console.log('pulled tracks')
-        console.log(pulledTracks)
-        console.log('remote playlist:', remotePlaylistID)
-        console.log('user ID', userID)
-        console.log('room ID:', room_id)
         dispatch(remoteAddSongs(userID, remotePlaylistID, filteredTracks, room_id))
       })
   }
@@ -207,6 +204,7 @@ export function remoteCreateRemotePlaylist(userID) {
           id: createdPlaylist.id,
           exists: true
         }
+        remotePlaylistSet = true;
         dispatch(createRemotePlaylist(result));
       })
   }
@@ -278,6 +276,7 @@ export function remoteSkip() {
 
 export function storeToken(token) {
   spotifyApi.setAccessToken(token);
+  tokenSet = true;
   return {
     type: STORE_TOKEN,
     payload: token
@@ -346,8 +345,7 @@ class CheckNowPlaying extends EventEmitter {
   }
   statInterval() {
     setInterval(() => {
-      const token = spotifyApi.getAccessToken()
-      if (token) {
+      if (tokenSet) {
         this.checkSong();
       }
     }, 3000);
@@ -386,19 +384,71 @@ class CheckNowPlaying extends EventEmitter {
 
 const checkNowPlaying = new CheckNowPlaying();
 
-
-export function remoteCheckNowPlaying(remotePlaylistID, userID, room_id) {
+export function remoteCheckNowPlaying(remotePlaylistID, userID, room_id, songs) {
   return (dispatch) => {
     checkNowPlaying.on('songChange', (nowPlaying, previous) => {
-      if ((nowPlaying.track.id !== previous.id)) {
-        dispatch(remoteRemoveSongs(userID, remotePlaylistID, [previous], room_id));
-        // (remotePlaylistID === nowPlaying.playlist)
+      // check now playing
+      if (nowPlaying.track.id !== previous.id) {
         dispatch(updateNowPlaying(nowPlaying.track));
-        // console.log(nowPlaying.track);
         // socket.emit('add-song-to-archive', { song_id: nowPlaying.track.id, room_id: room_id });
         //BEFORE REMOVING SONG, ADD TO ARCHIVE 
-        // dispatch(remoteRemoveSongs(userID, remotePlaylistID, [previous], room_id));
+        dispatch(remoteRemoveSongs(userID, remotePlaylistID, [previous], room_id));
       }
     })
+  }
+}
+
+function reorder(input, start, index) {
+  const reordered = [...input];
+  const offset = start < index ? -1 : 0;
+  const removed = reordered.splice(start, 1)[0];
+  reordered.splice(index + offset, 0, removed)
+  return reordered;
+}
+
+function findReorderForSpotifyTopThree(livePlaylist, localPlaylist) {
+  const liveTopThree = livePlaylist.slice(0, 3);
+  const diff = liveTopThree.find((item, index)=>{
+    return localPlaylist[index].id !== item.id
+  })
+  if (diff){
+    const localDiffIndex = localPlaylist.findIndex((item) => {return item.id === diff.id});
+    const liveDiffIndex = livePlaylist.findIndex((item) => {return item.id === diff.id});
+    const reordered = reorder(localPlaylist, localDiffIndex, liveDiffIndex);
+    const output = {
+      exists: true,
+      start: localDiffIndex,
+      insert_before: liveDiffIndex
+    }
+    return output;
+
+  } else {
+    return;
+  }
+}
+
+
+export function remoteCheckOrder(userID, remotePlaylistID, songs){
+  return (dispatch) => {
+    if (songs[0].id === 0 || songs.length === 0)
+    {
+      dispatch({type: 'DO_NOTHING', payload: ''})
+    } else {
+      if (remotePlaylistID !== 'NOT_CHECKED') {
+        spotifyApi.getPlaylistTracks(userID, remotePlaylistID, {limit: 100}).then((response) => {
+          const pulledTracks = response.items.map((result) => {
+            return {
+              id: result.track.id,
+              name: result.track.name
+            }
+          });
+          const reorder = findReorderForSpotifyTopThree(songs, pulledTracks);
+          if (reorder) {
+            spotifyApi.reorderTracksInPlaylist(userID, remotePlaylistID, reorder.start, reorder.insert_before)
+          }
+            
+        })
+      }
+    }
   }
 }

@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row, Col, Button } from 'react-bootstrap';
-import { remoteCheckNowPlaying, remotePlay, remotePause, remoteSkip } from '../actions/index';
+import { remoteCheckNowPlaying, remotePlay, remotePause, remoteSkip, remoteCheckOrder } from '../actions/index';
 
 class NowPlaying extends Component {
   constructor(props) {
     super(props)
-    this.props.remoteCheckNowPlaying(this.props.remotePlaylist.id, this.props.user.id, this.props.room);
-    // this.state = {
-    //   currSong: 'unknown'
-    // }
+    this.interval = setInterval(()=>{
+      this.props.remoteCheckOrder(this.props.user.id, this.props.remotePlaylist.id, this.props.songs.slice(0, 3));
+    }, 1000)
+    this.props.remoteCheckNowPlaying(this.props.remotePlaylist.id, this.props.user.id, this.props.room, this.props.songs);
   }
   currentSong() {
     if (this.props.nowPlaying.name) {
@@ -69,7 +69,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({remoteCheckNowPlaying, remotePlay, remotePause, remoteSkip}, dispatch)
+  return bindActionCreators({remoteCheckNowPlaying, remotePlay, remotePause, remoteSkip, remoteCheckOrder}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NowPlaying);
