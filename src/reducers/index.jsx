@@ -22,13 +22,10 @@ const rootReducer = combineReducers({
   room: RoomReducer,
   player: PlayerReducer,
   userPlaylists: UserPlaylistsReducer,
-<<<<<<< HEAD
-  nowPlaying: nowPlayingReducer
+  nowPlaying: nowPlayingReducer,
   // votes: votesReducer
-=======
   nowPlaying: nowPlayingReducer,
   partyStatus: PartyStatusReducer
->>>>>>> 6916b19c5dbeaf7236b2cf053718007c0e52c7e7
 });
 
 export default rootReducer;
