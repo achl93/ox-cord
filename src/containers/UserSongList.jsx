@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row, Col, ListGroup, ListGroupItem } from 'react-bootstrap';
 import UserSong from '../components/UserSong';
-import { voteSong } from '../actions/index';
+import { voteSong, unvoteSong } from '../actions/index';
 
 class UserSongList extends Component {
 
@@ -12,7 +12,7 @@ class UserSongList extends Component {
       if (Object.keys(this.props.songs).length !== 0) {
         return this.props.songs.map((song) => {
           return (
-            <UserSong key={song.id} song={song} user={this.props.user} room={this.props.room} voteSong={this.props.voteSong}/>
+            <UserSong key={song.id} song={song} user={this.props.user} room={this.props.room} voteSong={this.props.voteSong} unvoteSong={this.props.unvoteSong}/>
           )
         }
         );
@@ -50,7 +50,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({voteSong}, dispatch)
+  return bindActionCreators({voteSong, unvoteSong}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserSongList);

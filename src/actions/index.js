@@ -5,6 +5,7 @@ import EventEmitter from 'events';
 
 const spotifyApi = new SpotifyWebApi();
 
+export const PARTY_STATUS = 'PARTY_STATUS';
 export const ADD_SONG = 'ADD_SONG';
 export const ADD_SONGS = 'ADD_SONGS';
 export const IMPORT_PLAYLIST = 'IMPORT_PLAYLIST';
@@ -77,6 +78,7 @@ export function remoteRemoveSongs(userID, remotePlaylistID, tracks, room_id) {
   return (dispatch) => {
     if (tracks[0].id === 0 || remotePlaylistID === 'NOT_CHECKED'){
      // return dispatch({type: 'DO_NOTHING', payload: ''})
+     return;
     }
     spotifyApi.removeTracksFromPlaylist(userID, remotePlaylistID, [tracksString])
       .then(() => {
@@ -293,6 +295,13 @@ export function storeUser() {
   }
 };
 
+export function startParty(){
+  return {
+    type: PARTY_STATUS,
+    payload: { started: true }
+  }
+}
+
 export function joinRoom(room_id) {
   socket.emit('join-room', room_id);
   return {
@@ -315,10 +324,16 @@ export function updateNowPlaying(nowPlaying) {
   }
 }
 
-
-
 export function voteSong(room_id, song_id) {
   socket.emit('add-vote', { room_id: room_id, song_id: song_id })
+  return {
+    type: SET_VOTE,
+    payload: {}
+  }
+}
+
+export function unvoteSong(room_id, song_id) {
+  socket.emit('minus-vote', { room_id: room_id, song_id: song_id })
   return {
     type: SET_VOTE,
     payload: {}
