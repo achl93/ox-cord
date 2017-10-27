@@ -434,7 +434,7 @@ function findReorderForSpotifyTopThree(livePlaylist, localPlaylist) {
 
 export function remoteCheckOrder(userID, remotePlaylistID, songs){
   return (dispatch) => {
-    if (songs[0].id === 0 || songs.length === 0)
+    if (songs.length === 0 || songs[0].id === 0)
     {
       dispatch({type: 'DO_NOTHING', payload: ''})
     } else {
