@@ -7,52 +7,45 @@ import { remoteCheckNowPlaying, remotePlay, remotePause, remoteSkip, remoteCheck
 class NowPlaying extends Component {
   constructor(props) {
     super(props)
-    this.interval = setInterval(()=>{
+    this.interval = setInterval(() => {
       this.props.remoteCheckOrder(this.props.user.id, this.props.remotePlaylist.id, this.props.songs.slice(0, 3));
     }, 1000)
     this.props.remoteCheckNowPlaying(this.props.remotePlaylist.id, this.props.user.id, this.props.room, this.props.songs);
   }
   currentSong() {
     if (this.props.nowPlaying.name) {
-      // if (this.props.nowPlaying.name !== this.state.currSong || this.state.currSong === 'unknown') {
-      //   this.state.currSong = this.props.nowPlaying.name;
-      //   socket.emit('add-song-to-archive', {
-      //     song_id: this.props.nowPlaying.id,
-      //     room_id: this.props.room
-      //   })
-      // }
-    return (
-      <div className=" nowplayer ">
-      <Row >
-        <h6>Now Playing: </h6>
-      </Row >
-      <Row>
-        <Col>
-        <img className="nowplayingcover" src={this.props.nowPlaying.cover_art} alt="Album Art" />
-        </Col>
-        <Col>
-        <h5 className= "mx-2">{this.props.nowPlaying.name}</h5>
-        <h6 className= " artist mx-2">{this.props.nowPlaying.artist}</h6>
-        <Button bsClass="btn btn-outline-info mx-2" bsSize="small" onClick={() => this.props.remotePlay()}><i className="fa fa-play" aria-hidden="true"></i></Button>
-        <Button bsClass= "btn btn-outline-info" bsSize="small" onClick={() => this.props.remotePause()}><i className="fa fa-pause" aria-hidden="true"></i></Button>
-        <Button bsClass= "btn btn-outline-info mx-2" bsSize="small" onClick={() => this.props.remoteSkip()}><i className="fa fa-step-forward" aria-hidden="true"></i></Button>
-        </Col>
-      </Row>
-      </div>
-    );
-  } else {
+      return (
+        <div className=" nowplayer ">
+          <Row >
+            <h6>Now Playing: </h6>
+          </Row >
+          <Row>
+            <Col>
+              <img className="nowplayingcover" src={this.props.nowPlaying.cover_art} alt="Album Art" />
+            </Col>
+            <Col>
+              <h5 className="mx-2">{this.props.nowPlaying.name}</h5>
+              <h6 className=" artist mx-2">{this.props.nowPlaying.artist}</h6>
+              <Button bsClass="btn btn-outline-info mx-2" bsSize="small" onClick={() => this.props.remotePlay()}><i className="fa fa-play" aria-hidden="true"></i></Button>
+              <Button bsClass="btn btn-outline-info" bsSize="small" onClick={() => this.props.remotePause()}><i className="fa fa-pause" aria-hidden="true"></i></Button>
+              <Button bsClass="btn btn-outline-info mx-2" bsSize="small" onClick={() => this.props.remoteSkip()}><i className="fa fa-step-forward" aria-hidden="true"></i></Button>
+            </Col>
+          </Row>
+        </div>
+      );
+    } else {
       return (
         <Row >
           {<h3>Now Playing: No Songs</h3>}
         </Row>
       )
     }
-}
+  }
 
-  render () {
+  render() {
     return (
       <div>
-        { this.currentSong() }
+        {this.currentSong()}
       </div>
     )
   }
@@ -69,7 +62,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({remoteCheckNowPlaying, remotePlay, remotePause, remoteSkip, remoteCheckOrder}, dispatch)
+  return bindActionCreators({ remoteCheckNowPlaying, remotePlay, remotePause, remoteSkip, remoteCheckOrder }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NowPlaying);

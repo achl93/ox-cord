@@ -34,6 +34,7 @@ export default function(state = initial, action) {
           votes: 0,
           cover_art: result.track.album.images[2].url
         }
+        console.log(importedTracks);
       } );
       return importedTracks.sort(byVotes);  
     case REMOVE_SONG:

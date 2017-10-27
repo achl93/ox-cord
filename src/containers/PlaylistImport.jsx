@@ -10,7 +10,8 @@ class PlaylistImport extends Component {
   renderPlaylists(){
     return this.props.playlists.map((playlist) => {
       return (<PlaylistSearchResult 
-                  key={playlist.id} playlist={playlist} 
+                  key={playlist.id} 
+                  playlist={playlist} 
                   userID={this.props.user.id} 
                   remoteImportPlaylist={this.props.remoteImportPlaylist} 
                   songs={this.props.songs}

@@ -10,6 +10,7 @@ import UserPlaylistsReducer from './reducer_user_playlists';
 import RemotePlaylistReducer from './reducer_remote_playlist';
 import nowPlayingReducer from './reducer_now_playing';
 // import votesReducer from './reducer_votes';
+import PartyStatusReducer from './reducer_party_status';
 
 const rootReducer = combineReducers({
   songs: SongsReducer,
@@ -21,8 +22,13 @@ const rootReducer = combineReducers({
   room: RoomReducer,
   player: PlayerReducer,
   userPlaylists: UserPlaylistsReducer,
+<<<<<<< HEAD
   nowPlaying: nowPlayingReducer
   // votes: votesReducer
+=======
+  nowPlaying: nowPlayingReducer,
+  partyStatus: PartyStatusReducer
+>>>>>>> 6916b19c5dbeaf7236b2cf053718007c0e52c7e7
 });
 
 export default rootReducer;

@@ -4,6 +4,7 @@ import { Row, Col, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { remoteCheckRemotePlaylists, remoteCreateRemotePlaylist } from '../actions/index';
+import Delay from 'react-delay';
 
 class Create extends Component {
   render() {
@@ -11,23 +12,26 @@ class Create extends Component {
       return <Redirect to="/playlist"/>;
      } else {
           return (
-                <Row bsClass=' text-center row w-50 border'>
-                  <Col md={12}>
-                    {
-                      (!this.props.remotePlaylist.exists)
+            <Delay wait={2000}>
+              <Row bsClass=' text-center row w-50 border'>
+                <Col md={12}>
+                  {
+                    (!this.props.remotePlaylist.exists)
                       && (
                         <div>
-                          <div> Public Playlist 'Oxcord' not found on your acount </div>
-                          <Button bsClass= "m-2 btn btn-outline-success"  onClick={()=>{this.onCreateRemote()}}>
-                            Create
-                          </Button>
+                          <div>
+                             Public Playlist 'Oxcord' not found on your acount
+                          </div>
+                            <Button bsClass= "m-2 btn btn-outline-success"  onClick={()=>{this.onCreateRemote()}}>
+                              Create
+                            </Button>
                         </div>
-                      )
-                    }
-
-                  </Col>
-                </Row>
-              )
+                        )
+                  }
+                </Col>
+              </Row>
+            </Delay>
+          )
          }
   }
   componentDidMount(){
