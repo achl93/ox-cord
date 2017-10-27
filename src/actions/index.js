@@ -21,6 +21,9 @@ export const PLAYER_STATUS = 'PLAYER_STATUS';
 export const UPDATE_NOW_PLAYING = 'UPDATE_NOW_PLAYING';
 export const SET_VOTE = 'SET_VOTE';
 
+let tokenSet = false;
+let remotePlaylistSet = false;
+
 export function addSong(song) {
   return {
     type: ADD_SONG,
@@ -75,6 +78,9 @@ export function remoteRemoveSongs(userID, remotePlaylistID, tracks, room_id) {
     return `spotify:track:${track.id}`
   }).join();
   return (dispatch) => {
+    if (tracks[0].id === 0 || remotePlaylistID === 'NOT_CHECKED'){
+      return dispatch({type: 'DO_NOTHING', payload: ''})
+    }
     spotifyApi.removeTracksFromPlaylist(userID, remotePlaylistID, [tracksString])
       .then(() => {
         console.log('song removed successfully');
@@ -140,6 +146,7 @@ export function remoteCheckRemotePlaylists(userID) {
           id: found.id,
           exists: true
         }
+        remotePlaylistSet = true;
       } else {
         result = {
           id: 'NOT_FOUND',
@@ -203,6 +210,7 @@ export function remoteCreateRemotePlaylist(userID) {
           id: createdPlaylist.id,
           exists: true
         }
+        remotePlaylistSet = true;
         dispatch(createRemotePlaylist(result));
       })
   }
@@ -272,6 +280,7 @@ export function remoteSkip() {
 
 export function storeToken(token) {
   spotifyApi.setAccessToken(token);
+  tokenSet = true;
   return {
     type: STORE_TOKEN,
     payload: token
@@ -340,8 +349,7 @@ class CheckNowPlaying extends EventEmitter {
   }
   statInterval() {
     const interval = setInterval(() => {
-      const token = spotifyApi.getAccessToken()
-      if (token) {
+      if (tokenSet) {
         this.checkSong();
       }
     }, 3000);
@@ -381,11 +389,29 @@ class CheckNowPlaying extends EventEmitter {
 
 const checkNowPlaying = new CheckNowPlaying();
 
-
-export function remoteCheckNowPlaying(remotePlaylistID, userID, room_id) {
+export function remoteCheckNowPlaying(remotePlaylistID, userID, room_id, songs) {
   return (dispatch) => {
     checkNowPlaying.on('songChange', (nowPlaying, previous) => {
-      if ((nowPlaying.track.id !== previous.id) && (remotePlaylistID === nowPlaying.playlist)) {
+
+      // song order
+      // if (remotePlaylistID !== 'NOT_CHECKED') {
+      //   console.log("checking remote top 3")
+      //   spotifyApi.getPlaylistTracks(userID, remotePlaylistID, {limit: 3}).then((response) => {
+      //     const pulledTracks = response.items.map((result) => {
+      //       return {
+      //         id: result.track.id,
+      //         name: result.track.name
+      //       }
+      //     });
+      //     console.log('---pulled tracks---')
+      //     console.log(pulledTracks)
+      //     console.log('---App top 3---')
+      //     console.log(songs.slice(0, 3))
+      //   })
+      // }
+
+      // check now playing
+      if (nowPlaying.track.id !== previous.id) {
         dispatch(updateNowPlaying(nowPlaying.track));
         console.log(nowPlaying.track);
         socket.emit('add-song-to-archive', nowPlaying.track.id, room_id);
@@ -393,5 +419,19 @@ export function remoteCheckNowPlaying(remotePlaylistID, userID, room_id) {
         dispatch(remoteRemoveSongs(userID, remotePlaylistID, [previous], ''));
       }
     })
+  }
+}
+
+
+export function remoteCheckOrder(songs){
+  return (dispatch) => {
+    if (songs[0].id === 0)
+    {
+      dispatch({type: 'DO_NOTHING', payload: ''})
+    } else {
+      console.log('CECKING ORDER!!')
+      console.log('----songs----')
+      console.log(songs)
+    }
   }
 }

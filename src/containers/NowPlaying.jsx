@@ -2,11 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row } from 'react-bootstrap';
-import { remoteCheckNowPlaying } from '../actions/index';
+import { remoteCheckNowPlaying, remoteCheckOrder } from '../actions/index';
+
+
+
 class NowPlaying extends Component {
   constructor(props) {
     super(props)
-    this.props.remoteCheckNowPlaying(this.props.remotePlaylist.id, this.props.user.id, this.props.room);
+    this.interval = setInterval(()=>{
+      this.props.remoteCheckOrder(this.props.songs);
+    }, 1000)
+    this.props.remoteCheckNowPlaying(this.props.remotePlaylist.id, this.props.user.id, this.props.room, this.props.songs);
   }
   currentSong() {
     if (this.props.nowPlaying.name) {
@@ -44,7 +50,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({remoteCheckNowPlaying}, dispatch)
+  return bindActionCreators({remoteCheckNowPlaying, remoteCheckOrder}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NowPlaying);
