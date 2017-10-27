@@ -1,4 +1,4 @@
-import { ADD_SONG, ADD_SONGS, REMOVE_SONG, IMPORT_PLAYLIST, SET_SONGS, SET_VOTE } from '../actions/index';
+import { ADD_SONG, ADD_SONGS, REMOVE_SONG, IMPORT_PLAYLIST, SET_SONGS, SET_VOTE /* ADD_VOTE, MINUS_VOTE */ } from '../actions/index';
 const initial = [
   {
     id: 0,
@@ -43,6 +43,10 @@ export default function(state = initial, action) {
       return action.payload.sort(byVotes);
     case SET_VOTE:
       return state.sort(byVotes);
+    // case ADD_VOTE:
+    //   return state.sort(byVotes);
+    // case MINUS_VOTE:
+    //   return state.sort(byVotes);
     default:
       return state.sort(byVotes);
   } 
