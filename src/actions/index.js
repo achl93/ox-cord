@@ -396,7 +396,7 @@ export function remoteCheckNowPlaying(remotePlaylistID, userID, room_id, songs) 
         dispatch(updateNowPlaying(nowPlaying.track));
         // socket.emit('add-song-to-archive', { song_id: nowPlaying.track.id, room_id: room_id });
         //BEFORE REMOVING SONG, ADD TO ARCHIVE 
-        // dispatch(remoteRemoveSongs(userID, remotePlaylistID, [previous], room_id));
+        dispatch(remoteRemoveSongs(userID, remotePlaylistID, [previous], room_id));
       }
     })
   }
@@ -434,7 +434,7 @@ function findReorderForSpotifyTopThree(livePlaylist, localPlaylist) {
 
 export function remoteCheckOrder(userID, remotePlaylistID, songs){
   return (dispatch) => {
-    if (songs[0].id === 0)
+    if (songs[0].id === 0 || !songs)
     {
       dispatch({type: 'DO_NOTHING', payload: ''})
     } else {
