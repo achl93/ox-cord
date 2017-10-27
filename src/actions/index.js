@@ -429,8 +429,6 @@ export function remoteCheckOrder(songs){
     {
       dispatch({type: 'DO_NOTHING', payload: ''})
     } else {
-      console.log('CECKING ORDER!!')
-      console.log('----songs----')
       console.log(songs)
     }
   }
