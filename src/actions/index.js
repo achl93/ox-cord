@@ -215,7 +215,7 @@ export function remoteCreateRemotePlaylist(userID) {
 };
 
 // start remote playlist from beginning
-export function remoteStartPlaylist(userID, remotePlaylistID) {
+export function remoteStartPlaylist(userID, remotePlaylistID, songs, nowPlaying) {
   const context_uri = `spotify:user:${userID}:playlist:${remotePlaylistID}`;
   return (dispatch) => {
     spotifyApi.play({ context_uri })
@@ -404,11 +404,9 @@ const checkNowPlaying = new CheckNowPlaying();
 export function remoteCheckNowPlaying(remotePlaylistID, userID, room_id, songs) {
   return (dispatch) => {
     checkNowPlaying.on('songChange', (nowPlaying, previous) => {
-      // check now playing
       if (nowPlaying.track.id !== previous.id) {
         dispatch(updateNowPlaying(nowPlaying.track));
-        // socket.emit('add-song-to-archive', { song_id: nowPlaying.track.id, room_id: room_id });
-        //BEFORE REMOVING SONG, ADD TO ARCHIVE 
+        socket.emit('update-now-playing', { songObj: nowPlaying.track, room_id: room_id });
         dispatch(remoteRemoveSongs(userID, remotePlaylistID, [previous], room_id));
       }
     })
