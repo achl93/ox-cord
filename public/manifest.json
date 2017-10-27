@@ -1,6 +1,7 @@
 {
   "short_name": "Ox Cord",
   "name": "Ox Cord",
+  "lang": "en",
   "icons": [
     {
       "src": "favicon.ico",
@@ -9,7 +10,7 @@
     }
   ],
   "start_url": "./index.html",
-  "display": "standalone"
-  // "theme_color": "#000000",
-  // "background_color": "#ffffff"
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#000000"
 }
