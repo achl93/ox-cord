@@ -9,6 +9,7 @@ import PlayerReducer from './reducer_player';
 import UserPlaylistsReducer from './reducer_user_playlists';
 import RemotePlaylistReducer from './reducer_remote_playlist';
 import nowPlayingReducer from './reducer_now_playing';
+import PartyStatusReducer from './reducer_party_status';
 
 const rootReducer = combineReducers({
   songs: SongsReducer,
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
   room: RoomReducer,
   player: PlayerReducer,
   userPlaylists: UserPlaylistsReducer,
-  nowPlaying: nowPlayingReducer
+  nowPlaying: nowPlayingReducer,
+  partyStatus: PartyStatusReducer
 });
 
 export default rootReducer;

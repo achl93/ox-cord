@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { remotePlay, remotePause, remoteStartPlaylist, remoteSkip, removeSong, joinRoom } from '../actions/index';
+import { remotePlay, remotePause, remoteStartPlaylist, remoteSkip, removeSong, joinRoom, startParty } from '../actions/index';
 
 import socket from '../lib/SocketAPI';
 
@@ -15,8 +15,12 @@ class PlayerControls extends Component {
         <Col md={12}>
           <Row>
             <Col md={12}>
+              { (this.props.partyStatus.started) &&
                 <Button bsClass= "btn btn-outline-info" bsSize="small" onClick={() => this.props.remoteStartPlaylist(this.props.user.id, this.props.remotePlaylist.id)}>Begin</Button>
+              } {
+                (!this.props.partyStatus.started) &&
                 <Button bsClass="btn btn-outline-info" bsSize="small" onClick={() => this.startParty()}>Start Party </Button>
+              }
                 <Link to='/settings' className='float-right'>
                     <Button bsClass= "btn btn-outline-info" bsSize="small"><i className="fa fa-wrench" aria-hidden="true"></i></Button>
                 </Link>
@@ -39,6 +43,7 @@ class PlayerControls extends Component {
       auth_token: this.props.token
     });
     this.props.joinRoom(this.props.user.id);
+    this.props.startParty();
     // socket.emit('add-song-to-archive', { room_id: 'q6tubv3icueaamst4xw6h7go2', song_id: '3ZFTkvIE7kyPt6Nu3PEa7V' });
   }
   // onPlay(e) {
@@ -58,12 +63,13 @@ function mapStateToProps(state) {
     user: state.user,
     nowPlaying: state.nowPlaying,
     remotePlaylist: state.remotePlaylist,
-    token: state.token
+    token: state.token,
+    partyStatus: state.partyStatus
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ remotePlay, remotePause, remoteStartPlaylist, remoteSkip, removeSong, joinRoom }, dispatch)
+  return bindActionCreators({ remotePlay, remotePause, remoteStartPlaylist, remoteSkip, removeSong, joinRoom, startParty }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayerControls)

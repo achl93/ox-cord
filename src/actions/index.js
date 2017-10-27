@@ -5,6 +5,7 @@ import EventEmitter from 'events';
 
 const spotifyApi = new SpotifyWebApi();
 
+export const PARTY_STATUS = 'PARTY_STATUS';
 export const ADD_SONG = 'ADD_SONG';
 export const ADD_SONGS = 'ADD_SONGS';
 export const IMPORT_PLAYLIST = 'IMPORT_PLAYLIST';
@@ -291,6 +292,13 @@ export function storeUser() {
     payload: user
   }
 };
+
+export function startParty(){
+  return {
+    type: PARTY_STATUS,
+    payload: { started: true }
+  }
+}
 
 export function joinRoom(room_id) {
   socket.emit('join-room', room_id);
