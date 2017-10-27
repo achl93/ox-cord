@@ -53,7 +53,13 @@ module.exports = function dataHelpers(db) {
         if (err) throw err;
         callback(null, data);
       })
-    }
+    },
 
+    decrementSongVote: function(room_id, song_id, callback) {
+      db.collection("rooms").updateOne({'room_id': room_id, "playlist.id": song_id}, { $inc: { "playlist.$.votes" : -1 }}, (err, data) => {
+        if (err) throw err;
+        callback(null, data);
+      })
+    }
   };
 }

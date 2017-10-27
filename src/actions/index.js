@@ -313,10 +313,16 @@ export function updateNowPlaying(nowPlaying) {
   }
 }
 
-
-
 export function voteSong(room_id, song_id) {
   socket.emit('add-vote', { room_id: room_id, song_id: song_id })
+  return {
+    type: SET_VOTE,
+    payload: {}
+  }
+}
+
+export function unvoteSong(room_id, song_id) {
+  socket.emit('minus-vote', { room_id: room_id, song_id: song_id })
   return {
     type: SET_VOTE,
     payload: {}

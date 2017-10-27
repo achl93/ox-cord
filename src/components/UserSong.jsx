@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import { ListGroupItem, Button } from 'react-bootstrap';
-// import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
-// import { voteSong } from '../actions/index';
 
 export default class UserSong extends Component {
   constructor(props) {
@@ -20,24 +17,12 @@ export default class UserSong extends Component {
   }
 
   onHandleClick() {
-    // console.log(this.props);
     if (this.state.voted === false) {
       this.props.voteSong(this.props.room, this.props.song.id);
       this.setState({voted: true});
-    } else {
-      // do nothing
+    } else if (this.state.voted === true) {
+      this.props.unvoteSong(this.props.room, this.props.song.id);
+      this.setState({voted: false});
     }
   }
 }
-
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators({voteSong}, dispatch)
-// }
-
-// function mapStateToProps(state) {
-//   return {
-//     state
-//   };
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(UserSong);
