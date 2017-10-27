@@ -215,7 +215,7 @@ export function remoteCreateRemotePlaylist(userID) {
 };
 
 // start remote playlist from beginning
-export function remoteStartPlaylist(userID, remotePlaylistID) {
+export function remoteStartPlaylist(userID, remotePlaylistID, songs, nowPlaying) {
   const context_uri = `spotify:user:${userID}:playlist:${remotePlaylistID}`;
   return (dispatch) => {
     spotifyApi.play({ context_uri })
