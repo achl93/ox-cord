@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updateNowPlaying } from '../actions/index';
+import reorderTest from '../lib/remoteReorder';
+import { Button } from 'react-bootstrap';
 
 class Test extends Component {
   componentDidMount(){
@@ -10,16 +12,12 @@ class Test extends Component {
     return (
       <div>
         <div>Test</div>
-        <div>Now Playing: {this.props.nowPlaying.name}</div>
+        <Button onClick={() => this.onHandleClick()}>Rearrange</Button>
       </div>
     );
   }
-  updateSong(nowPlaying) {
-    console.log('Now Playing', nowPlaying.name)
-    if (nowPlaying.id !== this.props.nowPlaying.id) {
-      console.log('new song!!')
-      this.props.updateNowPlaying(nowPlaying)
-    }
+  onHandleClick() {
+    reorderTest()
   }
 }
 

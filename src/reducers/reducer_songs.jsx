@@ -7,20 +7,23 @@ const initial = [
     artist: 'Please add some'
   }
 ]
+function byVotes(a, b) {
+  return b.votes - a.votes;
+}
 
 export default function(state = initial, action) {
   switch (action.type) {
     case ADD_SONG:
-      return [...state, action.payload]
+      return [...state, action.payload].sort(byVotes)
     case ADD_SONGS:
       // return [...state, ...action.payload]
       if (state.length > 0) {
         const newSongs = action.payload.filter((song) => {
         return !state.some( item => item.id === action.payload.id )
       })
-        return [ ...state, ...newSongs ];
+        return [ ...state, ...newSongs ].sort(byVotes);
       } else {
-        return action.payload
+        return action.payload.sort(byVotes)
       }
     case IMPORT_PLAYLIST:
       const importedTracks = action.payload.items.map((result) => {
@@ -32,14 +35,14 @@ export default function(state = initial, action) {
           cover_art: result.track.album.images[2].url
         }
       } );
-      return importedTracks;  
+      return importedTracks.sort(byVotes);  
     case REMOVE_SONG:
-      return state.filter(song => song.id !== action.payload);
+      return state.filter(song => song.id !== action.payload).sort(byVotes);
     case SET_SONGS:
-      return action.payload;
+      return action.payload.sort(byVotes);
     case SET_VOTE:
-      return state;
+      return state.sort(byVotes);
     default:
-      return state;
+      return state.sort(byVotes);
   } 
 }
