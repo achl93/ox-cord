@@ -24,7 +24,7 @@ class Playlist extends Component {
     } else {
       this.props.joinRoom(this.props.user.id);
       return (
-        <Row bsClass=' row border px-3 col-md-8 '>
+        <Row bsClass=' row border rounded px-3 col-md-8 '>
           <Col md={12}>
             <Row bsClass="p-3">
               <NowPlaying />

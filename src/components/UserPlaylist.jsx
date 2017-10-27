@@ -32,7 +32,7 @@ class UserPlaylist extends Component {
     } else {
       return (
         <main>
-          <Row bsClass='row border p-3'>
+          <Row bsClass='row border rounded p-3'>
             <Col md={12}>
               <NowPlaying />
               <UserSongList />
