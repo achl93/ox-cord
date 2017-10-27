@@ -171,12 +171,10 @@ export function importPlaylist(userID, playlistID) {
 };
 
 export function remoteImportPlaylist(owner, userID, playlistID, songs, remotePlaylistID, room_id) {
-  console.log('LOOOOOOOL', owner );
   return (dispatch) => {
     // Get songs
     spotifyApi.getPlaylistTracks(owner, playlistID, {limit: 20})
       .then((response) => {
-        console.log("JOHNNYYYYYYYYYYY", response);
         const pulledTracks = response.items.map((result) => {
           return {
             id: result.track.id,
@@ -195,6 +193,7 @@ export function remoteImportPlaylist(owner, userID, playlistID, songs, remotePla
       })
   }
 }
+
 export function createRemotePlaylist(newRemotePlaylist) {
   return {
     type: UPDATE_REMOTE,
