@@ -8,7 +8,7 @@ export default class Home extends Component {
     return (
       // Route login button to Spotify login endpoint
       // then when they come back, redirect to playlist
-      <div className='row w-25 border rounded'>
+      <div className=' row w-25 border rounded'>
         <div className='col-md-4 mx-auto'>
           <div className='row'>
             <a href='http://localhost:8888/login' className='w-100 mt-3'>
