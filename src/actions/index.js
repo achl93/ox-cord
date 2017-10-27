@@ -43,7 +43,7 @@ export function addSongs(tracks) {
 }
 
 export function remoteAddSongs(userID, remotePlaylistID, tracks, room_id) {
-  console.log('adding songs')
+  console.log('adding songs');
 
   const tracksString = tracks.map((track) => {
     return `spotify:track:${track.id}`
@@ -71,7 +71,6 @@ export function remoteAddSongs(userID, remotePlaylistID, tracks, room_id) {
 }
 
 export function remoteRemoveSongs(userID, remotePlaylistID, tracks, room_id) {
-  console.log("LOUDSHIT", room_id);
   const tracksString = tracks.map((track) => {
     return `spotify:track:${track.id}`
   }).join();
@@ -346,18 +345,14 @@ class CheckNowPlaying extends EventEmitter {
     }
   }
   statInterval() {
-    const interval = setInterval(() => {
+    setInterval(() => {
       const token = spotifyApi.getAccessToken()
       if (token) {
         this.checkSong();
       }
     }, 3000);
   }
-
-  // const clear = setTimeout(()=>{
-  //   clearTimeout(interval)
-  // }, 3000)
-  // }
+  
   checkSong() {
     this.remoteCheckCurrentPlayingTrack(this.nowPlaying.track, (nowPlaying, previous) => {
       this.emit('songChange', nowPlaying, previous)
@@ -368,7 +363,6 @@ class CheckNowPlaying extends EventEmitter {
   remoteCheckCurrentPlayingTrack(previous, cb) {
     spotifyApi.getMyCurrentPlayingTrack({})
       .then((result) => {
-        console.log('RESULT HERE: ',result);
         if (!result.item){
           return;
         }
@@ -379,9 +373,7 @@ class CheckNowPlaying extends EventEmitter {
           cover_art: result.item.album.images[1].url,
           cover_background: result.item.album.images[0].url
         }
-        console.log(result.item.artists[0].name);
         const playlist = !result.context ? null : result.context.uri.split('playlist:')[1];
-        console.log(playlist);
         const nowPlaying = {
           track,
           playlist
