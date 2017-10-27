@@ -77,6 +77,7 @@ export function remoteRemoveSongs(userID, remotePlaylistID, tracks, room_id) {
   return (dispatch) => {
     if (tracks[0].id === 0 || remotePlaylistID === 'NOT_CHECKED'){
      // return dispatch({type: 'DO_NOTHING', payload: ''})
+     return;
     }
     spotifyApi.removeTracksFromPlaylist(userID, remotePlaylistID, [tracksString])
       .then(() => {
