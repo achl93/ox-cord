@@ -9,7 +9,7 @@ const initial = [
   }
 ]
 function byVotes(a, b) {
-  if (b.playing) {
+  if (b.playing === true) {
     return 1;
   }
   return b.votes - a.votes;
@@ -57,7 +57,7 @@ export default function(state = initial, action) {
       if (playing) {
         playing.playing = true;
       }
-      return newState;
+      return newState.sort(byVotes);
     default:
       return state.sort(byVotes);
   } 
