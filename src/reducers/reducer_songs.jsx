@@ -1,13 +1,21 @@
+<<<<<<< HEAD
 import { ADD_SONG, ADD_SONGS, REMOVE_SONG, IMPORT_PLAYLIST, SET_SONGS, SET_VOTE /* ADD_VOTE, MINUS_VOTE */ } from '../actions/index';
+=======
+import { ADD_SONG, ADD_SONGS, REMOVE_SONG, IMPORT_PLAYLIST, SET_SONGS, SET_VOTE, SET_TO_PLAYING } from '../actions/index';
+>>>>>>> sort-modification
 const initial = [
   {
     id: 0,
     name: 'No songs',
     votes: 0,
-    artist: 'Please add some'
+    artist: 'Please add some',
+    playing: false
   }
 ]
 function byVotes(a, b) {
+  if (b.playing) {
+    return 1;
+  }
   return b.votes - a.votes;
 }
 
@@ -32,7 +40,8 @@ export default function(state = initial, action) {
           name: result.track.name,
           artist: result.track.artists[0].name,
           votes: 0,
-          cover_art: result.track.album.images[2].url
+          cover_art: result.track.album.images[2].url,
+          playing: false
         }
       } );
       return importedTracks.sort(byVotes);  
@@ -46,6 +55,13 @@ export default function(state = initial, action) {
     //   return state.sort(byVotes);
     // case MINUS_VOTE:
     //   return state.sort(byVotes);
+    case SET_TO_PLAYING:
+      const newState = [...state];
+      const playing = newState.find(track => track.id === action.payload.id)
+      if (playing) {
+        playing.playing = true;
+      }
+      return newState;
     default:
       return state.sort(byVotes);
   } 
