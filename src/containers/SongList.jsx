@@ -13,7 +13,7 @@ class Songlist extends Component {
     // socket.emit('request-song-list', this.props.room);
     socket.on('song-list-sent', (songs) => {
       if (songs !== null) {
-        this.props.setSongs(songs);
+        this.props.setSongs(songs, this.props.nowplaying);
       }
     });
     this.state = {
@@ -49,7 +49,7 @@ class Songlist extends Component {
     if (!this.props.remotePlaylist.exists) {
       return <Redirect to="/create"/>;
      } else {
-      this.importRemote();
+      
         return (
           <Row>
             <Col md={12}>
@@ -76,6 +76,7 @@ class Songlist extends Component {
       }
   }
   componentDidMount(){
+    this.importRemote();
     this.props.remoteCheckRemotePlaylists(this.props.user.id);
   }
 }
@@ -87,7 +88,8 @@ function mapStateToProps(state) {
     user: state.user,
     remotePlaylist: state.remotePlaylist,
     coords: state.coords,
-    room: state.room
+    room: state.room,
+    nowplaying: state.nowPlaying
   }
 }
 

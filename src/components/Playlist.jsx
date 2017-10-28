@@ -22,7 +22,6 @@ class Playlist extends Component {
     if (this.props.user === 'empty') {
       return <Redirect to="/" />
     } else {
-      this.props.joinRoom(this.props.user.id);
       return (
         <Row bsClass=' row border rounded px-3 col-md-8 '>
           <Col md={12}>
@@ -35,6 +34,11 @@ class Playlist extends Component {
           </Col>
         </Row>
       )
+    }
+  }
+  componentDidMount(){
+    if (this.props.user !== 'empty') {
+      this.props.joinRoom(this.props.user.id);
     }
   }
 }

@@ -21,6 +21,9 @@ export const SET_SONGS = 'SET_SONGS';
 export const PLAYER_STATUS = 'PLAYER_STATUS';
 export const UPDATE_NOW_PLAYING = 'UPDATE_NOW_PLAYING';
 export const SET_VOTE = 'SET_VOTE';
+// export const ADD_VOTE = 'ADD_VOTE';
+// export const MINUS_VOTE = 'MINUS_VOTE';
+export const SET_TO_PLAYING = 'SET_TO_PLAYING';
 
 let tokenSet = false;
 let remotePlaylistSet = false;
@@ -32,10 +35,30 @@ export function addSong(song) {
   }
 }
 
-export function setSongs(songs) {
-  return {
-    type: SET_SONGS,
-    payload: songs
+export function setSongs(songs, nowPlaying) {
+  console.log('----Seting Songs-----')
+  if ( nowPlaying && nowPlaying.id !== 0) {
+    console.log('--Now Playing---')
+    console.log(nowPlaying.name)
+    console.log('----Filtered set songs-----')
+    console.log(songs.map((song) => {return {name: song.name, playing: song.playing}}))
+    const filtered = [...songs]
+    const found = filtered.find(song => song.id === nowPlaying.id) 
+    console.log('filtered song"')
+    console.log(found)
+    found.playing = true;
+    console.log(filtered.map((song) => {return {name: song.name, playing: song.playing}}))
+    return {
+      type: SET_SONGS,
+      payload: filtered
+    }
+  } else {
+    console.log('----Raw set songs-----')
+    console.log(songs.map((song) => {return {name: song.name, playing: song.playing}}))
+    return {
+      type: SET_SONGS,
+      payload: songs
+    }
   }
 }
 
@@ -77,7 +100,6 @@ export function remoteRemoveSongs(userID, remotePlaylistID, tracks, room_id) {
   }).join();
   return (dispatch) => {
     if (tracks[0].id === 0 || remotePlaylistID === 'NOT_CHECKED'){
-     // return dispatch({type: 'DO_NOTHING', payload: ''})
      return;
     }
     spotifyApi.removeTracksFromPlaylist(userID, remotePlaylistID, [tracksString])
@@ -169,19 +191,18 @@ export function importPlaylist(userID, playlistID) {
 };
 
 export function remoteImportPlaylist(owner, userID, playlistID, songs, remotePlaylistID, room_id) {
-  console.log('LOOOOOOOL', owner );
   return (dispatch) => {
     // Get songs
     spotifyApi.getPlaylistTracks(owner, playlistID, {limit: 20})
       .then((response) => {
-        console.log("JOHNNYYYYYYYYYYY", response);
         const pulledTracks = response.items.map((result) => {
           return {
             id: result.track.id,
             name: result.track.name,
             artist: result.track.artists[0].name,
             votes: 0,
-            cover_art: result.track.album.images[2].url
+            cover_art: result.track.album.images[2].url,
+            playing: false
           }
         });
         // filter duplicates
@@ -193,6 +214,7 @@ export function remoteImportPlaylist(owner, userID, playlistID, songs, remotePla
       })
   }
 }
+
 export function createRemotePlaylist(newRemotePlaylist) {
   return {
     type: UPDATE_REMOTE,
@@ -215,7 +237,7 @@ export function remoteCreateRemotePlaylist(userID) {
 };
 
 // start remote playlist from beginning
-export function remoteStartPlaylist(userID, remotePlaylistID) {
+export function remoteStartPlaylist(userID, remotePlaylistID, songs, nowPlaying) {
   const context_uri = `spotify:user:${userID}:playlist:${remotePlaylistID}`;
   return (dispatch) => {
     spotifyApi.play({ context_uri })
@@ -401,11 +423,19 @@ class CheckNowPlaying extends EventEmitter {
 
 const checkNowPlaying = new CheckNowPlaying();
 
+export function setTrackToPlaying(song){
+  return {
+    type: SET_TO_PLAYING,
+    payload: song
+  }
+}
+
 export function remoteCheckNowPlaying(remotePlaylistID, userID, room_id, songs) {
   return (dispatch) => {
     checkNowPlaying.on('songChange', (nowPlaying, previous) => {
       if (nowPlaying.track.id !== previous.id) {
         dispatch(updateNowPlaying(nowPlaying.track));
+        dispatch(setTrackToPlaying(nowPlaying.track));
         socket.emit('update-now-playing', { songObj: nowPlaying.track, room_id: room_id });
         dispatch(remoteRemoveSongs(userID, remotePlaylistID, [previous], room_id));
       }

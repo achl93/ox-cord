@@ -5,7 +5,7 @@ import reorderTest from '../lib/remoteReorder';
 import { Button } from 'react-bootstrap';
 
 class Test extends Component {
-  componentDidMount(){
+  componentWillMount(){
    // currentSongChecker((trackID)=>this.updateSong(trackID))
   }
   render(){

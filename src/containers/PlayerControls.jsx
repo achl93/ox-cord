@@ -16,7 +16,7 @@ class PlayerControls extends Component {
           <Row>
             <Col md={12}>
               { (this.props.partyStatus.started) &&
-                <Button bsClass= "btn btn-outline-info" bsSize="small" onClick={() => this.props.remoteStartPlaylist(this.props.user.id, this.props.remotePlaylist.id)}>Begin</Button>
+                <Button bsClass= "btn btn-outline-info" bsSize="small" onClick={() => this.props.remoteStartPlaylist(this.props.user.id, this.props.remotePlaylist.id, this.props.songs, this.props.nowPlaying)}>Begin</Button>
               } {
                 (!this.props.partyStatus.started) &&
                 <Button bsClass="btn btn-outline-info" bsSize="small" onClick={() => this.startParty()}>Start Party </Button>
