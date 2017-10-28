@@ -8,5 +8,3 @@ function reorderTest() {
 }
 
 export default reorderTest;
-
-//http://localhost:3000/test

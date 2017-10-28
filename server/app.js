@@ -14,7 +14,7 @@ const io = socketIo(server);
 const distanceInKmBetweenEarthCoordinates = require('../src/lib/coordCalculator');
 
 let SHOW_DEBUG = true;
-let PORT = process.env.PORT | 3000;
+let PORT = process.env.PORT | 8888; //turkey
 let dataHelpers = require('./lib/data-helpers');
 
 app.use(express.static(path.join(__dirname, '../build')))
