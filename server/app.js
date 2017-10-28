@@ -17,14 +17,13 @@ let SHOW_DEBUG = true;
 let PORT = process.env.PORT | 8888; //turkey
 let dataHelpers = require('./lib/data-helpers');
 
-app.use(express.static(path.join(__dirname, '../build')))
-  .use(cookieParser())
-  .use(spotifyRouteHelpers);
+app.use(express.static(path.join(__dirname, '/../build/')))
+.use(cookieParser())
+.use(spotifyRouteHelpers);
 
-app.get('/', function (request, response) {
-  response.sendFile(path.join(__dirname + '../build/index.html'));
+app.get('*', function (request, response) {
+response.sendFile(path.join(__dirname + '/../build/index.html'));
 });
-
 /*
  *  MongoDB Connection 
  */
