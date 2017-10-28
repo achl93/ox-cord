@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { ADD_SONG, ADD_SONGS, REMOVE_SONG, IMPORT_PLAYLIST, SET_SONGS, SET_VOTE /* ADD_VOTE, MINUS_VOTE */ } from '../actions/index';
-=======
 import { ADD_SONG, ADD_SONGS, REMOVE_SONG, IMPORT_PLAYLIST, SET_SONGS, SET_VOTE, SET_TO_PLAYING } from '../actions/index';
->>>>>>> sort-modification
 const initial = [
   {
     id: 0,

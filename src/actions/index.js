@@ -21,12 +21,9 @@ export const SET_SONGS = 'SET_SONGS';
 export const PLAYER_STATUS = 'PLAYER_STATUS';
 export const UPDATE_NOW_PLAYING = 'UPDATE_NOW_PLAYING';
 export const SET_VOTE = 'SET_VOTE';
-<<<<<<< HEAD
 // export const ADD_VOTE = 'ADD_VOTE';
 // export const MINUS_VOTE = 'MINUS_VOTE';
-=======
 export const SET_TO_PLAYING = 'SET_TO_PLAYING';
->>>>>>> sort-modification
 
 let tokenSet = false;
 let remotePlaylistSet = false;
