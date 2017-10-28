@@ -12,16 +12,16 @@ import { createStore, applyMiddleware } from 'redux';
 import ReduxPromise from 'redux-promise';
 import { Grid, Row } from 'react-bootstrap';
 
-import Home from './components/Home';
-import Join from './containers/Join';
-import Host from './containers/Host';
-import Create from './containers/Create';
-import Playlist from './components/Playlist';
-import Settings from './components/Settings';
-import UserPlaylist from './components/UserPlaylist';
-import PlaylistImport from './containers/PlaylistImport';
-import Test from './containers/Test';
-import BGImg from './containers/BGImg';
+import Home from './components/Home.jsx';
+import Join from './containers/Join.jsx';
+import Host from './containers/Host.jsx';
+import Create from './containers/Create.jsx';
+import Playlist from './components/Playlist.jsx';
+import Settings from './components/Settings.jsx';
+import UserPlaylist from './components/UserPlaylist.jsx';
+import PlaylistImport from './containers/PlaylistImport.jsx';
+import Test from './containers/Test.jsx';
+import BGImg from './containers/BGImg.jsx';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
