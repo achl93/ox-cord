@@ -110,8 +110,15 @@ io.on('connection', (socket) => {
     io.to(data.room_id).emit('now-playing-updated', data.songObj);
   });
 
-  socket.on('request-active-rooms', (coordsObj) => {
-    if (SHOW_DEBUG) { console.log(' + Client requested an active room list!', coordsObj) }
+  socket.on('request-active-rooms', () => {
+    if (SHOW_DEBUG) { console.log(' + Client requested an active room list!') }
+    dataHelpers.getActiveRooms((err, rooms) => {
+      io.sockets.emit('active-rooms-sent', rooms);
+    });
+  });
+
+  socket.on('request-active-rooms-nearby', (coordsObj) => {
+    if (SHOW_DEBUG) { console.log(' + Client requested an active rooms nearby list!', coordsObj) }
     dataHelpers.getActiveRooms((err, rooms) => {
       let nearbyRooms = rooms.filter((room) => {
         if (distanceInKmBetweenEarthCoordinates(room.geolocation.latitude, room.geolocation.longitude, coordsObj.latitude, coordsObj.longitude) <= 0.5) {
