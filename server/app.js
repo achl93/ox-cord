@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
@@ -13,12 +14,16 @@ const io = socketIo(server);
 const distanceInKmBetweenEarthCoordinates = require('../src/lib/coordCalculator');
 
 let SHOW_DEBUG = true;
-let PORT = process.env.PORT | 8888;
+let PORT = process.env.PORT | 3000;
 let dataHelpers = require('./lib/data-helpers');
 
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(path.join(__dirname, '../build')))
   .use(cookieParser())
   .use(spotifyRouteHelpers);
+
+app.get('/', function (request, response) {
+  response.sendFile(path.join(__dirname + '../build/index.html'));
+});
 
 /*
  *  MongoDB Connection 
