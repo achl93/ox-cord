@@ -7,7 +7,8 @@ const router = express.Router();
 // Spotify Variables
 var client_id = 'a476552a3b274690ad851a592f85310e'; // Your client id
 var client_secret = '79389b8ab9244af4bec655f0cef7015d'; // Your secret
-var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
+// var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
+var redirect_uri = 'https://oxcord.herokuapp.com/callback'; // Your redirect uri
 var stateKey = 'spotify_auth_state';
 
 
