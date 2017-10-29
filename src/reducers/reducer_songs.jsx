@@ -52,11 +52,20 @@ export default function(state = initial, action) {
     // case MINUS_VOTE:
     //   return state.sort(byVotes);
     case SET_TO_PLAYING:
-      const newState = [...state];
-      const playing = newState.find(track => track.id === action.payload.id)
-      if (playing) {
-        playing.playing = true;
-      }
+      const newState = [...state].map(({ id, name, cover_art, votes }) => {
+        return {
+          id,
+          name,
+          cover_art,
+          votes,
+          playing: id === action.payload.id ? true : false
+        }
+      });
+      // const playing = newState.find(track => track.id === action.payload.id)
+      // if (playing) {
+      //   playing.playing = true;
+      // }
+
       return newState.sort(byVotes);
     default:
       return state.sort(byVotes);

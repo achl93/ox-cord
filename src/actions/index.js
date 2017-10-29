@@ -40,23 +40,14 @@ export function addSong(song) {
 export function setSongs(songs, nowPlaying) {
   console.log('----Seting Songs-----')
   if ( nowPlaying && nowPlaying.id !== 0) {
-    console.log('--Now Playing---')
-    console.log(nowPlaying.name)
-    console.log('----Filtered set songs-----')
-    console.log(songs.map((song) => {return {name: song.name, playing: song.playing}}))
     const filtered = [...songs]
     const found = filtered.find(song => song.id === nowPlaying.id) 
-    console.log('filtered song"')
-    console.log(found)
     found.playing = true;
-    console.log(filtered.map((song) => {return {name: song.name, playing: song.playing}}))
     return {
       type: SET_SONGS,
       payload: filtered
     }
   } else {
-    console.log('----Raw set songs-----')
-    console.log(songs.map((song) => {return {name: song.name, playing: song.playing}}))
     return {
       type: SET_SONGS,
       payload: songs
@@ -303,7 +294,6 @@ export function remoteSkip() {
 };
 
 export function storeToken(token) {
-  // console.log("store token called", token);
   spotifyApi.setAccessToken(token);
   tokenSet = true;
   return {
@@ -478,7 +468,7 @@ export function remoteCheckNowPlaying(remotePlaylistID, userID, room_id, songs) 
         dispatch(updateNowPlaying(nowPlaying.track));
         dispatch(setTrackToPlaying(nowPlaying.track));
         socket.emit('update-now-playing', { songObj: nowPlaying.track, room_id: room_id });
-        dispatch(remoteRemoveSongs(userID, remotePlaylistID, [previous], room_id));
+        dispatch(remoteRemoveSongs(userID, remotePlaylistID, [previous.track], room_id));
       }
     })
   }
