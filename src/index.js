@@ -17,7 +17,7 @@ import Join from './containers/Join.jsx';
 import Host from './containers/Host.jsx';
 import Create from './containers/Create.jsx';
 import Playlist from './components/Playlist.jsx';
-import Settings from './components/Settings.jsx';
+import Settings from './containers/Settings.jsx';
 import UserPlaylist from './components/UserPlaylist.jsx';
 import PlaylistImport from './containers/PlaylistImport.jsx';
 import Test from './containers/Test.jsx';
