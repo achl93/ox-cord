@@ -301,6 +301,7 @@ export function remoteSkip() {
 };
 
 export function storeToken(token) {
+  // console.log("store token called", token);
   spotifyApi.setAccessToken(token);
   tokenSet = true;
   return {

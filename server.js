@@ -115,8 +115,16 @@ io.on('connection', (socket) => {
     });
   });
 
+  socket.on('request-host-token', (room_id) => {
+    if (SHOW_DEBUG) { console.log(' + User requested host token') }
+    dataHelpers.getHostToken(room_id, (err, token) => {
+      // console.log('Host token: ', token[0].auth_token);
+      io.to(room_id).emit('host-token-sent', token[0].auth_token);
+    });
+  });
+
   socket.on('request-song-list', (room_id) => {
-    if (SHOW_DEBUG) { console.log(' + Client requested a song list!') }
+    if (SHOW_DEBUG) { console.log(' + Client requested' + room_id + '\'s song list!') }
     dataHelpers.getSongsFromRoomID(room_id, (err, songs) => {
       io.to(room_id).emit('song-list-sent', songs);
     });
@@ -131,7 +139,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('request-active-rooms', () => {
-    if (SHOW_DEBUG) { console.log(' + Client requested an active room list!') }
+    if (SHOW_DEBUG) { console.log(' + Client requested an active rooms list!') }
     dataHelpers.getActiveRooms((err, rooms) => {
       io.sockets.emit('active-rooms-sent', rooms);
     });
