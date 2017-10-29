@@ -5,11 +5,18 @@ import { Row, Col, ListGroup, ListGroupItem } from 'react-bootstrap';
 import UserSong from '../components/UserSong';
 import { voteSong, unvoteSong } from '../actions/index';
 
+function byVotes(a, b) {
+  if (b.playing === true) {
+    return 1;
+  }
+  return b.votes - a.votes;
+}
+
 class UserSongList extends Component {
   renderSongs() {
     if (this.props.songs !== null && this.props.songs !== undefined) {
       if (Object.keys(this.props.songs).length !== 0) {
-        return this.props.songs.map((song) => {
+        return this.props.songs.sort(byVotes).map((song) => {
           return (
             <UserSong key={song.id} song={song} user={this.props.user} room={this.props.room} voteSong={this.props.voteSong} unvoteSong={this.props.unvoteSong} />
           )
