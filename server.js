@@ -4,10 +4,11 @@ var app = express();
 var PORT = process.env.PORT || 8888;
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
+require('dotenv').config();
 
 const http = require('http');
 const MongoDB = require('mongodb').MongoClient;
-const MongoURL = 'mongodb://localhost:27017/oxcord'; //ENV
+const MONGODB_URI = process.env.MONGODB_URI;
 const cookieParser = require('cookie-parser');
 const spotifyRouteHelpers = require('./server-files/routes/spotify');
 
@@ -41,7 +42,7 @@ app.get('*', function(request, response) {
 /*
  *  MongoDB Connection 
  */
-MongoDB.connect(MongoURL, function (err, db) {
+MongoDB.connect(MONGODB_URI, function (err, db) {
   if (err) {
     console.log(`Failed to connect to mongodb`);
     throw err;
