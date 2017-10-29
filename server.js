@@ -2,6 +2,7 @@ var path = require('path');
 var express = require('express');
 var app = express();
 var PORT = process.env.PORT || 8888;
+var REDIRECT = process.env.REDIRECT || 'http://localhost:8888';
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 require('dotenv').config();
