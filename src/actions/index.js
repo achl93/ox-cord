@@ -20,6 +20,7 @@ export const JOIN_ROOM = 'JOIN_ROOM';
 export const SET_SONGS = 'SET_SONGS';
 export const PLAYER_STATUS = 'PLAYER_STATUS';
 export const UPDATE_NOW_PLAYING = 'UPDATE_NOW_PLAYING';
+export const UPDATE_DEVICE = 'UPDATE_DEVICE';
 export const SET_VOTE = 'SET_VOTE';
 // export const ADD_VOTE = 'ADD_VOTE';
 // export const MINUS_VOTE = 'MINUS_VOTE';
@@ -346,6 +347,13 @@ export function updateNowPlaying(nowPlaying) {
   }
 }
 
+export function updateActiveDevice(device) {
+  return {
+    type: UPDATE_DEVICE,
+    payload: device
+  }
+}
+
 export function voteSong(room_id, song_id) {
   socket.emit('add-vote', { room_id: room_id, song_id: song_id })
   return {
@@ -377,9 +385,12 @@ class CheckNowPlaying extends EventEmitter {
       },
       playlist: 'unknownPlaylist'
     }
-    this.previousTrack = {
-      id: 99,
-      name: 'previous'
+    this.previous = {
+      track: {
+        id: 99,
+        name: 'previous'
+      },
+      playlist: 'unknownPreviousPlaylist'
     }
   }
   statInterval() {
@@ -391,14 +402,14 @@ class CheckNowPlaying extends EventEmitter {
   }
   
   checkSong() {
-    this.remoteCheckCurrentPlayingTrack(this.nowPlaying.track, (nowPlaying, previous) => {
-      this.emit('songChange', nowPlaying, previous)
+    this.remoteCheckCurrentPlayingTrack(this.nowPlaying, (nowPlaying, previous) => {
+      this.emit('nowPlaying', nowPlaying, previous)
       this.nowPlaying = nowPlaying;
-      this.previousTrack = previous;
+      this.previous = previous;
     });
   }
   remoteCheckCurrentPlayingTrack(previous, cb) {
-    spotifyApi.getMyCurrentPlayingTrack({})
+    spotifyApi.getMyCurrentPlaybackState({})
       .then((result) => {
         if (!result.item){
           return;
@@ -410,10 +421,12 @@ class CheckNowPlaying extends EventEmitter {
           cover_art: result.item.album.images[1].url,
           cover_background: result.item.album.images[0].url
         }
+        const device = result.device;
         const playlist = !result.context ? null : result.context.uri.split('playlist:')[1];
         const nowPlaying = {
           track,
-          playlist
+          playlist,
+          device
         }
         cb(nowPlaying, previous)
       })
@@ -432,8 +445,9 @@ export function setTrackToPlaying(song){
 
 export function remoteCheckNowPlaying(remotePlaylistID, userID, room_id, songs) {
   return (dispatch) => {
-    checkNowPlaying.on('songChange', (nowPlaying, previous) => {
-      if (nowPlaying.track.id !== previous.id) {
+    checkNowPlaying.on('nowPlaying', (nowPlaying, previous) => {
+      if (nowPlaying.track.id !== previous.track.id || nowPlaying.device.id !== previous.device.id ) {
+        dispatch(updateActiveDevice(nowPlaying.device));
         dispatch(updateNowPlaying(nowPlaying.track));
         dispatch(setTrackToPlaying(nowPlaying.track));
         socket.emit('update-now-playing', { songObj: nowPlaying.track, room_id: room_id });

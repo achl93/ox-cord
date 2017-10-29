@@ -8,6 +8,9 @@ import { remotePlay, remotePause, remoteStartPlaylist, remoteSkip, removeSong, j
 import socket from '../lib/SocketAPI';
 
 class PlayerControls extends Component {
+  deviceInfo(){
+
+  }
 
   render() {
     return (
@@ -23,6 +26,12 @@ class PlayerControls extends Component {
               }
                 <Link to='/settings' className='float-right'>
                     <Button bsClass= "btn btn-outline-info" bsSize="small"><i className="fa fa-wrench" aria-hidden="true"></i></Button>
+                </Link>
+                <Link to='/settings' className='float-right'>
+                    <Button bsClass= "btn btn-outline-info" bsSize="small">
+                      { this.props.activeDevice.name + '  ' }
+                       <i className="fa fa-spoon" aria-hidden="true"></i>
+                    </Button>
                 </Link>
             </Col>
           </Row>
@@ -64,7 +73,8 @@ function mapStateToProps(state) {
     nowPlaying: state.nowPlaying,
     remotePlaylist: state.remotePlaylist,
     token: state.token,
-    partyStatus: state.partyStatus
+    partyStatus: state.partyStatus,
+    activeDevice: state.activeDevice
   }
 }
 
