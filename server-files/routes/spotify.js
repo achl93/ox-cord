@@ -7,7 +7,8 @@ const router = express.Router();
 // Spotify Variables
 var client_id = 'a476552a3b274690ad851a592f85310e'; // Your client id
 var client_secret = '79389b8ab9244af4bec655f0cef7015d'; // Your secret
-var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
+// var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
+var redirect_uri = 'https://oxcord.herokuapp.com/callback'; // Your redirect uri
 var stateKey = 'spotify_auth_state';
 
 
@@ -75,7 +76,7 @@ router.get('/callback', function (req, res) {
                 */
 
                 // we can also pass the token to the browser to make requests from there
-                res.redirect('http://localhost:3000/host?' +
+                res.redirect('https://oxcord.herokuapp.com/host?' + //turkey
                     querystring.stringify({
                         access_token: access_token,
                         refresh_token: refresh_token

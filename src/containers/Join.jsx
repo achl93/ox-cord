@@ -16,12 +16,12 @@ class Join extends Component {
   }
   
   componentDidMount() {
-    // socket.emit('request-active-rooms', this.props.coords);
-    // socket.on('active-rooms-sent', (rooms) => {
-    //   this.setState({
-    //     rooms: rooms
-    //   });
-    // });
+    socket.emit('request-active-rooms');
+    socket.on('active-rooms-sent', (rooms) => {
+      this.setState({
+        rooms: rooms
+      });
+    });
   }
 
   setLocation(pos) {
@@ -41,25 +41,25 @@ class Join extends Component {
   }
   
   render() {
-    this.getGeolocation();
-    if (this.props.coords.longitude !== 0 && this.props.coords.latitude !== 0 && this.state.flag === false) {
-      socket.emit('request-active-rooms', this.props.coords);
-      socket.on('active-rooms-sent', (rooms) => {
-        this.setState({
-          rooms: rooms,
-          flag: true
-        });
-      });
-      return (
-        // this is pretty much not required
-        <i className="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
-      )
-    } else if (this.props.coords.longitude === 0 && this.props.coords.latitude === 0){
-      return (
-        <i className="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
-      )
-    }
-      else {
+    //this.getGeolocation();
+    //if (this.props.coords.longitude !== 0 && this.props.coords.latitude !== 0 && this.state.flag === false) {
+      //socket.emit('request-active-rooms-nearby', this.props.coords);
+      // socket.on('active-rooms-sent', (rooms) => {
+      //   this.setState({
+      //     rooms: rooms,
+      //     flag: true
+      //   });
+      // });
+      // return (
+      //   // this is pretty much not required
+      //   <i className="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+      // )
+    //} else if (this.props.coords.longitude === 0 && this.props.coords.latitude === 0){
+      // return (
+      //   <i className="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+      // )
+    //}
+      //else {
       return (
       <div>
         Join a room!
@@ -68,7 +68,7 @@ class Join extends Component {
         }) }
       </div>
       )
-    }
+    //}
     // <p>Longitude: {this.props.coords.longitude}</p>
     // <p>Latitude: {this.props.coords.latitude}</p>
   }

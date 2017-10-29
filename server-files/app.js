@@ -1,25 +1,29 @@
-const express = require('express');
-const http = require('http');
-const socketIo = require('socket.io');
-const MongoDB = require('mongodb').MongoClient;
-const MongoURL = 'mongodb://localhost:27017/oxcord';
-const cookieParser = require('cookie-parser');
-const spotifyRouteHelpers = require('./routes/spotify');
+// const path = require('path');
+// const express = require('express');
+// const http = require('http');
+// const socketIo = require('socket.io');
+// const MongoDB = require('mongodb').MongoClient;
+// const MongoURL = 'mongodb://localhost:27017/oxcord';
+// const cookieParser = require('cookie-parser');
+// const spotifyRouteHelpers = require('./routes/spotify');
 
-const app = express();
-const server = http.Server(app);
-const io = socketIo(server);
+// const app = express();
+// const server = http.Server(app);
+// const io = socketIo(server);
 
-const distanceInKmBetweenEarthCoordinates = require('../src/lib/coordCalculator');
+// const distanceInKmBetweenEarthCoordinates = require('../src/lib/coordCalculator');
 
-let SHOW_DEBUG = true;
-let PORT = process.env.PORT | 8888;
-let dataHelpers = require('./lib/data-helpers');
+// let SHOW_DEBUG = true;
+// let PORT = process.env.PORT | 8888; //turkey
+// let dataHelpers = require('./lib/data-helpers');
 
-app.use(express.static(__dirname + '/public'))
-  .use(cookieParser())
-  .use(spotifyRouteHelpers);
+app.use(express.static(path.join(__dirname, '/../build/')))
+.use(cookieParser())
+.use(spotifyRouteHelpers);
 
+app.get('*', function (request, response) {
+response.sendFile(path.join(__dirname + '/../build/index.html'));
+});
 /*
  *  MongoDB Connection 
  */
@@ -110,8 +114,15 @@ io.on('connection', (socket) => {
     io.to(data.room_id).emit('now-playing-updated', data.songObj);
   });
 
-  socket.on('request-active-rooms', (coordsObj) => {
-    if (SHOW_DEBUG) { console.log(' + Client requested an active room list!', coordsObj) }
+  socket.on('request-active-rooms', () => {
+    if (SHOW_DEBUG) { console.log(' + Client requested an active room list!') }
+    dataHelpers.getActiveRooms((err, rooms) => {
+      io.sockets.emit('active-rooms-sent', rooms);
+    });
+  });
+
+  socket.on('request-active-rooms-nearby', (coordsObj) => {
+    if (SHOW_DEBUG) { console.log(' + Client requested an active rooms nearby list!', coordsObj) }
     dataHelpers.getActiveRooms((err, rooms) => {
       let nearbyRooms = rooms.filter((room) => {
         if (distanceInKmBetweenEarthCoordinates(room.geolocation.latitude, room.geolocation.longitude, coordsObj.latitude, coordsObj.longitude) <= 0.5) {
