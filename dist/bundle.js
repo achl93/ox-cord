@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "4c919a4fa538bf9e36e3"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "cb5239d8ac6fa69c555f"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -1306,7 +1306,7 @@
 	exports.updateActiveDevice = updateActiveDevice;
 	exports.updateDevices = updateDevices;
 	exports.remoteCheckDevices = remoteCheckDevices;
-	exports.remoteTransferplayback = remoteTransferplayback;
+	exports.remoteTransferPlayback = remoteTransferPlayback;
 	exports.voteSong = voteSong;
 	exports.unvoteSong = unvoteSong;
 	exports.setTrackToPlaying = setTrackToPlaying;
@@ -1693,6 +1693,7 @@
 	    payload: devices
 	  };
 	}
+	
 	function remoteCheckDevices() {
 	  return function (dispatch) {
 	    spotifyApi.getMyDevices().then(function (response) {
@@ -1701,7 +1702,7 @@
 	  };
 	}
 	
-	function remoteTransferplayback(device) {
+	function remoteTransferPlayback(device) {
 	  return function (dispatch) {
 	    spotifyApi.transferMyPlayback([device.id]).then(function (response) {
 	      updateActiveDevice(device);
