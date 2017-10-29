@@ -12,6 +12,7 @@ import nowPlayingReducer from './reducer_now_playing';
 // import votesReducer from './reducer_votes';
 import PartyStatusReducer from './reducer_party_status';
 import AcvitceDeviceReducer from './reducer_active_device';
+import DevicesReducer from './reducer_devices';
 
 const rootReducer = combineReducers({
   songs: SongsReducer,
@@ -27,7 +28,8 @@ const rootReducer = combineReducers({
   // votes: votesReducer
   nowPlaying: nowPlayingReducer,
   partyStatus: PartyStatusReducer,
-  activeDevice: AcvitceDeviceReducer
+  activeDevice: AcvitceDeviceReducer,
+  devices: DevicesReducer
 });
 
 export default rootReducer;

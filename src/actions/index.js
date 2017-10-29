@@ -20,7 +20,8 @@ export const JOIN_ROOM = 'JOIN_ROOM';
 export const SET_SONGS = 'SET_SONGS';
 export const PLAYER_STATUS = 'PLAYER_STATUS';
 export const UPDATE_NOW_PLAYING = 'UPDATE_NOW_PLAYING';
-export const UPDATE_DEVICE = 'UPDATE_DEVICE';
+export const UPDATE_ACTIVE_DEVICE = 'UPDATE_ACTIVE_DEVICE';
+export const UPDATE_DEVICES = 'UPDATE_DEVICES';
 export const SET_VOTE = 'SET_VOTE';
 // export const ADD_VOTE = 'ADD_VOTE';
 // export const MINUS_VOTE = 'MINUS_VOTE';
@@ -349,8 +350,33 @@ export function updateNowPlaying(nowPlaying) {
 
 export function updateActiveDevice(device) {
   return {
-    type: UPDATE_DEVICE,
+    type: UPDATE_ACTIVE_DEVICE,
     payload: device
+  }
+}
+
+export function updateDevices(devices) {
+  return {
+    type: UPDATE_DEVICES,
+    payload: devices
+  }  
+}
+
+export function remoteCheckDevices(){
+  return (dispatch) => {
+    spotifyApi.getMyDevices()
+      .then((response) => {
+        dispatch(updateDevices(response.devices))
+      })
+  }
+}
+
+export function remoteTransferPlayback(device){
+  return (dispatch) => {
+    spotifyApi.transferMyPlayback([device.id])
+      .then((response) => {
+        updateActiveDevice(device)
+      })
   }
 }
 

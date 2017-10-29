@@ -8,7 +8,21 @@ import { remotePlay, remotePause, remoteStartPlaylist, remoteSkip, removeSong, j
 import socket from '../lib/SocketAPI';
 
 class PlayerControls extends Component {
-  deviceInfo(){
+  deviceType(){
+    switch (this.props.activeDevice.type) {
+      case 'Computer':
+        return 'desktop'
+        break;
+      case 'Smartphone':
+        return 'mobile'
+        break;
+      case 'unknown':
+        return 'ban'
+        break;
+      default:
+        return 'wifi'
+        break;
+    }
 
   }
 
@@ -25,12 +39,12 @@ class PlayerControls extends Component {
                 <Button bsClass="btn btn-outline-info" bsSize="small" onClick={() => this.startParty()}>Start Party </Button>
               }
                 <Link to='/settings' className='float-right'>
-                    <Button bsClass= "btn btn-outline-info" bsSize="small"><i className="fa fa-wrench" aria-hidden="true"></i></Button>
+                    <Button bsClass= "btn btn-outline-info mx-1" bsSize="small"><i className="fa fa-wrench" aria-hidden="true"></i></Button>
                 </Link>
                 <Link to='/settings' className='float-right'>
                     <Button bsClass= "btn btn-outline-info" bsSize="small">
                       { this.props.activeDevice.name + '  ' }
-                       <i className="fa fa-spoon" aria-hidden="true"></i>
+                       <i className={`fa fa-${this.deviceType()}`} aria-hidden="true"></i>
                     </Button>
                 </Link>
             </Col>
