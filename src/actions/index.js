@@ -38,7 +38,6 @@ export function addSong(song) {
 }
 
 export function setSongs(songs, nowPlaying) {
-  console.log('----Seting Songs-----')
   if ( nowPlaying && nowPlaying.id !== 0) {
     const filtered = [...songs]
     const found = filtered.find(song => song.id === nowPlaying.id) 
@@ -233,12 +232,13 @@ export function remoteCreateRemotePlaylist(userID) {
 export function remoteStartPlaylist(userID, remotePlaylistID, songs, nowPlaying) {
   const context_uri = `spotify:user:${userID}:playlist:${remotePlaylistID}`;
   return (dispatch) => {
-    spotifyApi.play({ context_uri })
+    spotifyApi.setShuffle(false, {})
+      .then( () => spotifyApi.play({ context_uri }) ) 
       .then(() => {
         dispatch(play())
         // something stupid pls don't laugh
         dispatch(remoteSkip())
-      })
+      })  
   }
 };
 

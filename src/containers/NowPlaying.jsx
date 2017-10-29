@@ -42,7 +42,6 @@ class NowPlaying extends Component {
     }
   }
   hostControls() {
-    console.log(this.props.user);
     if (this.props.user != 'empty') {
       return (            
       <div>  
