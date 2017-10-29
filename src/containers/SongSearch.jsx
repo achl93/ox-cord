@@ -16,7 +16,13 @@ class SongSearch extends Component {
   renderResults() {
     return this.props.results.map((song) => {
       return (
-          <SongSearchResult remoteAddSongs={this.props.remoteAddSongs} songs={this.props.songs} key={song.id} song={song} user={this.props.user} remotePlaylist={this.props.remotePlaylist} room_id={this.props.room} />
+          <SongSearchResult 
+            remoteAddSongs={this.props.remoteAddSongs} 
+            songs={this.props.songs} key={song.id} 
+            song={song} user={this.props.user} 
+            remotePlaylist={this.props.remotePlaylist} 
+            room_id={this.props.room} 
+            />
       )
     });
   }

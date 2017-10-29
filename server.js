@@ -1,29 +1,49 @@
-const express = require('express');
+var path = require('path');
+var express = require('express');
+var app = express();
+var PORT = process.env.PORT || 8888;
+var REDIRECT = process.env.REDIRECT || 'http://localhost:8888';
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+require('dotenv').config();
+
 const http = require('http');
-const socketIo = require('socket.io');
 const MongoDB = require('mongodb').MongoClient;
-const MongoURL = 'mongodb://localhost:27017/oxcord';
+const MONGODB_URI = process.env.MONGODB_URI;
 const cookieParser = require('cookie-parser');
-const spotifyRouteHelpers = require('./routes/spotify');
+const spotifyRouteHelpers = require('./server-files/routes/spotify');
 
-const app = express();
-const server = http.Server(app);
-const io = socketIo(server);
 
-const distanceInKmBetweenEarthCoordinates = require('../src/lib/coordCalculator');
+
+const distanceInKmBetweenEarthCoordinates = require('./src/lib/coordCalculator');
 
 let SHOW_DEBUG = true;
-let PORT = process.env.PORT | 8888;
-let dataHelpers = require('./lib/data-helpers');
+let dataHelpers = require('./server-files/lib/data-helpers')
 
-app.use(express.static(__dirname + '/public'))
+// using webpack-dev-server and middleware in development environment
+if (process.env.NODE_ENV !== 'production') {
+  var webpackDevMiddleware = require('webpack-dev-middleware');
+  var webpackHotMiddleware = require('webpack-hot-middleware');
+  var webpack = require('webpack');
+  var config = require('./webpack.config');
+  var compiler = webpack(config);
+
+  app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
+  app.use(webpackHotMiddleware(compiler));
+}
+
+app.use(express.static(path.join(__dirname, 'dist')))
   .use(cookieParser())
   .use(spotifyRouteHelpers);
+
+app.get('*', function(request, response) {
+  response.sendFile(__dirname + '/dist/index.html')
+});
 
 /*
  *  MongoDB Connection 
  */
-MongoDB.connect(MongoURL, function (err, db) {
+MongoDB.connect(MONGODB_URI, function (err, db) {
   if (err) {
     console.log(`Failed to connect to mongodb`);
     throw err;
@@ -95,8 +115,16 @@ io.on('connection', (socket) => {
     });
   });
 
+  socket.on('request-host-token', (room_id) => {
+    if (SHOW_DEBUG) { console.log(' + User requested host token') }
+    dataHelpers.getHostToken(room_id, (err, token) => {
+      // console.log('Host token: ', token[0].auth_token);
+      io.to(room_id).emit('host-token-sent', token[0].auth_token);
+    });
+  });
+
   socket.on('request-song-list', (room_id) => {
-    if (SHOW_DEBUG) { console.log(' + Client requested a song list!') }
+    if (SHOW_DEBUG) { console.log(' + Client requested' + room_id + '\'s song list!') }
     dataHelpers.getSongsFromRoomID(room_id, (err, songs) => {
       io.to(room_id).emit('song-list-sent', songs);
     });
@@ -111,7 +139,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('request-active-rooms', () => {
-    if (SHOW_DEBUG) { console.log(' + Client requested an active room list!') }
+    if (SHOW_DEBUG) { console.log(' + Client requested an active rooms list!') }
     dataHelpers.getActiveRooms((err, rooms) => {
       io.sockets.emit('active-rooms-sent', rooms);
     });

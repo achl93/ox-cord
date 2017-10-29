@@ -26,9 +26,9 @@ class NowPlaying extends Component {
             <Col>
               <h5 className="mx-2">{this.props.nowPlaying.name}</h5>
               <h6 className=" artist mx-2">{this.props.nowPlaying.artist}</h6>
-              <Button bsClass="btn btn-outline-info mx-2" bsSize="small" onClick={() => this.props.remotePlay()}><i className="fa fa-play" aria-hidden="true"></i></Button>
+              {/* <Button bsClass="btn btn-outline-info mx-2" bsSize="small" onClick={() => this.props.remotePlay()}><i className="fa fa-play" aria-hidden="true"></i></Button>
               <Button bsClass="btn btn-outline-info" bsSize="small" onClick={() => this.props.remotePause()}><i className="fa fa-pause" aria-hidden="true"></i></Button>
-              <Button bsClass="btn btn-outline-info mx-2" bsSize="small" onClick={() => this.props.remoteSkip()}><i className="fa fa-step-forward" aria-hidden="true"></i></Button>
+              <Button bsClass="btn btn-outline-info mx-2" bsSize="small" onClick={() => this.props.remoteSkip()}><i className="fa fa-step-forward" aria-hidden="true"></i></Button> */}
             </Col>
           </Row>
         </div>
@@ -41,11 +41,24 @@ class NowPlaying extends Component {
       )
     }
   }
+  hostControls() {
+    console.log(this.props.user);
+    if (this.props.user != 'empty') {
+      return (            
+      <div>  
+        <Button bsClass="btn btn-outline-info mx-2" bsSize="small" onClick={() => this.props.remotePlay()}><i className="fa fa-play" aria-hidden="true"></i></Button>
+        <Button bsClass="btn btn-outline-info" bsSize="small" onClick={() => this.props.remotePause()}><i className="fa fa-pause" aria-hidden="true"></i></Button>
+        <Button bsClass="btn btn-outline-info mx-2" bsSize="small" onClick={() => this.props.remoteSkip()}><i className="fa fa-step-forward" aria-hidden="true"></i></Button>
+      </div>
+      )
+    }
+  }
 
   render() {
     return (
       <div>
         {this.currentSong()}
+        {this.hostControls()}
       </div>
     )
   }

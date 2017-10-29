@@ -11,6 +11,8 @@ import RemotePlaylistReducer from './reducer_remote_playlist';
 import nowPlayingReducer from './reducer_now_playing';
 // import votesReducer from './reducer_votes';
 import PartyStatusReducer from './reducer_party_status';
+import AcvitceDeviceReducer from './reducer_active_device';
+import DevicesReducer from './reducer_devices';
 
 const rootReducer = combineReducers({
   songs: SongsReducer,
@@ -25,7 +27,9 @@ const rootReducer = combineReducers({
   nowPlaying: nowPlayingReducer,
   // votes: votesReducer
   nowPlaying: nowPlayingReducer,
-  partyStatus: PartyStatusReducer
+  partyStatus: PartyStatusReducer,
+  activeDevice: AcvitceDeviceReducer,
+  devices: DevicesReducer
 });
 
 export default rootReducer;
