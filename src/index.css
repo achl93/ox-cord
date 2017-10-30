@@ -143,7 +143,7 @@ input.form-control {
 }
 
 .playlistCont {
-  background-color: rgb(43, 42, 42);
+  background-color: rgba(43, 42, 42, 0.57);
 }
 
 .importInfo {
