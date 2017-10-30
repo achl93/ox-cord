@@ -24,7 +24,7 @@ class UserPlaylist extends Component {
       });
       socket.on('song-list-sent', (songs) => {
         if (songs !== null) {
-          this.props.setSongs(songs);
+          this.props.setSongs(songs, this.props.nowPlaying );
         }
       });
       socket.on('now-playing-updated', (songObj) => {
@@ -55,7 +55,8 @@ class UserPlaylist extends Component {
 function mapStateToProps(state) {
   return {
     room: state.room,
-    token: state.token
+    token: state.token,
+    nowPlaying: state.nowPlaying
   }
 }
 
