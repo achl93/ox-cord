@@ -22,7 +22,6 @@ class JoinRoom extends Component {
     });
   }
   render() {
-    console.log('room:', this.props.room)
     if (this.state.redirect) {
       return <Redirect to={{pathname: '/user-playlist', state: { from: this.props.room_id } }} />;
     }
