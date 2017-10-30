@@ -51,7 +51,8 @@ form {
 }
 
 span.list-group-item {
-  background-color: rgb(43, 42, 42);
+  background-color: rgba(43, 42, 42, 0);
+  border: none;
   color: rgb(243, 243, 243);
 }
 
@@ -140,7 +141,7 @@ input.form-control {
 .q_search {
   overflow: scroll !important;
   max-height: calc(100vh - 18rem);
-  background-color: rgb(43, 42, 42);
+  background-color: rgba(43, 42, 42, 0.57);
 }
 
 .playlistCont {
@@ -149,4 +150,8 @@ input.form-control {
 
 .importInfo {
   color: rgb(161, 161, 161);
+}
+
+.userplaylist {
+  background-color: rgba(43, 42, 42, 0.57);
 }
