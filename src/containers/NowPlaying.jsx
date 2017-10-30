@@ -81,10 +81,10 @@ class NowPlaying extends Component {
                 <Button bsClass= "btn btn-outline-info mx-1" bsSize="small"  onClick={() => this.props.remoteStartPlaylist(this.props.user.id, this.props.remotePlaylist.id, this.props.songs, this.props.nowPlaying)}>Begin</Button>
               } {
                 (!this.props.partyStatus.started) &&
-                <Button bsClass="btn btn-outline-info"  bsSize="small" onClick={() => this.startParty()}>Party </Button>
+                <Button bsClass="btn btn-outline-info mx-1"  bsSize="small" onClick={() => this.startParty()}>Party </Button>
               }
               <Link to='/settings'>
-                <Button bsClass= "btn btn-outline-info mx-1" bsSize="small">
+                <Button bsClass= "btn btn-outline-info" bsSize="small">
                 
                 <i className={`fa fa-${this.deviceType()}`} aria-hidden="true"></i>
                 </Button>

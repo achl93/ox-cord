@@ -22,7 +22,7 @@ class PlaylistImport extends Component {
   }
   render() {
     return (
-      <Row bsClass='row border p-3 text-center'>
+      <Row bsClass='playlistCont row border p-3 text-center'>
         <Col md={12}>
           <Row>
             <Col md={12}>
@@ -31,14 +31,14 @@ class PlaylistImport extends Component {
           </Row>
           <Row>
             <Col md={12}>
-              <p>
+              <p className="importInfo">
                 Playlists must be set to 'public' in order to be found
               </p>
             <ListGroup>
               {this.renderPlaylists()}
             </ListGroup>
             <Link to='/playlist'>
-              <Button  bsSize='small'>
+              <Button bsClass="btn btn-outline-info my-2"  bsSize='small'>
                 View Songs
               </Button>
             </Link>

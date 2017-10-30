@@ -61,8 +61,12 @@ class Songlist extends Component {
                   </Col>
                   <Col bsClass="justify-content-end">
                     <Link to='/import'>
-                       <Button bsClass=" btn btn-outline-info mb-2" bsSize="small"><i class="fa fa-download" aria-hidden="true"></i></Button>
-                    </Link>
+                    {!this.props.partyStatus.started &&
+                      <Button bsClass=" btn btn-outline-info mb-2" bsSize="small"><i class="fa fa-download" aria-hidden="true"></i></Button>
+
+                    } </Link> {this.props.partyStatus.started &&
+                      <Button bsClass=" btn btn-outline-secondary mb-2" bsSize="small" disabled><i class="fa fa-download" aria-hidden="true"></i></Button>                    
+                    }
                   </Col>
                 </Row>
                   <ListGroup >
@@ -89,7 +93,8 @@ function mapStateToProps(state) {
     remotePlaylist: state.remotePlaylist,
     coords: state.coords,
     room: state.room,
-    nowplaying: state.nowPlaying
+    nowplaying: state.nowPlaying,
+    partyStatus: state.partyStatus
   }
 }
 
