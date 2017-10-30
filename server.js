@@ -124,6 +124,10 @@ io.on('connection', (socket) => {
     });
   });
 
+  socket.on('distribute-new-tokens', (data) => {
+    io.to(data.room_id).emit('host-tokens-sent', data.tokens);
+  });
+
   socket.on('request-song-list', (room_id) => {
     if (SHOW_DEBUG) { console.log(' + Client requested' + room_id + '\'s song list!') }
     dataHelpers.getSongsFromRoomID(room_id, (err, songs) => {
