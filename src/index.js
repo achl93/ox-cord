@@ -31,9 +31,9 @@ const store = createStore(reducers, composeWithDevTools(applyMiddleware(ReduxThu
 
 ReactDOM.render(
   <Provider store={store}>
-  <Grid bsClass='mt-3 foo'>
+  <Grid bsClass='mt-3 wholePage'>
     <h1 className = "title">Ox Cord</h1>
-    <Row bsClass='baz app-content mx-auto d-flex justify-content-center px-3'>
+    <Row bsClass='mainPage app-content mx-auto d-flex justify-content-center px-3'>
       <BGImg/>
           <BrowserRouter>
             <Switch>
