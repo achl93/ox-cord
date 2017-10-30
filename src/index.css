@@ -11,10 +11,6 @@ html {
 #root {
   background-color: rgb(32, 32, 32);
   color: rgb(243, 243, 243);
-  /* position: absolute;
-  top: 0;
-  left: 0;
-  right: 0; */
 }
 
 .foo {
@@ -46,6 +42,7 @@ div[class*='row'] {
 form {
   width: 100%;
 }
+
 .text-overflow {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -88,15 +85,14 @@ input.form-control {
 }
 
 .nowplayingcover {
-  height: 5em;
-  width: 5em;
+  height: 6em;
+  width: 6em;
 }
 
 .nowplayer {
-  position: relative;
   z-index: 999;
   background-color: rgb(43, 42, 42);
-  width: 100%;
+  margin-left: 0 !important;
 }
 
 .blurr {
@@ -108,4 +104,16 @@ input.form-control {
   width: 100%;
   filter: blur(50px);
   z-index: -10000;
+}
+
+.playButton {
+  border-radius: 100% !important;
+}
+
+.pauseButton {
+  border-radius: 100% !important;
+}
+
+.nextButton {
+  border-radius: 100% !important;
 }

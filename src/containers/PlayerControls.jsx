@@ -32,15 +32,12 @@ class PlayerControls extends Component {
         <Col md={12}>
           <Row>
             <Col md={12}>
-              { (this.props.partyStatus.started) &&
+              {/* { (this.props.partyStatus.started) &&
                 <Button bsClass= "btn btn-outline-info" bsSize="small" onClick={() => this.props.remoteStartPlaylist(this.props.user.id, this.props.remotePlaylist.id, this.props.songs, this.props.nowPlaying)}>Begin</Button>
               } {
                 (!this.props.partyStatus.started) &&
                 <Button bsClass="btn btn-outline-info" bsSize="small" onClick={() => this.startParty()}>Start Party </Button>
-              }
-                <Link to='/settings' className='float-right'>
-                    <Button bsClass= "btn btn-outline-info mx-1" bsSize="small"><i className="fa fa-wrench" aria-hidden="true"></i></Button>
-                </Link>
+              } */}
                 <Link to='/settings' className='float-right'>
                     <Button bsClass= "btn btn-outline-info" bsSize="small">
                       { this.props.activeDevice.name + '  ' }

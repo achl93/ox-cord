@@ -22,16 +22,18 @@ class Playlist extends Component {
     if (this.props.user === 'empty') {
       return <Redirect to="/" />
     } else {
-      return (
-        <Row bsClass=' row border rounded px-3 col-md-8 '>
+      return ( 
+        <Row  bsClass=' justify-content-center row border rounded col-md-8 '>
+        <NowPlaying />
+        <Row bsClass=' col-md-12 '>
           <Col md={12}>
             <Row bsClass="p-3">
-              <NowPlaying />
               <PlayerControls />
             </Row>
             <Songlist />
             <SongSearch />
           </Col>
+        </Row>
         </Row>
       )
     }
