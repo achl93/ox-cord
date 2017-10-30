@@ -6,45 +6,49 @@ import Device from '../components/Device'
 import { remoteCheckDevices, remoteTransferPlayback, remoteRefreshToken } from '../actions/index'
 
 class Settings extends Component {
-  componentWillMount(){
+  componentWillMount() {
     this.props.remoteCheckDevices();
   }
-  renderDevies(){
+  renderDevies() {
     return this.props.devices.map((device) => {
       return (
-        <Device 
-          key={device.id} 
-          device={device} 
-          remoteTransferPlayback={this.props.remoteTransferPlayback} 
+        <Device
+          key={device.id}
+          device={device}
+          remoteTransferPlayback={this.props.remoteTransferPlayback}
         />
       )
     })
   }
-  onHandleClick(){
+  onHandleClick() {
     console.log('clicked')
-    this.props.remoteRefreshToken(this.props.tokens)
+    this.props.remoteRefreshToken(this.props.tokens, this.props.room)
   }
   render() {
     if (this.props.user === 'empty') {
       return <Redirect to='/' />
     } else {
       return (
-        <div>
-          <h1>Settings </h1>
-          <h2>Available Devices </h2>
-          <p>(Click to transfer playback) </p>
-          <div>
-            {this.renderDevies()}
+        <div className="text-center">
+          <h1>Settings</h1>
+          <div className="p-3">
+            <h2>Available Devices </h2>
+            <p>(Click to transfer playback) </p>
+            <div>
+              {this.renderDevies()}
+            </div>
           </div>
-          <div> Access Token </div>
-          <div className='text-overflow'> {this.props.tokens.access_token}</div>
-          <button
-            className='btn btn-outline-info'
-            onClick={() => this.onHandleClick()}
-          > Refresh </button>
-          
+          <div>
+            <h3>Access Token</h3>
+          <p className='text-overflow'> {this.props.tokens.access_token}</p>
+            <button
+              className='btn btn-outline-info'
+              onClick={() => this.onHandleClick()}
+            > Refresh Token</button>
+          </div>
+          <br />
           <Link to='/playlist'>
-            <div className='btn btn-outline-info'> Back </div>
+            <div className='btn btn-outline-info'> Back to Player</div>
           </Link>
         </div>
       )
@@ -58,7 +62,8 @@ function mapStateToProps(state) {
   return {
     user: state.user,
     devices: state.devices,
-    tokens: state.tokens
+    tokens: state.tokens,
+    room: state.room
   }
 }
 
