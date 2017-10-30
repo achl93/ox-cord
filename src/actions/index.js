@@ -40,9 +40,9 @@ export function addSong(song) {
 }
 
 export function setSongs(songs, nowPlaying) {
-  if ( nowPlaying && nowPlaying.id !== 0) {
+  if (nowPlaying && nowPlaying.id !== 0) {
     const filtered = [...songs]
-    const found = filtered.find(song => song.id === nowPlaying.id) 
+    const found = filtered.find(song => song.id === nowPlaying.id)
     if (found) {
       found.playing = true;
     }
@@ -93,8 +93,8 @@ export function remoteRemoveSongs(userID, remotePlaylistID, tracks, room_id) {
     return `spotify:track:${track.id}`
   }).join();
   return (dispatch) => {
-    if (tracks[0].id === 0 || remotePlaylistID === 'NOT_CHECKED'){
-     return;
+    if (tracks[0].id === 0 || remotePlaylistID === 'NOT_CHECKED') {
+      return;
     }
     spotifyApi.removeTracksFromPlaylist(userID, remotePlaylistID, [tracksString])
       .then(() => {
@@ -178,7 +178,7 @@ export function remoteCheckRemotePlaylists(userID) {
 
 export function importPlaylist(userID, playlistID) {
   host = true; //verify that user is host
-  const request = spotifyApi.getPlaylistTracks(userID, playlistID, {limit: 20});
+  const request = spotifyApi.getPlaylistTracks(userID, playlistID, { limit: 20 });
   return {
     type: IMPORT_PLAYLIST,
     payload: request
@@ -188,7 +188,7 @@ export function importPlaylist(userID, playlistID) {
 export function remoteImportPlaylist(owner, userID, playlistID, songs, remotePlaylistID, room_id) {
   return (dispatch) => {
     // Get songs
-    spotifyApi.getPlaylistTracks(owner, playlistID, {limit: 20})
+    spotifyApi.getPlaylistTracks(owner, playlistID, { limit: 20 })
       .then((response) => {
         const pulledTracks = response.items.map((result) => {
           return {
@@ -202,7 +202,7 @@ export function remoteImportPlaylist(owner, userID, playlistID, songs, remotePla
         });
         // filter duplicates
         const filteredTracks = pulledTracks.filter((song) => {
-          return !songs.some(item =>item.id === song.id )
+          return !songs.some(item => item.id === song.id)
         })
         // add to remote
         dispatch(remoteAddSongs(userID, remotePlaylistID, filteredTracks, room_id))
@@ -236,12 +236,12 @@ export function remoteStartPlaylist(userID, remotePlaylistID, songs, nowPlaying)
   const context_uri = `spotify:user:${userID}:playlist:${remotePlaylistID}`;
   return (dispatch) => {
     spotifyApi.setShuffle(false, {})
-      .then( () => spotifyApi.play({ context_uri }) ) 
+      .then(() => spotifyApi.play({ context_uri }))
       .then(() => {
         dispatch(play())
         // something stupid pls don't laugh
         dispatch(remoteSkip())
-      })  
+      })
   }
 };
 
@@ -305,31 +305,45 @@ export function storeTokens(tokens) {
   }
 };
 
+export function tokenValidation(data) {
+  return (dispatch) => {
+    // 50 minutes in milliseconds
+    let threshold = 3000000;
+  
+    // If tokens are expired
+    if ((Date.now() - data.tokens.create_at) > threshold) {
+      dispatch(remoteRefreshToken(data.tokens, data.room_id));
+    } 
+  }
+};
 
-export function remoteRefreshToken(tokens) {
+
+export function remoteRefreshToken(tokens, room_id) {
   return (dispatch) => {
 
     /// Fetch Attempt
-    const FETCH_URL = '/refresh_token?' + querystring.stringify({refresh_token: tokens.refresh_token });
+    const FETCH_URL = '/refresh_token?' + querystring.stringify({ refresh_token: tokens.refresh_token });
     const myOptions = {
       method: 'GET'
     };
     fetch(FETCH_URL, myOptions)
-      .then( (response) => {
+      .then((response) => {
         response.json().then((data) => {
           const newTokens = {
             access_token: data.access_token,
-            refresh_token: tokens.refresh_token
+            refresh_token: tokens.refresh_token,
+            create_at: Date.now()
           }
+          socket.emit('distribute-new-tokens', { room_id: room_id, tokens: newTokens });
           dispatch(storeTokens(newTokens))
         })
       }).catch((error) => {
         console.log("error", error)
       })
-      //
+    //
   }
 }
-export function remoteStoreUser(){
+export function remoteStoreUser() {
   return (dispatch) => {
     const user = spotifyApi.getMe()
       .then((response) => {
@@ -345,7 +359,7 @@ export function storeUser(user) {
   }
 };
 
-export function startParty(){
+export function startParty() {
   return {
     type: PARTY_STATUS,
     payload: { started: true }
@@ -385,10 +399,10 @@ export function updateDevices(devices) {
   return {
     type: UPDATE_DEVICES,
     payload: devices
-  }  
+  }
 }
 
-export function remoteCheckDevices(){
+export function remoteCheckDevices() {
   return (dispatch) => {
     spotifyApi.getMyDevices()
       .then((response) => {
@@ -397,7 +411,7 @@ export function remoteCheckDevices(){
   }
 }
 
-export function remoteTransferPlayback(device){
+export function remoteTransferPlayback(device) {
   return (dispatch) => {
     spotifyApi.transferMyPlayback([device.id])
       .then((response) => {
@@ -452,7 +466,7 @@ class CheckNowPlaying extends EventEmitter {
       }
     }, 2500);
   }
-  
+
   checkSong() {
     this.remoteCheckCurrentPlayingTrack(this.nowPlaying, (nowPlaying, previous) => {
       this.emit('nowPlaying', nowPlaying, previous)
@@ -463,7 +477,7 @@ class CheckNowPlaying extends EventEmitter {
   remoteCheckCurrentPlayingTrack(previous, cb) {
     spotifyApi.getMyCurrentPlaybackState({})
       .then((result) => {
-        if (!result.item){
+        if (!result.item) {
           return;
         }
         const track = {
@@ -488,7 +502,7 @@ class CheckNowPlaying extends EventEmitter {
 
 const checkNowPlaying = new CheckNowPlaying();
 
-export function setTrackToPlaying(song){
+export function setTrackToPlaying(song) {
   return {
     type: SET_TO_PLAYING,
     payload: song
@@ -498,7 +512,7 @@ export function setTrackToPlaying(song){
 export function remoteCheckNowPlaying(remotePlaylistID, userID, room_id, songs) {
   return (dispatch) => {
     checkNowPlaying.on('nowPlaying', (nowPlaying, previous) => {
-      if (nowPlaying.track.id !== previous.track.id || nowPlaying.device.id !== previous.device.id ) {
+      if (nowPlaying.track.id !== previous.track.id || nowPlaying.device.id !== previous.device.id) {
         dispatch(updateActiveDevice(nowPlaying.device));
         dispatch(updateNowPlaying(nowPlaying.track));
         dispatch(setTrackToPlaying(nowPlaying.track));
@@ -519,12 +533,12 @@ function reorder(input, start, index) {
 
 function findReorderForSpotifyTopThree(livePlaylist, localPlaylist) {
   const liveTopThree = livePlaylist.slice(0, 3);
-  const diff = liveTopThree.find((item, index)=>{
+  const diff = liveTopThree.find((item, index) => {
     return localPlaylist[index].id !== item.id
   })
-  if (diff){
-    const localDiffIndex = localPlaylist.findIndex((item) => {return item.id === diff.id});
-    const liveDiffIndex = livePlaylist.findIndex((item) => {return item.id === diff.id});
+  if (diff) {
+    const localDiffIndex = localPlaylist.findIndex((item) => { return item.id === diff.id });
+    const liveDiffIndex = livePlaylist.findIndex((item) => { return item.id === diff.id });
     const reordered = reorder(localPlaylist, localDiffIndex, liveDiffIndex);
     const output = {
       exists: true,
@@ -539,14 +553,13 @@ function findReorderForSpotifyTopThree(livePlaylist, localPlaylist) {
 }
 
 
-export function remoteCheckOrder(userID, remotePlaylistID, songs){
+export function remoteCheckOrder(userID, remotePlaylistID, songs) {
   return (dispatch) => {
-    if (songs.length === 0 || songs[0].id === 0 || !host)
-    {
-     // dispatch({type: 'DO_NOTHING', payload: ''})
+    if (songs.length === 0 || songs[0].id === 0 || !host) {
+      // dispatch({type: 'DO_NOTHING', payload: ''})
     } else {
       if (remotePlaylistID !== 'NOT_CHECKED') {
-        spotifyApi.getPlaylistTracks(userID, remotePlaylistID, {limit: 20}).then((response) => {
+        spotifyApi.getPlaylistTracks(userID, remotePlaylistID, { limit: 20 }).then((response) => {
           const pulledTracks = response.items.map((result) => {
             return {
               id: result.track.id,
@@ -557,7 +570,7 @@ export function remoteCheckOrder(userID, remotePlaylistID, songs){
           if (reorder) {
             spotifyApi.reorderTracksInPlaylist(userID, remotePlaylistID, reorder.start, reorder.insert_before)
           }
-            
+
         })
       }
     }
