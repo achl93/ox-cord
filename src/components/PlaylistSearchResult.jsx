@@ -15,7 +15,7 @@ export default class PlaylistSearchResult extends Component {
        return <Redirect to='/playlist'/>;
      }
     return (
-      <ListGroupItem>{ this.props.playlist.name } -{ this.props.playlist.trackCount } track(s) <Button bsClass='btn btn-sm btn-outline-info float-right' onClick={()=>{this.onHandleClick()}}><i class="fa fa-download" aria-hidden="true"></i></Button></ListGroupItem>
+      <ListGroupItem>{ this.props.playlist.name } - { this.props.playlist.trackCount } track(s) <Button bsClass='btn btn-sm btn-outline-info float-right' onClick={()=>{this.onHandleClick()}}><i class="fa fa-download" aria-hidden="true"></i></Button></ListGroupItem>
     )
   }
 
