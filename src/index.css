@@ -47,6 +47,7 @@ form {
   width: 100%;
 }
 .text-overflow {
+  max-width: 250px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

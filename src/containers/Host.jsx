@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {Redirect} from 'react-router-dom'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { storeToken } from '../actions/index';
+import { storeTokens } from '../actions/index';
 import { remoteStoreUser } from '../actions/index';
 import { getGeo } from '../actions/index';
 // import socket from '../lib/SocketAPI';
@@ -55,7 +55,7 @@ class Host extends Component {
 
   componentWillMount() {
     var params = this.getSearchParams();
-    this.props.storeToken(params);
+    this.props.storeTokens(params);
     this.props.remoteStoreUser();
   }
 
@@ -73,7 +73,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ storeToken, getGeo, remoteStoreUser }, dispatch)
+  return bindActionCreators({ storeTokens, getGeo, remoteStoreUser }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Host);

@@ -8,7 +8,7 @@ import { Row, Col } from 'react-bootstrap';
 import socket from '../lib/SocketAPI';
 import { Redirect } from 'react-router-dom';
 import SongSearch from '../containers/SongSearch';
-import { storeToken } from '../actions/index';
+import { storeTokens } from '../actions/index';
 
 
 class UserPlaylist extends Component {
@@ -20,7 +20,7 @@ class UserPlaylist extends Component {
       socket.emit('request-host-token', this.props.room);
       socket.on('host-tokens-sent', (tokens) => {
         // console.log("Got host token: ", token);
-        this.props.storeToken(tokens);
+        this.props.storeTokens(tokens);
       });
       socket.on('song-list-sent', (songs) => {
         if (songs !== null) {

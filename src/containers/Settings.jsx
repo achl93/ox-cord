@@ -3,7 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Device from '../components/Device'
-import { remoteCheckDevices, remoteTransferPlayback } from '../actions/index'
+import { remoteCheckDevices, remoteTransferPlayback, remoteRefreshToken } from '../actions/index'
 
 class Settings extends Component {
   componentWillMount(){
@@ -20,6 +20,10 @@ class Settings extends Component {
       )
     })
   }
+  onHandleClick(){
+    console.log('clicked')
+    this.props.remoteRefreshToken(this.props.tokens)
+  }
   render() {
     if (this.props.user === 'empty') {
       return <Redirect to='/' />
@@ -32,7 +36,16 @@ class Settings extends Component {
           <div>
             {this.renderDevies()}
           </div>
-          <Link to='/playlist'>Back</Link>
+          <div> Access Token </div>
+          <div className='text-overflow'> {this.props.tokens.access_token}</div>
+          <button
+            className='btn btn-outline-info'
+            onClick={() => this.onHandleClick()}
+          > Refresh </button>
+          
+          <Link to='/playlist'>
+            <div className='btn btn-outline-info'> Back </div>
+          </Link>
         </div>
       )
     }
@@ -44,12 +57,13 @@ class Settings extends Component {
 function mapStateToProps(state) {
   return {
     user: state.user,
-    devices: state.devices
+    devices: state.devices,
+    tokens: state.tokens
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ remoteCheckDevices, remoteTransferPlayback }, dispatch)
+  return bindActionCreators({ remoteCheckDevices, remoteTransferPlayback, remoteRefreshToken }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);

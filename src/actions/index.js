@@ -1,6 +1,7 @@
 import socket from '../lib/SocketAPI';
 import SpotifyWebApi from 'spotify-web-api-js';
 import EventEmitter from 'events';
+import querystring from 'querystring';
 // import CheckNowPlaying from '../lib/CheckNowPlaying';
 
 const spotifyApi = new SpotifyWebApi();
@@ -69,14 +70,12 @@ export function remoteAddSongs(userID, remotePlaylistID, tracks, room_id) {
     return `spotify:track:${track.id}`
   });
   return (dispatch) => {
-
     spotifyApi.addTracksToPlaylist(userID, remotePlaylistID, tracksString)
       .then(() => {
         socket.emit('add-song', {
           room_id: room_id,
           songObj: tracks
-        })
-        ;
+        });
         socket.emit('request-song-list', room_id);
         if (tracks.length === 1) {
           dispatch(addSong(tracks[0]));
@@ -297,7 +296,7 @@ export function remoteSkip() {
   }
 };
 
-export function storeToken(tokens) {
+export function storeTokens(tokens) {
   spotifyApi.setAccessToken(tokens.access_token);
   tokenSet = true;
   return {
@@ -306,6 +305,30 @@ export function storeToken(tokens) {
   }
 };
 
+
+export function remoteRefreshToken(tokens) {
+  return (dispatch) => {
+
+    /// Fetch Attempt
+    const FETCH_URL = '/refresh_token?' + querystring.stringify({refresh_token: tokens.refresh_token });
+    const myOptions = {
+      method: 'GET'
+    };
+    fetch(FETCH_URL, myOptions)
+      .then( (response) => {
+        response.json().then((data) => {
+          const newTokens = {
+            access_token: data.access_token,
+            refresh_token: tokens.refresh_token
+          }
+          dispatch(storeTokens(newTokens))
+        })
+      }).catch((error) => {
+        console.log("error", error)
+      })
+      //
+  }
+}
 export function remoteStoreUser(){
   return (dispatch) => {
     const user = spotifyApi.getMe()
