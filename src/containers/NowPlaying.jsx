@@ -16,7 +16,7 @@ class NowPlaying extends Component {
     this.props.remoteCheckNowPlaying(this.props.remotePlaylist.id, this.props.user.id, this.props.room, this.props.songs);
   }
 
-  deviceType(){
+  deviceType() {
     switch (this.props.activeDevice.type) {
       case 'Computer':
         return 'desktop'
@@ -60,37 +60,33 @@ class NowPlaying extends Component {
           <Row >
             <h6 className="px-3 pt-1">Now Playing </h6>
           </Row >
-          <Row bsClass = "fullInfo d-flex">
+          <Row bsClass="fullInfo d-flex">
             <Col>
               <img className="nowplayingcover" src={this.props.nowPlaying.cover_art} alt="Album Art" />
             </Col>
             <div className="songAndArtist">
               <h5 className="songName mx-2">{this.props.nowPlaying.name}</h5>
-              <h6 className=" artist mx-2">{this.props.nowPlaying.artist}</h6> 
+              <h6 className=" artist mx-2">{this.props.nowPlaying.artist}</h6>
             </div>
           </Row>
-          { (Object.keys(this.props.user).length > 1) &&
-              <div className = "buttons my-2">       
+          {(Object.keys(this.props.user).length > 1) &&
+            <div className="buttons my-2">
               <Button bsClass="btn btn-outline-info mx-1 playButton" bsSize="large" onClick={() => this.props.remotePlay()}><i className="fa fa-play" aria-hidden="true"></i></Button>
               <Button bsClass="btn btn-outline-info pauseButton" bsSize="small" onClick={() => this.props.remotePause()}><i className="fa fa-pause" aria-hidden="true"></i></Button>
               <Button bsClass="btn btn-outline-info mx-1 nextButton" bsSize="small" onClick={() => this.props.remoteSkip()}><i className="fa fa-step-forward" aria-hidden="true"></i></Button>
-              <Link to='/settings' >
-                <Button bsClass= "btn btn-outline-info" bsSize="small"><i className="fa fa-wrench" aria-hidden="true"></i></Button>
-              </Link>
-              { (this.props.partyStatus.started) &&
-                <Button bsClass= "btn btn-outline-info mx-1" bsSize="small"  onClick={() => this.props.remoteStartPlaylist(this.props.user.id, this.props.remotePlaylist.id, this.props.songs, this.props.nowPlaying)}>Begin</Button>
+              {(this.props.partyStatus.started) &&
+                <Button bsClass="btn btn-outline-info mx-1" bsSize="small" onClick={() => this.props.remoteStartPlaylist(this.props.user.id, this.props.remotePlaylist.id, this.props.songs, this.props.nowPlaying)}>Begin</Button>
               } {
                 (!this.props.partyStatus.started) &&
-                <Button bsClass="btn btn-outline-info mx-1"  bsSize="small" onClick={() => this.startParty()}>Party </Button>
+                <Button bsClass="btn btn-outline-info mx-1" bsSize="small" onClick={() => this.startParty()}>Party </Button>
               }
               <Link to='/settings'>
-                <Button bsClass= "btn btn-outline-info" bsSize="small">
-                
-                <i className={`fa fa-${this.deviceType()}`} aria-hidden="true"></i>
+                <Button bsClass="btn btn-outline-info" bsSize="small">
+                  <i className={`fa fa-${this.deviceType()}`} aria-hidden="true"></i>
                 </Button>
               </Link>
-              </div>
-              }
+            </div>
+          }
         </Col>
       );
     } else {
