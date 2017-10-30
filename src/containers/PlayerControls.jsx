@@ -63,16 +63,7 @@ class PlayerControls extends Component {
     });
     this.props.joinRoom(this.props.user.id);
     this.props.startParty();
-    // socket.emit('add-song-to-archive', { room_id: 'q6tubv3icueaamst4xw6h7go2', song_id: '3ZFTkvIE7kyPt6Nu3PEa7V' });
   }
-  // onPlay(e) {
-  //   if (this.props.songs[0]) {
-  //     this.props.remotePlay({"uris": [`spotify:track:${this.props.songs[0].id}`]});
-  //     console.log(`spotify:track:${this.props.songs[0].id}`);
-  //   } else {
-  //     // Do nothing or pop an alert maybe?
-  //   }
-  // }
 }
 
 function mapStateToProps(state) {
