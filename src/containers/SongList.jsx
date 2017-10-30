@@ -84,7 +84,7 @@ class Songlist extends Component {
 function mapStateToProps(state) {
   return {
     songs: state.songs,
-    token: state.token,
+    token: state.tokens.access_token,
     user: state.user,
     remotePlaylist: state.remotePlaylist,
     coords: state.coords,

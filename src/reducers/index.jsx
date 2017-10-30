@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 import SongsReducer from './reducer_songs';
 import SongSearchReducer from './reducer_song_search';
-import TokenReducer from './reducer_store_tokens';
+import TokensReducer from './reducer_tokens';
 import GeoReducer from './reducer_geo';
-import UserReducer from './reducer_store_user';
+import UserReducer from './reducer_user';
 import RoomReducer from './reducer_room';
 import PlayerReducer from './reducer_player';
 import UserPlaylistsReducer from './reducer_user_playlists';
@@ -17,7 +17,7 @@ import DevicesReducer from './reducer_devices';
 const rootReducer = combineReducers({
   songs: SongsReducer,
   remotePlaylist: RemotePlaylistReducer,
-  token: TokenReducer,
+  tokens: TokensReducer,
   songSearch: SongSearchReducer,
   coords: GeoReducer,
   user: UserReducer,

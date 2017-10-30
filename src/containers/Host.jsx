@@ -9,7 +9,9 @@ import { getGeo } from '../actions/index';
 
 class Host extends Component {
   getSearchParams() {
-    var searchParams = {};
+    var searchParams = {
+      create_at: Date.now()
+    };
     var e, r = /([^&;=]+)=?([^&;]*)/g,
         q = window.location.search.substring(1);
         
@@ -53,7 +55,7 @@ class Host extends Component {
 
   componentWillMount() {
     var params = this.getSearchParams();
-    this.props.storeToken(params.access_token);
+    this.props.storeToken(params);
     this.props.storeUser();
   }
 
@@ -64,7 +66,7 @@ class Host extends Component {
 
 function mapStateToProps(state) {
   return {
-    token: state.token,
+    tokens: state.tokens,
     user: state.user,
     coords: state.coords
   }

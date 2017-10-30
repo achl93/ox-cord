@@ -29,6 +29,7 @@ export const SET_TO_PLAYING = 'SET_TO_PLAYING';
 
 let tokenSet = false;
 let remotePlaylistSet = false;
+let host = false;
 
 export function addSong(song) {
   return {
@@ -41,7 +42,9 @@ export function setSongs(songs, nowPlaying) {
   if ( nowPlaying && nowPlaying.id !== 0) {
     const filtered = [...songs]
     const found = filtered.find(song => song.id === nowPlaying.id) 
-    found.playing = true;
+    if (found) {
+      found.playing = true;
+    }
     return {
       type: SET_SONGS,
       payload: filtered
@@ -175,6 +178,7 @@ export function remoteCheckRemotePlaylists(userID) {
 }
 
 export function importPlaylist(userID, playlistID) {
+  host = true; //verify that user is host
   const request = spotifyApi.getPlaylistTracks(userID, playlistID, {limit: 20});
   return {
     type: IMPORT_PLAYLIST,
@@ -293,14 +297,15 @@ export function remoteSkip() {
   }
 };
 
-export function storeToken(token) {
-  spotifyApi.setAccessToken(token);
+export function storeToken(tokens) {
+  spotifyApi.setAccessToken(tokens.access_token);
   tokenSet = true;
   return {
     type: STORE_TOKEN,
-    payload: token
+    payload: tokens
   }
 };
+
 
 export function storeUser() {
   const user = spotifyApi.getMe();
@@ -412,10 +417,10 @@ class CheckNowPlaying extends EventEmitter {
   }
   statInterval() {
     setInterval(() => {
-      if (tokenSet) {
+      if (tokenSet && host) {
         this.checkSong();
       }
-    }, 3000);
+    }, 2500);
   }
   
   checkSong() {

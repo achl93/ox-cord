@@ -23,7 +23,6 @@ class PlayerControls extends Component {
         return 'wifi'
         break;
     }
-
   }
 
   render() {
@@ -54,7 +53,6 @@ class PlayerControls extends Component {
     )
   }
   startParty() {
-    // console.log(this.props.user);
     socket.emit('create-room', {
       room_id: this.props.user.id,
       uid: socket.id,
@@ -63,7 +61,7 @@ class PlayerControls extends Component {
       lastActive: Date.now(),
       geolocation: this.props.coords,
       playlist: this.props.songs,
-      auth_token: this.props.token
+      tokens: this.props.tokens
     });
     this.props.joinRoom(this.props.user.id);
     this.props.startParty();
@@ -86,7 +84,7 @@ function mapStateToProps(state) {
     user: state.user,
     nowPlaying: state.nowPlaying,
     remotePlaylist: state.remotePlaylist,
-    token: state.token,
+    tokens: state.tokens,
     partyStatus: state.partyStatus,
     activeDevice: state.activeDevice
   }
