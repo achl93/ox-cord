@@ -62,10 +62,10 @@ class Songlist extends Component {
                   <Col bsClass="justify-content-end">
                     <Link to='/import'>
                     {!this.props.partyStatus.started &&
-                      <Button bsClass=" btn btn-outline-info mb-2" bsSize="small"><i class="fa fa-download" aria-hidden="true"></i></Button>
+                      <Button bsClass=" btn btn-outline-info mb-2" bsSize="small"><i className="fa fa-download" aria-hidden="true"></i></Button>
 
                     } </Link> {this.props.partyStatus.started &&
-                      <Button bsClass=" btn btn-outline-secondary mb-2" bsSize="small" disabled><i class="fa fa-download" aria-hidden="true"></i></Button>                    
+                      <Button bsClass=" btn btn-outline-secondary mb-2" bsSize="small" disabled><i className="fa fa-download" aria-hidden="true"></i></Button>                    
                     }
                   </Col>
                 </Row>
