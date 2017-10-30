@@ -63,7 +63,13 @@ class Join extends Component {
         <div>
           Join a room!
         {this.state.rooms.map((room) => {
-            return (<JoinRoom key={room._id} room_name={room.name} room_id={room.room_id} />);
+            return (<JoinRoom 
+                      room={room}
+                      key={room._id} 
+                      room_name={room.name} 
+                      room_id={room.room_id} 
+                      remotePlaylist={room.remotePlaylist}
+                      />);
           })}
         </div>
       )

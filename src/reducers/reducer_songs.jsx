@@ -52,10 +52,11 @@ export default function(state = initial, action) {
     // case MINUS_VOTE:
     //   return state.sort(byVotes);
     case SET_TO_PLAYING:
-      const newState = [...state].map(({ id, name, cover_art, votes }) => {
+      const newState = [...state].map(({ id, artist, name, cover_art, votes }) => {
         return {
           id,
           name,
+          artist,
           cover_art,
           votes,
           playing: id === action.payload.id ? true : false

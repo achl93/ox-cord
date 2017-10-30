@@ -2,14 +2,16 @@ import React, { Component } from 'react'
 import {Redirect} from 'react-router-dom'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { storeToken } from '../actions/index';
-import { storeUser } from '../actions/index';
+import { storeTokens } from '../actions/index';
+import { remoteStoreUser } from '../actions/index';
 import { getGeo } from '../actions/index';
 // import socket from '../lib/SocketAPI';
 
 class Host extends Component {
   getSearchParams() {
-    var searchParams = {};
+    var searchParams = {
+      create_at: Date.now()
+    };
     var e, r = /([^&;=]+)=?([^&;]*)/g,
         q = window.location.search.substring(1);
         
@@ -53,8 +55,8 @@ class Host extends Component {
 
   componentWillMount() {
     var params = this.getSearchParams();
-    this.props.storeToken(params.access_token);
-    this.props.storeUser();
+    this.props.storeTokens(params);
+    this.props.remoteStoreUser();
   }
 
 //   componentDidMount() {
@@ -64,14 +66,14 @@ class Host extends Component {
 
 function mapStateToProps(state) {
   return {
-    token: state.token,
+    tokens: state.tokens,
     user: state.user,
     coords: state.coords
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ storeToken, getGeo, storeUser }, dispatch)
+  return bindActionCreators({ storeTokens, getGeo, remoteStoreUser }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Host);

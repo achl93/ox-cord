@@ -117,9 +117,8 @@ io.on('connection', (socket) => {
 
   socket.on('request-host-token', (room_id) => {
     if (SHOW_DEBUG) { console.log(' + User requested host token') }
-    dataHelpers.getHostToken(room_id, (err, token) => {
-      // console.log('Host token: ', token[0].auth_token);
-      io.to(room_id).emit('host-token-sent', token[0].auth_token);
+    dataHelpers.getHostToken(room_id, (err, tokens) => {
+      io.to(room_id).emit('host-tokens-sent', tokens[0].tokens);
     });
   });
 
