@@ -61,7 +61,8 @@ class PlayerControls extends Component {
       lastActive: Date.now(),
       geolocation: this.props.coords,
       playlist: this.props.songs,
-      tokens: this.props.tokens
+      tokens: this.props.tokens,
+      remotePlaylist: this.props.remotePlaylist
     });
     this.props.joinRoom(this.props.user.id);
     this.props.startParty();

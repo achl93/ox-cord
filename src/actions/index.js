@@ -306,9 +306,16 @@ export function storeToken(tokens) {
   }
 };
 
+export function remoteStoreUser(){
+  return (dispatch) => {
+    const user = spotifyApi.getMe()
+      .then((response) => {
+        dispatch(storeUser(response))
+      })
+  }
+}
 
-export function storeUser() {
-  const user = spotifyApi.getMe();
+export function storeUser(user) {
   return {
     type: STORE_USER,
     payload: user

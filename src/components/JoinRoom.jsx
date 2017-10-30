@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { joinRoom } from '../actions/index';
+import { joinRoom, checkRemotePlaylist, storeUser } from '../actions/index';
 import socket from '../lib/SocketAPI';
 import { Redirect } from 'react-router-dom';
 
@@ -15,11 +15,14 @@ class JoinRoom extends Component {
   }
   sendToRoom() {
     this.props.joinRoom(this.props.room_id);
+    this.props.checkRemotePlaylist(this.props.remotePlaylist)
+    this.props.storeUser({id: this.props.room_id})
     socket.on('user-joined', (room_id) => {
       this.setState({ redirect: true });
     });
   }
   render() {
+    console.log('room:', this.props.room)
     if (this.state.redirect) {
       return <Redirect to={{pathname: '/user-playlist', state: { from: this.props.room_id } }} />;
     }
@@ -37,7 +40,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ joinRoom }, dispatch)
+  return bindActionCreators({ joinRoom, checkRemotePlaylist, storeUser }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(JoinRoom);
