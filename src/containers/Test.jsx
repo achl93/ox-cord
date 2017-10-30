@@ -5,6 +5,14 @@ import reorderTest from '../lib/remoteReorder';
 import { Button } from 'react-bootstrap';
 
 class Test extends Component {
+  checkBrowserDevice() {
+    if (!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent))) {
+       // Hide scan button for Desktop
+      return 'Desktop'
+    }  else {
+      return 'Mobile'
+    }       
+  }
   componentWillMount(){
    // currentSongChecker((trackID)=>this.updateSong(trackID))
   }
@@ -12,11 +20,9 @@ class Test extends Component {
     return (
       <div>
         <div>Test</div>
+        <div>You're on {this.checkBrowserDevice()}</div>
         <div role="dialog" aria-hidden="true" aria-labelledby="choice-modal-title" className="choice-modal js-choice-modal hide">
       <div className="choice-modal-inner">
-          <button className="btn-close" aria-label="Close">
-              <div>X</div>
-          </button>
           <div className="wrapper-btn">
               <button type="button" id="mobile-download" className="btn btn-green">
                   Get Spotify
