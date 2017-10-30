@@ -13,7 +13,7 @@ html {
   color: rgb(243, 243, 243);
 }
 
-.foo {
+.wholePage {
   position: fixed;
   top: 0;
   left: 0;
@@ -23,7 +23,7 @@ html {
 
 div[class*='row'] {
   margin-bottom: 0.5rem;
-  background-color: rgb(43, 42, 42);
+  /* background-color: rgb(43, 42, 42); */
   color: rgb(243, 243, 243);
   font-family: "Noto sans";
   overflow: scroll ;
@@ -35,7 +35,7 @@ div[class*='row'] {
   font-size: 3em;
 }
 
-.baz {
+.mainPage {
   max-height: calc(100vh - 5rem);
 }
 
@@ -66,6 +66,19 @@ input.form-control {
   border-color: rgb(25, 162, 184);
 }
 
+.fullInfo {
+  overflow: scroll;
+  max-height: 7rem;
+}
+
+.songName {
+  overflow-wrap: hidden;
+}
+
+.songAndArtist {
+  overflow: scroll;
+}
+
 .artist {
   color: rgb(161, 161, 161);
 }
@@ -86,14 +99,15 @@ input.form-control {
 }
 
 .nowplayingcover {
-  height: 6em;
-  width: 6em;
+  height: 5em;
+  width: 5em;
 }
 
 .nowplayer {
   z-index: 999;
-  background-color: rgb(43, 42, 42);
-  margin-left: 0 !important;
+  background-color: rgba(43, 42, 42, 0.57);
+  /* margin-left: 0 !important; */
+  height: 12rem;
 }
 
 .blurr {
@@ -117,4 +131,18 @@ input.form-control {
 
 .nextButton {
   border-radius: 100% !important;
+}
+
+.heyo {
+  overflow: hidden !important;
+}
+
+.q_search {
+  overflow: scroll !important;
+  max-height: calc(100vh - 18rem);
+  background-color: rgb(43, 42, 42);
+}
+
+.mainCont {
+  /* position: fixed !important; */
 }

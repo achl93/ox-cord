@@ -23,17 +23,19 @@ class Playlist extends Component {
       return <Redirect to="/" />
     } else {
       return ( 
-        <Row  bsClass=' justify-content-center row border rounded col-md-8 '>
-        <NowPlaying />
-        <Row bsClass=' col-md-12 '>
-          <Col md={12}>
-            <Row bsClass="p-3">
-              <PlayerControls />
+        <Row bsClass="mainCont col-md-8">
+          <Row bsClass=' row col-md-12 nowplayer px-3 pt-1 no-gutters'>
+            <NowPlaying />
+          </Row>
+          <Row  bsClass=' q_search justify-content-center row border col-md-12 no-gutters '>
+            <Row bsClass=' col-md-12 '>
+              <Col md={12}>
+                  <PlayerControls />
+                <Songlist />
+                <SongSearch />
+              </Col>
             </Row>
-            <Songlist />
-            <SongSearch />
-          </Col>
-        </Row>
+          </Row>
         </Row>
       )
     }
