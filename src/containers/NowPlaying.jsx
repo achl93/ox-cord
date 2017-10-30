@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Row, Col, Button, } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 import { remoteCheckNowPlaying, remotePlay, remotePause, remoteSkip, remoteCheckOrder, remoteStartPlaylist, startParty, joinRoom } from '../actions/index';
 import { Link } from 'react-router-dom';
 
@@ -14,6 +14,23 @@ class NowPlaying extends Component {
       this.props.remoteCheckOrder(this.props.user.id, this.props.remotePlaylist.id, this.props.songs.slice(0, 3));
     }, 1000)
     this.props.remoteCheckNowPlaying(this.props.remotePlaylist.id, this.props.user.id, this.props.room, this.props.songs);
+  }
+
+  deviceType(){
+    switch (this.props.activeDevice.type) {
+      case 'Computer':
+        return 'desktop'
+        break;
+      case 'Smartphone':
+        return 'mobile'
+        break;
+      case 'unknown':
+        return 'ban'
+        break;
+      default:
+        return 'wifi'
+        break;
+    }
   }
 
   startParty() {
@@ -51,18 +68,24 @@ class NowPlaying extends Component {
           </Row>
           { (this.props.user != 'empty') &&
               <div className = "buttons my-2">       
-              <Button bsClass="btn btn-outline-info mx-2 playButton" bsSize="tiny" onClick={() => this.props.remotePlay()}><i className="fa fa-play" aria-hidden="true"></i></Button>
+              <Button bsClass="btn btn-outline-info mx-1 playButton" bsSize="large" onClick={() => this.props.remotePlay()}><i className="fa fa-play" aria-hidden="true"></i></Button>
               <Button bsClass="btn btn-outline-info pauseButton" bsSize="small" onClick={() => this.props.remotePause()}><i className="fa fa-pause" aria-hidden="true"></i></Button>
-              <Button bsClass="btn btn-outline-info mx-2 nextButton" bsSize="small" onClick={() => this.props.remoteSkip()}><i className="fa fa-step-forward" aria-hidden="true"></i></Button>
+              <Button bsClass="btn btn-outline-info mx-1 nextButton" bsSize="small" onClick={() => this.props.remoteSkip()}><i className="fa fa-step-forward" aria-hidden="true"></i></Button>
               <Link to='/settings' >
-                <Button bsClass= "btn btn-outline-info mx-1" bsSize="small"><i className="fa fa-wrench" aria-hidden="true"></i></Button>
+                <Button bsClass= "btn btn-outline-info" bsSize="small"><i className="fa fa-wrench" aria-hidden="true"></i></Button>
               </Link>
               { (this.props.partyStatus.started) &&
-                <Button bsClass= "btn btn-outline-info" bsSize="small"  onClick={() => this.props.remoteStartPlaylist(this.props.user.id, this.props.remotePlaylist.id, this.props.songs, this.props.nowPlaying)}>Begin</Button>
+                <Button bsClass= "btn btn-outline-info mx-1" bsSize="small"  onClick={() => this.props.remoteStartPlaylist(this.props.user.id, this.props.remotePlaylist.id, this.props.songs, this.props.nowPlaying)}>Begin</Button>
               } {
                 (!this.props.partyStatus.started) &&
                 <Button bsClass="btn btn-outline-info"  bsSize="small" onClick={() => this.startParty()}>Party </Button>
               }
+              <Link to='/settings'>
+                <Button bsClass= "btn btn-outline-info mx-1" bsSize="small">
+                
+                <i className={`fa fa-${this.deviceType()}`} aria-hidden="true"></i>
+                </Button>
+              </Link>
               </div>
               }
         </Col>

@@ -60,10 +60,8 @@ class Songlist extends Component {
                   <h4 className='text-center'>Queue </h4>
                   </Col>
                   <Col bsClass="justify-content-end">
-                  <Link to='/import'>
-                       <Button bsClass=" btn btn-outline-info mb-2" bsSize="small"
-                       data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"
-                       ><i class="fa fa-download" aria-hidden="true"></i></Button>
+                    <Link to='/import'>
+                       <Button bsClass=" btn btn-outline-info mb-2" bsSize="small"><i class="fa fa-download" aria-hidden="true"></i></Button>
                     </Link>
                   </Col>
                 </Row>
