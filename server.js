@@ -13,8 +13,6 @@ const MONGODB_URI = process.env.MONGODB_URI;
 const cookieParser = require('cookie-parser');
 const spotifyRouteHelpers = require('./server-files/routes/spotify');
 
-
-
 const distanceInKmBetweenEarthCoordinates = require('./src/lib/coordCalculator');
 
 let SHOW_DEBUG = true;

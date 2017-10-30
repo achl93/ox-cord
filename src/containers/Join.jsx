@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { getGeo } from '../actions/index';
 import socket from '../lib/SocketAPI';
 import JoinRoom from '../components/JoinRoom';
+const distanceInKmBetweenEarthCoordinates = require('../lib/coordCalculator');
 
 class Join extends Component {
 
@@ -61,7 +62,7 @@ class Join extends Component {
     } else {
       return (
         <div>
-          Join a room!
+          Nearby rooms!
         {this.state.rooms.map((room) => {
             return (<JoinRoom 
                       room={room}
@@ -69,13 +70,12 @@ class Join extends Component {
                       room_name={room.name} 
                       room_id={room.room_id} 
                       remotePlaylist={room.remotePlaylist}
+                      distance={distanceInKmBetweenEarthCoordinates(room.geolocation.latitude, room.geolocation.longitude, this.props.coords.latitude, this.props.coords.longitude)}
                       />);
           })}
         </div>
       )
     }
-    // <p>Longitude: {this.props.coords.longitude}</p>
-    // <p>Latitude: {this.props.coords.latitude}</p>
   }
 }
 

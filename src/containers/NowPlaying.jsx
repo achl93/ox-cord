@@ -69,7 +69,7 @@ class NowPlaying extends Component {
               <h6 className=" artist mx-2">{this.props.nowPlaying.artist}</h6> 
             </div>
           </Row>
-          { (this.props.user != 'empty') &&
+          { (Object.keys(this.props.user).length > 1) &&
               <div className = "buttons my-2">       
               <Button bsClass="btn btn-outline-info mx-1 playButton" bsSize="large" onClick={() => this.props.remotePlay()}><i className="fa fa-play" aria-hidden="true"></i></Button>
               <Button bsClass="btn btn-outline-info pauseButton" bsSize="small" onClick={() => this.props.remotePause()}><i className="fa fa-pause" aria-hidden="true"></i></Button>
