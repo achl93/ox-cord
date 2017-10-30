@@ -12,7 +12,21 @@ class Test extends Component {
     return (
       <div>
         <div>Test</div>
-        <Button onClick={() => this.onHandleClick()}>Rearrange</Button>
+        <div role="dialog" aria-hidden="true" aria-labelledby="choice-modal-title" className="choice-modal js-choice-modal hide">
+      <div className="choice-modal-inner">
+          <button className="btn-close" aria-label="Close">
+              <div>X</div>
+          </button>
+          <div className="wrapper-btn">
+              <button type="button" id="mobile-download" className="btn btn-green">
+                  Get Spotify
+              </button>
+              <button type="button" id="mobile-play" className="btn btn-transparent">
+                  Open Spotify
+              </button>
+          </div>
+      </div>
+  </div>
       </div>
     );
   }
