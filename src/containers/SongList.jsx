@@ -55,16 +55,18 @@ class Songlist extends Component {
             <Col md={12}>
               <Row>
                 <Col md={12}>
-                  {/* <div className='text-overflow float-left'>Lat: {this.props.coords.longitude}</div>
-                  <div className='text-overflow float-left'>Lng: {this.props.coords.latitude}</div> */}
-                  <Link to='/import' className='float-right'>
-                    <Button bsClass="btn btn-outline-info" bsSize="small">Import Playlists</Button>
-                  </Link>
-              </Col>
-              </Row>
-              <Row>
-                <Col md={12}>
-                  <h4 className='text-center'> Queue </h4>
+                <Row bsClass="d-flex justify-content-between">
+                  <Col>
+                  <h4 className='text-center'>Queue </h4>
+                  </Col>
+                  <Col bsClass="justify-content-end">
+                  <Link to='/import'>
+                       <Button bsClass=" btn btn-outline-info mb-2" bsSize="small"
+                       data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?"
+                       ><i class="fa fa-download" aria-hidden="true"></i></Button>
+                    </Link>
+                  </Col>
+                </Row>
                   <ListGroup >
                     { this.renderSongs() }
                   </ListGroup>

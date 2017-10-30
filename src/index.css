@@ -23,7 +23,7 @@ html {
 
 div[class*='row'] {
   margin-bottom: 0.5rem;
-  background-color: rgb(43, 42, 42);
+  /* background-color: rgb(43, 42, 42); */
   color: rgb(243, 243, 243);
   font-family: "Noto sans";
   overflow: scroll ;
@@ -104,7 +104,7 @@ input.form-control {
 
 .nowplayer {
   z-index: 999;
-  background-color: rgb(43, 42, 42);
+  background-color: rgba(43, 42, 42, 0.57);
   /* margin-left: 0 !important; */
   height: 12rem;
 }
@@ -139,6 +139,7 @@ input.form-control {
 .q_search {
   overflow: scroll !important;
   max-height: calc(100vh - 18rem);
+  background-color: rgb(43, 42, 42);
 }
 
 .mainCont {

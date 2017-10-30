@@ -38,12 +38,12 @@ class PlayerControls extends Component {
                 (!this.props.partyStatus.started) &&
                 <Button bsClass="btn btn-outline-info" bsSize="small" onClick={() => this.startParty()}>Start Party </Button>
               } */}
-                <Link to='/settings' className='float-right'>
+                {/* <Link to='/settings' className='float-right'>
                     <Button bsClass= "btn btn-outline-info" bsSize="small">
                       { this.props.activeDevice.name + '  ' }
                        <i className={`fa fa-${this.deviceType()}`} aria-hidden="true"></i>
                     </Button>
-                </Link>
+                </Link> */}
             </Col>
           </Row>
         </Col>
