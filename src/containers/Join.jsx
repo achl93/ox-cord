@@ -61,17 +61,18 @@ class Join extends Component {
       )
     } else {
       return (
-        <div>
-          Nearby rooms!
-        {this.state.rooms.map((room) => {
-            return (<JoinRoom 
-                      room={room}
-                      key={room._id} 
-                      room_name={room.name} 
-                      room_id={room.room_id} 
-                      remotePlaylist={room.remotePlaylist}
-                      distance={distanceInKmBetweenEarthCoordinates(room.geolocation.latitude, room.geolocation.longitude, this.props.coords.latitude, this.props.coords.longitude)}
-                      />);
+        <div className='text-center'>
+          <h1>Join a Party!</h1>
+          <p>Join a nearby party now!</p>
+          {this.state.rooms.map((room) => {
+            return (<JoinRoom
+              room={room}
+              key={room._id}
+              room_name={room.name}
+              room_id={room.room_id}
+              remotePlaylist={room.remotePlaylist}
+              distance={distanceInKmBetweenEarthCoordinates(room.geolocation.latitude, room.geolocation.longitude, this.props.coords.latitude, this.props.coords.longitude)}
+            />);
           })}
         </div>
       )
