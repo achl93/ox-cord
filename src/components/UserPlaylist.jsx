@@ -8,7 +8,7 @@ import { Row, Col } from 'react-bootstrap';
 import socket from '../lib/SocketAPI';
 import { Redirect } from 'react-router-dom';
 import SongSearch from '../containers/SongSearch';
-import { storeTokens } from '../actions/index';
+import { storeTokens, tokenValidation } from '../actions/index';
 
 
 class UserPlaylist extends Component {
@@ -19,16 +19,19 @@ class UserPlaylist extends Component {
       socket.emit('request-now-playing', this.props.room);
       socket.emit('request-host-token', this.props.room);
       socket.on('host-tokens-sent', (tokens) => {
-        console.log("Got host tokens: ", tokens);
         this.props.storeTokens(tokens);
       });
       socket.on('song-list-sent', (songs) => {
         if (songs !== null) {
-          this.props.setSongs(songs, this.props.nowPlaying );
+          this.props.setSongs(songs, this.props.nowPlaying);
         }
       });
       socket.on('now-playing-updated', (songObj) => {
         this.props.updateNowPlaying(songObj);
+      });
+      this.props.tokenValidation({
+        room_id: this.props.room,
+        tokens: this.props.tokens
       });
     }
   }
@@ -55,13 +58,13 @@ class UserPlaylist extends Component {
 function mapStateToProps(state) {
   return {
     room: state.room,
-    token: state.token,
+    tokens: state.tokens,
     nowPlaying: state.nowPlaying
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ setSongs, updateNowPlaying, storeTokens }, dispatch)
+  return bindActionCreators({ setSongs, updateNowPlaying, storeTokens, tokenValidation }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserPlaylist);
