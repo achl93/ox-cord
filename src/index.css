@@ -143,22 +143,10 @@ input.form-control {
   background-color: rgb(43, 42, 42);
 }
 
-.mainCont {
-  /* position: fixed !important; */
-}
-
 .playlistCont {
   background-color: rgb(43, 42, 42);
 }
 
 .importInfo {
-  color: rgb(161, 161, 161);
-}
-
-.goober {
-  
-}
-
-.goofy {
   color: rgb(161, 161, 161);
 }
