@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { searchSongs, remoteAddSongs } from '../actions/index';
+import { searchSongs, remoteAddSongs, tokenValidation } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row, Col, FormControl, FormGroup, InputGroup, Button, ListGroup } from 'react-bootstrap';
@@ -64,6 +64,10 @@ class SongSearch extends Component {
   }
   onFormSubmit(event){
     event.preventDefault();
+    this.props.tokenValidation({ 
+      room_id: this.props.room, 
+      tokens: this.props.tokens 
+    });
     this.props.searchSongs(this.state.term);
     this.setState({
       term: ''
@@ -82,12 +86,13 @@ function mapStateToProps(state) {
     remotePlaylist: state.remotePlaylist,
     user: state.user,
     room: state.room,
-    songs: state.songs
+    songs: state.songs,
+    tokens: state.tokens
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ searchSongs, remoteAddSongs }, dispatch)
+  return bindActionCreators({ searchSongs, remoteAddSongs, tokenValidation }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SongSearch)
