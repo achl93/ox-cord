@@ -447,7 +447,6 @@ class CheckNowPlaying extends EventEmitter {
   }
   statInterval() {
     setInterval(() => {
-      console.log('host', host)
       if (tokenSet && host) {
         this.checkSong();
       }
