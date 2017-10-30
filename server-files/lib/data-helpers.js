@@ -34,7 +34,7 @@ module.exports = function dataHelpers(db) {
       db.collection("rooms").find({"active": true}, {_id: 1, "room_id": 1, "name": 1, "geolocation": 1, "remotePlaylist": 1}).toArray(callback);
     },
 
-    getHostToken: function(room_id, callback) {
+    getHostTokens: function(room_id, callback) {
       db.collection("rooms").find({"room_id": room_id}, {_id: 0, "tokens": 1})
       .toArray(callback);
     },

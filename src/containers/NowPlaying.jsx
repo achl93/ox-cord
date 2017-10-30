@@ -18,6 +18,8 @@ class NowPlaying extends Component {
 
   startParty() {
     // console.log(this.props.user);
+    console.log('--starting party---tokens-')
+    console.log(this.props.tokens)
     socket.emit('create-room', {
       room_id: this.props.user.id,
       uid: socket.id,
@@ -26,7 +28,8 @@ class NowPlaying extends Component {
       lastActive: Date.now(),
       geolocation: this.props.coords,
       playlist: this.props.songs,
-      auth_token: this.props.token
+      tokens: this.props.tokens,
+      remotePlaylist: this.props.remotePlaylist
     });
     this.props.joinRoom(this.props.user.id);
     this.props.startParty();
@@ -49,7 +52,7 @@ class NowPlaying extends Component {
               <h6 className=" artist mx-2">{this.props.nowPlaying.artist}</h6> 
               { (this.props.user != 'empty') &&
               <div>       
-              <Button bsClass="btn btn-outline-info mx-2 playButton" bsSize="tiny" onClick={() => this.props.remotePlay()}><i className="fa fa-play" aria-hidden="true"></i></Button>
+              <Button bsClass="btn btn-outline-info mx-2 playButton" bsSize="xs" onClick={() => this.props.remotePlay()}><i className="fa fa-play" aria-hidden="true"></i></Button>
               <Button bsClass="btn btn-outline-info pauseButton" bsSize="small" onClick={() => this.props.remotePause()}><i className="fa fa-pause" aria-hidden="true"></i></Button>
               <Button bsClass="btn btn-outline-info mx-2 nextButton" bsSize="small" onClick={() => this.props.remoteSkip()}><i className="fa fa-step-forward" aria-hidden="true"></i></Button>
               <Link to='/settings' className='float-right'>
@@ -107,7 +110,7 @@ function mapStateToProps(state) {
     room: state.room,
     partyStatus: state.partyStatus,
     coords: state.coords,
-    token: state.token,
+    tokens: state.tokens,
     activeDevice: state.activeDevice
   }
 }

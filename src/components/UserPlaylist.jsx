@@ -19,7 +19,7 @@ class UserPlaylist extends Component {
       socket.emit('request-now-playing', this.props.room);
       socket.emit('request-host-token', this.props.room);
       socket.on('host-tokens-sent', (tokens) => {
-        // console.log("Got host token: ", token);
+        console.log("Got host tokens: ", tokens);
         this.props.storeTokens(tokens);
       });
       socket.on('song-list-sent', (songs) => {
@@ -60,7 +60,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ setSongs, updateNowPlaying, storeToken }, dispatch)
+  return bindActionCreators({ setSongs, updateNowPlaying, storeTokens }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserPlaylist);

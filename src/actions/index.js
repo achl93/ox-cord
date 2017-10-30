@@ -447,6 +447,7 @@ class CheckNowPlaying extends EventEmitter {
   }
   statInterval() {
     setInterval(() => {
+      console.log('host', host)
       if (tokenSet && host) {
         this.checkSong();
       }
@@ -541,7 +542,7 @@ function findReorderForSpotifyTopThree(livePlaylist, localPlaylist) {
 
 export function remoteCheckOrder(userID, remotePlaylistID, songs){
   return (dispatch) => {
-    if (songs.length === 0 || songs[0].id === 0)
+    if (songs.length === 0 || songs[0].id === 0 || !host)
     {
      // dispatch({type: 'DO_NOTHING', payload: ''})
     } else {
