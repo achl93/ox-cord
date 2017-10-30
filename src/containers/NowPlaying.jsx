@@ -36,9 +36,9 @@ class NowPlaying extends Component {
   currentSong() {
     if (this.props.nowPlaying.name) {
       return (
-        <Col className=" row justify-content-center col-md-12 px-3 nowplayer">
+        <Col className=" row col-md-12 px-3 pt-1 nowplayer">
           <Row >
-            <h6>Now Playing: </h6>
+            <h6>Now Playing </h6>
           </Row >
           <Row>
             <Col>

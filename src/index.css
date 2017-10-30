@@ -93,6 +93,7 @@ input.form-control {
   z-index: 999;
   background-color: rgb(43, 42, 42);
   margin-left: 0 !important;
+  border-bottom: 1px #464a4e solid;
 }
 
 .blurr {
