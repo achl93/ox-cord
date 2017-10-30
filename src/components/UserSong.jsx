@@ -7,8 +7,6 @@ export default class UserSong extends Component {
     this.state = {
       voted: false
     }
-    this.refreshVotes = this.refreshVotes.bind(this);
-    this.unvote = this.unvote.bind(this);
   }
 
   render() {
@@ -19,17 +17,10 @@ export default class UserSong extends Component {
     )
   }
 
-  unvote() {
-    this.setState({voted: false});
-    console.log("votes refreshed!");
-  }
-
-  refreshVotes() {
-    setInterval(this.unvote, 180000);
-  }
-
   componentDidMount() {
-    this.refreshVotes();
+    setInterval(() => {
+      this.setState({voted: false});
+    }, 180000);
   }
 
   onHandleClick() {
