@@ -95,8 +95,6 @@ input.form-control {
 
 .list-group {
   display: block !important;
-  max-height: 20em;
-  overflow-y: scroll;
 }
 
 .nowplayingcover {
@@ -154,4 +152,12 @@ input.form-control {
 
 .userplaylist {
   background-color: rgba(43, 42, 42, 0.57);
+}
+
+.scrollable {
+  overflow: scroll !important;
+}
+
+a:hover {
+  text-decoration: none !important;
 }
