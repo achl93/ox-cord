@@ -25,8 +25,8 @@ class Settings extends Component {
     this.props.remoteRefreshToken(this.props.tokens, this.props.room)
   }
   toggleSongSuggestions() {
-    console.log('Suggestion state toggled')
-    this.props.changeSuggestionState({room_id: this.props.room, suggestions: this.props.suggestions})
+    console.log('Suggestion state toggled, currently: ', this.props.suggestions)
+    this.props.changeSuggestionState({room_id: this.props.room, suggestions: (this.props.suggestions ? false : true)})
   }
   render() {
     if (this.props.user === 'empty') {
@@ -56,7 +56,7 @@ class Settings extends Component {
             >Song Suggesting: {(this.props.suggestions ? 'On' : 'Off')}</button>
           </div>
           <Link to='/playlist'>
-            <div className='btn btn-outline-info'><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</div>
+            <div className='btn btn-outline-info'><i className="fa fa-arrow-left" aria-hidden="true"></i> Back</div>
           </Link>
         </div>
       )
@@ -70,7 +70,7 @@ function mapStateToProps(state) {
     devices: state.devices,
     tokens: state.tokens,
     room: state.room,
-    suggestions: state.suggestion
+    suggestions: state.suggestions
   }
 }
 
