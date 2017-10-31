@@ -57,7 +57,7 @@ class Songlist extends Component {
      } else {
       
         return (
-          <Row>
+          <Row bsClass="scrollable">
             <Col md={12}>
               <Row>
                 <Col md={12}>

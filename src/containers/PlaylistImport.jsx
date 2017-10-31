@@ -22,7 +22,7 @@ class PlaylistImport extends Component {
   }
   render() {
     return (
-      <Row bsClass='playlistCont row border p-3 text-center'>
+      <Row bsClass='playlistCont row rounded p-3 text-center'>
         <Col md={12}>
           <Row>
             <Col md={12}>

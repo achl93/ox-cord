@@ -19,10 +19,6 @@ class Playlist extends Component {
     socket.on('host-tokens-sent', (tokens) => {
       this.props.storeTokens(tokens);
     });
-    this.props.tokenValidation({
-      room_id: this.props.room,
-      tokens: this.props.tokens
-    });
   }
 
   render() {
@@ -31,10 +27,10 @@ class Playlist extends Component {
     } else {
       return (
         <Row bsClass="mainCont col-md-8">
-          <Row bsClass=' row col-md-12 nowplayer px-3 pt-1 no-gutters'>
+          <Row bsClass=' row col-md-12 nowplayer rounded p-3 pt-1 no-gutters'>
             <NowPlaying />
           </Row>
-          <Row bsClass=' q_search justify-content-center row border col-md-12 no-gutters '>
+          <Row bsClass=' q_search justify-content-center rounded row col-md-12 no-gutters '>
             <Row bsClass=' col-md-12 '>
               <Col md={12}>
                 <PlayerControls />
@@ -51,6 +47,12 @@ class Playlist extends Component {
     if (this.props.user !== 'empty') {
       this.props.joinRoom(this.props.user.id);
     }
+    setInterval(() => {
+      this.props.tokenValidation({
+        room_id: this.props.room,
+        tokens: this.props.tokens
+      });
+    }, 300000);
   }
 }
 

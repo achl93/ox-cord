@@ -51,7 +51,8 @@ form {
 }
 
 span.list-group-item {
-  background-color: rgb(43, 42, 42);
+  background-color: rgba(43, 42, 42, 0);
+  border: none;
   color: rgb(243, 243, 243);
 }
 
@@ -94,8 +95,6 @@ input.form-control {
 
 .list-group {
   display: block !important;
-  max-height: 20em;
-  overflow-y: scroll;
 }
 
 .nowplayingcover {
@@ -140,11 +139,11 @@ input.form-control {
 .q_search {
   overflow: scroll !important;
   max-height: calc(100vh - 18rem);
-  background-color: rgb(43, 42, 42);
+  background-color: rgba(43, 42, 42, 0.57);
 }
 
 .playlistCont {
-  background-color: rgb(43, 42, 42);
+  background-color: rgba(43, 42, 42, 0.57);
 }
 
 .importInfo {
@@ -157,4 +156,14 @@ input.form-control {
 
 .joinRoom {
   text-align: center;
+.userplaylist {
+  background-color: rgba(43, 42, 42, 0.57);
+}
+
+.scrollable {
+  overflow: scroll !important;
+}
+
+a:hover {
+  text-decoration: none !important;
 }

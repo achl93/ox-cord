@@ -443,7 +443,7 @@ export function unvoteSong(room_id, song_id) {
 class CheckNowPlaying extends EventEmitter {
   constructor() {
     super();
-    this.statInterval();
+    this.startInterval();
     this.nowPlaying = {
       track: {
         id: 0,
@@ -459,7 +459,7 @@ class CheckNowPlaying extends EventEmitter {
       playlist: 'unknownPreviousPlaylist'
     }
   }
-  statInterval() {
+  startInterval() {
     setInterval(() => {
       if (tokenSet && host) {
         this.checkSong();

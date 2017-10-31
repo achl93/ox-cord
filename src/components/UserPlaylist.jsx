@@ -29,10 +29,6 @@ class UserPlaylist extends Component {
       socket.on('now-playing-updated', (songObj) => {
         this.props.updateNowPlaying(songObj);
       });
-      this.props.tokenValidation({
-        room_id: this.props.room,
-        tokens: this.props.tokens
-      });
     }
   }
 
@@ -41,15 +37,15 @@ class UserPlaylist extends Component {
       return <Redirect to="/" />
     } else {
       return (
-        <main>
-          <Row bsClass='row border rounded p-3'>
+        <Row bsClass='scrollable'>
+          <Row bsClass='row userplaylist rounded p-3'>
             <Col md={12}>
               <NowPlaying />
               <UserSongList />
               <SongSearch />
             </Col>
           </Row>
-        </main>
+        </Row>
       )
     }
   }

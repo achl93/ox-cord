@@ -17,9 +17,11 @@ class UserSongList extends Component {
     if (this.props.songs !== null && this.props.songs !== undefined) {
       if (Object.keys(this.props.songs).length !== 0) {
         return this.props.songs.sort(byVotes).map((song) => {
-          return (
-            <UserSong key={song.id} song={song} user={this.props.user} room={this.props.room} voteSong={this.props.voteSong} unvoteSong={this.props.unvoteSong} />
-          )
+          if (song.id !== 0) {
+            return (
+              <UserSong key={song.id} song={song} user={this.props.user} room={this.props.room} voteSong={this.props.voteSong} unvoteSong={this.props.unvoteSong} />
+            )
+          }
         }
         );
       } else {

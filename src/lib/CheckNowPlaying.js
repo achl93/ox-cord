@@ -3,7 +3,7 @@
 // class CheckNowPlaying extends EventEmitter {
 //   constructor() {
 //     super();
-//     this.statInterval();
+//     this.startInterval();
 //     this.nowPlaying = {
 //       track: {
 //         id: 0,
@@ -16,7 +16,7 @@
 //       name: 'previous'
 //     }
 //   }
-//     statInterval(){
+//     startInterval(){
 //     const interval = setInterval(()=>{
 //       const token = spotifyApi.getAccessToken()
 //       if (token){

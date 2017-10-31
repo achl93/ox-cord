@@ -9,7 +9,7 @@ class Settings extends Component {
   componentWillMount() {
     this.props.remoteCheckDevices();
   }
-  renderDevies() {
+  renderDevices() {
     return this.props.devices.map((device) => {
       return (
         <Device
@@ -34,7 +34,7 @@ class Settings extends Component {
           <div className="p-3">
             <h5>Available Devices </h5>
             <div>
-              {this.renderDevies()}
+              {this.renderDevices()}
             </div>
           </div>
           <div>
