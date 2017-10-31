@@ -6,7 +6,7 @@ export default class Home extends Component {
   render() {
     const hostname = window && window.location && window.location.hostname;
     console.log('hostname', hostname)
-    const authlink = hostname === 'localhost'? 'http://localhost:3000' : 'https://oxcord-auth.herokuapp.com/login'
+    const authlink = hostname === 'localhost'? 'http://localhost:3000' : 'https://oxcord-auth.herokuapp.com'
     return (
       // Route login button to Spotify login endpoint
       // then when they come back, redirect to playlist
