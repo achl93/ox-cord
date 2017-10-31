@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Button, ListGroupItem } from 'react-bootstrap';
 import AlertContainer from 'react-alert'
+import socket from '../lib/SocketAPI';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 export default class SongSearchResult extends Component {
-
   render() {
     const alertOptions = {
       offset: 14,
