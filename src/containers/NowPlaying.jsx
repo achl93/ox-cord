@@ -91,7 +91,7 @@ class NowPlaying extends Component {
                 <Button bsClass="btn btn-outline-success mx-1" bsSize="small" onClick={() => this.startParty()}>Host</Button>
               } {
                 (this.props.partyStatus === "PartyInProgress") &&
-                <Button bsClass="btn btn-outline-danger mx-1" bsSize="small">End</Button>
+                <Button bsClass="btn btn-outline-danger mx-1" bsSize="small" onClick={() => this.endParty()}>End</Button>
               }
               <Link to='/settings'>
                 <Button bsClass="btn btn-outline-info" bsSize="small">
