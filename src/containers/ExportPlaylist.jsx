@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-export default class ExportPlaylist extends Component {
+class ExportPlaylist extends Component {
+  componentDidMount() {
+    socket.emit('request-archived-songs', this.props.room);
+    socket.on('archived-songs-sent', (songs) => {
+      console.log('Archived Songs Received! ', songs);
+    });
+  }
+
   render() {
     return (
       <div className="text-center settingCont border p-3">
@@ -18,3 +27,11 @@ export default class ExportPlaylist extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    room: state.room
+  }
+}
+
+export default connect(mapStateToProps)(ExportPlaylist);
