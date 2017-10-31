@@ -47,7 +47,7 @@ class ExportPlaylist extends Component {
         </div>
         <br />
         <Link to='/playlist'>
-          <div className='btn btn-outline-info'><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</div>
+          <div className='btn btn-outline-info'><i className="fa fa-arrow-left" aria-hidden="true"></i> Back</div>
         </Link>
       </div>
     );
