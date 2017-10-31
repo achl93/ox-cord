@@ -50,7 +50,6 @@ class NowPlaying extends Component {
     });
     this.props.joinRoom(this.props.user.id);
     this.props.startParty();
-    // socket.emit('add-song-to-archive', { room_id: 'q6tubv3icueaamst4xw6h7go2', song_id: '3ZFTkvIE7kyPt6Nu3PEa7V' });
   }
 
   currentSong() {
@@ -97,19 +96,6 @@ class NowPlaying extends Component {
       )
     }
   }
-
-  // hostControls() {
-  //   console.log(this.props.user);
-  //   if (this.props.user != 'empty') {
-  //     return (            
-  //     <Col>  
-  //       <Button bsClass="btn btn-outline-info mx-2" bsSize="small" onClick={() => this.props.remotePlay()}><i className="fa fa-play" aria-hidden="true"></i></Button>
-  //       <Button bsClass="btn btn-outline-info" bsSize="small" onClick={() => this.props.remotePause()}><i className="fa fa-pause" aria-hidden="true"></i></Button>
-  //       <Button bsClass="btn btn-outline-info mx-2" bsSize="small" onClick={() => this.props.remoteSkip()}><i className="fa fa-step-forward" aria-hidden="true"></i></Button>
-  //     </Col>
-  //     )
-  //   }
-  // }
 
   render() {
     return (

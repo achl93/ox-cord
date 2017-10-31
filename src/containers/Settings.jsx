@@ -9,7 +9,7 @@ class Settings extends Component {
   componentWillMount() {
     this.props.remoteCheckDevices();
   }
-  renderDevies() {
+  renderDevices() {
     return this.props.devices.map((device) => {
       return (
         <Device
@@ -35,7 +35,7 @@ class Settings extends Component {
             <h2>Available Devices </h2>
             <p>(Click to transfer playback) </p>
             <div>
-              {this.renderDevies()}
+              {this.renderDevices()}
             </div>
           </div>
           <div>
