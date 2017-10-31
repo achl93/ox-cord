@@ -139,11 +139,11 @@ input.form-control {
 .q_search {
   overflow: scroll !important;
   max-height: calc(100vh - 18rem);
-  background-color: rgba(43, 42, 42, 0.57);
+  background-color: rgb(43, 42, 42);
 }
 
 .playlistCont {
-  background-color: rgba(43, 42, 42, 0.57);
+  background-color: rgb(43, 42, 42);
 }
 
 .importInfo {
@@ -156,8 +156,10 @@ input.form-control {
 
 .joinRoom {
   text-align: center;
+}
+
 .userplaylist {
-  background-color: rgba(43, 42, 42, 0.57);
+  background-color: rgb(43, 42, 42);
 }
 
 .scrollable {
