@@ -50,11 +50,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-<<<<<<< HEAD
   updatedBrowserDevice
-=======
-  updateBrowserDevice
->>>>>>> 9d870c1475cbba4fca1a8a02fceba56f8b202bd9
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Test);
