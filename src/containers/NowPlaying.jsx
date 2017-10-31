@@ -15,7 +15,10 @@ class NowPlaying extends Component {
     }, 2500)
     this.props.remoteCheckNowPlaying(this.props.remotePlaylist.id, this.props.user.id, this.props.room, this.props.songs);
   }
-
+  onStartPlaylist() {
+    this.props.remoteStartPlaylist(this.props.user.id, this.props.remotePlaylist.id, this.props.songs, this.props.nowPlaying)
+    this.props.onNavigate('/');
+  }
   startParty() {
     // console.log(this.props.user);
     console.log('--starting party---tokens-')
@@ -59,7 +62,7 @@ class NowPlaying extends Component {
                 <Button bsClass= "btn btn-outline-info mx-1" bsSize="small"><i className="fa fa-wrench" aria-hidden="true"></i></Button>
               </Link>
               { (this.props.partyStatus.started) &&
-                <Button bsClass= "btn btn-outline-info" bsSize="small" className='float-right' onClick={() => this.props.remoteStartPlaylist(this.props.user.id, this.props.remotePlaylist.id, this.props.songs, this.props.nowPlaying)}>Begin</Button>
+                <Button bsClass= "btn btn-outline-info" bsSize="small" className='float-right' onClick={() => this.onStartPlaylist()}>Begin</Button>
               } {
                 (!this.props.partyStatus.started) &&
                 <Button bsClass="btn btn-outline-info" className='float-right' bsSize="small" onClick={() => this.startParty()}>Start Party </Button>

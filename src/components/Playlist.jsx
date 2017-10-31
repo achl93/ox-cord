@@ -13,6 +13,7 @@ import socket from '../lib/SocketAPI';
 class Playlist extends Component {
   constructor(props) {
     super(props);
+    this.onNavigate = this.onNavigate.bind(this);
     socket.on('request-now-playing', (room_id) => {
       socket.emit('update-now-playing', { songObj: this.props.nowPlaying, room_id: this.props.room });
     });
@@ -24,7 +25,7 @@ class Playlist extends Component {
     } else {
       return ( 
         <Row  bsClass=' justify-content-center row border rounded col-md-8 '>
-        <NowPlaying />
+        <NowPlaying onNavigate={this.onNavigate}/>
         <Row bsClass=' col-md-12 '>
           <Col md={12}>
             <Row bsClass="p-3">
@@ -42,6 +43,9 @@ class Playlist extends Component {
     if (this.props.user !== 'empty') {
       this.props.joinRoom(this.props.user.id);
     }
+  }
+  onNavigate(destination){
+    this.props.history.push(destination)
   }
 }
 

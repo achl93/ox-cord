@@ -35,7 +35,9 @@ class Create extends Component {
          }
   }
   componentDidMount(){
-    this.props.remoteCheckRemotePlaylists(this.props.user.id);
+    if (this.props.songs.length  !== 0 ){
+      this.props.remoteCheckRemotePlaylists(this.props.user.id);
+    }
   }
   onCreateRemote(){
     this.props.remoteCreateRemotePlaylist(this.props.user.id);
@@ -45,7 +47,8 @@ function mapStateToProps(state) {
   return {
     user: state.user,
     remotePlaylist: state.remotePlaylist,
-    playlists: state.userPlaylists
+    playlists: state.userPlaylists,
+    songs: state.songs
   }
 }
 function mapDispatchToProps(dispatch) {
