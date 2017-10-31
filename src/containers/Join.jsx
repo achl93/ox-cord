@@ -14,23 +14,24 @@ class Join extends Component {
       rooms: [],
       flag: false
     }
+    socket.on('active-rooms-sent', (rooms) => {
+      this.setState({
+        rooms: rooms,
+        flag: true
+      });
+    });
   }
 
-  // componentDidMount() {
-  //   socket.emit('request-active-rooms');
-  //   socket.on('active-rooms-sent', (rooms) => {
-  //     this.setState({
-  //       rooms: rooms
-  //     });
-  //   });
-  // }
 
   setLocation(pos) {
     this.props.getGeo({
       longitude: pos.coords.longitude,
       latitude: pos.coords.latitude
     });
-    this.setState({ hasLocation: true });
+    socket.emit('request-active-rooms-nearby', {
+      longitude: pos.coords.longitude,
+      latitude: pos.coords.latitude
+    });
   }
 
   getGeolocation() {
@@ -41,24 +42,13 @@ class Join extends Component {
     }
   }
 
-  render() {
+  componentDidMount() {
     this.getGeolocation();
-    if (this.props.coords.longitude !== 0 && this.props.coords.latitude !== 0 && this.state.flag === false) {
-      socket.emit('request-active-rooms-nearby', this.props.coords);
-      socket.on('active-rooms-sent', (rooms) => {
-        this.setState({
-          rooms: rooms,
-          flag: true
-        });
-      });
-      return (
-        // this is pretty much not required
-        <i className="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
-      )
-    } else if (this.props.coords.longitude === 0 && this.props.coords.latitude === 0) {
-      return (
-        <i className="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
-      )
+  }
+
+  render() {
+    if (this.props.coords.longitude === 0 && this.props.coords.latitude === 0) {
+      return (<i className="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>)
     } else {
       return (
         <div className='text-center'>
@@ -71,11 +61,9 @@ class Join extends Component {
               room_name={room.name}
               room_id={room.room_id}
               remotePlaylist={room.remotePlaylist}
-              distance={distanceInKmBetweenEarthCoordinates(room.geolocation.latitude, room.geolocation.longitude, this.props.coords.latitude, this.props.coords.longitude)}
-            />);
+              distance={distanceInKmBetweenEarthCoordinates(room.geolocation.latitude, room.geolocation.longitude, this.props.coords.latitude, this.props.coords.longitude)} />);
           })}
-        </div>
-      )
+        </div>)
     }
   }
 }
