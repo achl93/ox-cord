@@ -7,11 +7,7 @@ import { Button } from 'react-bootstrap';
 class Test extends Component {
   constructor(props){
     super(props)
-<<<<<<< HEAD
     this.props.updatedBrowserDevice(this.checkBrowserDevice());
-=======
-    this.props.updateBrowserDevice(this.checkBrowserDevice());
->>>>>>> 9d870c1475cbba4fca1a8a02fceba56f8b202bd9
   }
   checkBrowserDevice() {
     if (!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent))) {
