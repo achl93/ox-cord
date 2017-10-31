@@ -13,23 +13,27 @@ class JoinRoom extends Component {
     }
     this.sendToRoom = this.sendToRoom.bind(this);
   }
+
   sendToRoom() {
     this.props.joinRoom(this.props.room_id);
     this.props.checkRemotePlaylist(this.props.remotePlaylist)
-    this.props.storeUser({id: this.props.room_id})
+    this.props.storeUser({ id: this.props.room_id })
+  }
+
+  componentDidMount() {
     socket.on('user-joined', (room_id) => {
       this.setState({ redirect: true });
     });
   }
+  
   render() {
     if (this.state.redirect) {
-      return <Redirect to={{pathname: '/user-playlist', state: { from: this.props.room_id } }} />;
+      return <Redirect to={{ pathname: '/user-playlist', state: { from: this.props.room_id } }} />;
     }
     return (
-      <div><button className= "btn btn-outline-info m-1" onClick={this.sendToRoom}>{this.props.room_name} | <i className="fa fa-map-marker" aria-hidden="true"></i> {(this.props.distance * 1000).toFixed(2)}m</button></div>
+      <div><button className="btn btn-outline-info m-1" onClick={this.sendToRoom}>{this.props.room_name} | <i className="fa fa-map-marker" aria-hidden="true"></i> {(this.props.distance * 1000).toFixed(2)}m</button></div>
     )
   }
-
 }
 
 function mapStateToProps(state) {
