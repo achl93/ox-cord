@@ -590,7 +590,6 @@ export function remoteCheckOrder(userID, remotePlaylistID, songs) {
           if (reorder) {
             spotifyApi.reorderTracksInPlaylist(userID, remotePlaylistID, reorder.start, reorder.insert_before)
           }
-
         })
       }
     }
