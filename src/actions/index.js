@@ -226,7 +226,7 @@ export function createRemotePlaylist(newRemotePlaylist) {
 
 export function remoteCreateRemotePlaylist(userID, playlistName = 'Oxcord') {
   return (dispatch) => {
-    spotifyApi.createPlaylist(userID, { name: playlistName, public: true, description: 'Playlist created by Oxcord' })
+    spotifyApi.createPlaylist(userID, { name: playlistName, public: true, description: 'Playlist created by Ox Cord' })
       .then((createdPlaylist) => {
         if (playlistName === 'Oxcord') {
           const result = {
