@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import { ListGroupItem, Button } from 'react-bootstrap';
-// import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
+import AlertContainer from 'react-alert'
 
 export default class Song extends Component {
   render() {
+    const alertOptions = {
+      offset: 14,
+      position: 'bottom left',
+      theme: 'dark',
+      time: 1000,
+      transition: 'fade'
+    }
     return (
-      
+      <div>
+      <AlertContainer ref={a => this.msg = a} {...this.alertOptions} />
       <ListGroupItem className="col-md-12" > 
       <img className="album_cover" src={this.props.song.cover_art} alt="Album Art" />
       <h5>{ this.props.song.name }</h5>
@@ -15,22 +22,19 @@ export default class Song extends Component {
        <Button bsClass='btn btn-sm btn-outline-warning badge float-right' >Votes {this.props.song.votes}</Button>
       </p>
       </ListGroupItem>
+      </div>
     )
   }
 
+  showAlert(message, duration, type) {
+    this.msg.show(message, {
+      time: duration,
+      type: type,
+    })
+  }
+
   onHandleClick() {
-    this.props.remoteRemoveSongs(this.props.user.id, this.props.remotePlaylist.id, [this.props.song], this.props.room)
+    this.props.remoteRemoveSongs(this.props.user.id, this.props.remotePlaylist.id, [this.props.song], this.props.room);
+    this.showAlert('Song has been removed from playlist', 2000, 'error');
   }
 }
-
-// function mapStateToProps(state) {
-//   return {
-//     songs: state.songs
-//   }
-// }
-
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators({}, dispatch)
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Song);
