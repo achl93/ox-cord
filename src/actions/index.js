@@ -33,7 +33,7 @@ let tokenSet = false;
 let remotePlaylistSet = false;
 let host = false;
 
-export function updatdeBrowserDevice(browser){
+export function updatedBrowserDevice(browser){
   return {
     type: BROWSER_DEVICE,
     payload: browser

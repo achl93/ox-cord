@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updatdeBrowserDevice } from '../actions/index';
+import { updatedBrowserDevice } from '../actions/index';
 import reorderTest from '../lib/remoteReorder';
 import { Button } from 'react-bootstrap';
 
 class Test extends Component {
   constructor(props){
     super(props)
-    this.props.updatdeBrowserDevice(this.checkBrowserDevice());
+    this.props.updatedBrowserDevice(this.checkBrowserDevice());
   }
   checkBrowserDevice() {
     if (!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent))) {
@@ -50,7 +50,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  updatdeBrowserDevice
+  updatedBrowserDevice
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Test);
