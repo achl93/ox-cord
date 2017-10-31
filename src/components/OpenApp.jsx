@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export default class Test extends Component {
 
   render(){
     return (
-    <div className='text-center'>
+      <div className='text-center'>
         <div>
             If playback hasn't started, open the Oxcord playlist on your Spotify App to start manually
         </div>
@@ -18,16 +18,22 @@ export default class Test extends Component {
             type="button" 
             id="mobile-play" 
             className="btn btn-outline-info m-1"
-            onClick={() => this.onHandleClick()}
+            onClick={() => this.onOpenApp()}
           >
-              Open Spotify
+            Open Spotify
           </button>
-    </div>
+        </div>
+        <div>
+        <Link to='/playlist'>
+          <button className="btn btn-outline-info m-1">
+            Back to Playlist
+          </button>
+        </Link>
+        </div>
       </div>
     );
   }
-  onHandleClick(){
-    console.log('clicked!')
-    //this.props.history.push('/');
+  onOpenApp(){
+    this.props.history.push('/playlist');
   }
 }

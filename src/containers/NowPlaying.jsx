@@ -17,7 +17,7 @@ class NowPlaying extends Component {
   }
   onStartPlaylist() {
     this.props.remoteStartPlaylist(this.props.user.id, this.props.remotePlaylist.id, this.props.songs, this.props.nowPlaying)
-    this.props.onNavigate('/');
+    this.props.onNavigate('/open-app');
   }
   startParty() {
     // console.log(this.props.user);
