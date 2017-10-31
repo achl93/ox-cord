@@ -46,10 +46,10 @@ ReactDOM.render(
               <Route path='/import' component={PlaylistImport} />
               <Route path='/host' component={Host} />
               <Route path='/create' component={Create} />
+              <Route path='/exportPlaylist' component={ExportPlaylist} />
               <Route path='/open-app' component={OpenApp} />
               <Route path='/test' component={Test} />
               <Route path='/' component={Home} />
-              <Route path='/exportPlaylist' component={ExportPlaylist} />
             </Switch>
           </BrowserRouter>
     </Row>

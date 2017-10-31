@@ -8,7 +8,7 @@ export default class ExportPlaylist extends Component {
         <h4>Export to Playlist</h4>
         <div>
           <h5>Something here</h5>
-          <button><i className="fa fa-refresh" aria-hidden="true"></i> Export</button>
+          <button className="btn btn-outline-info"><i className="fa fa-upload" aria-hidden="true"></i> Export</button>
         </div>
         <br />
         <Link to='/playlist'>
