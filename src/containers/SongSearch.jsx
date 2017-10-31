@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row, Col, FormControl, FormGroup, InputGroup, Button, ListGroup } from 'react-bootstrap';
 import SongSearchResult from '../components/SongSearchResult';
+import { changeSuggestionState } from '../actions/index';
+import socket from '../lib/SocketAPI';
 
 class SongSearch extends Component {
   constructor(props){
@@ -11,6 +13,11 @@ class SongSearch extends Component {
     this.state = { term: '' };
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
+    socket.on('suggestion-state', (suggestionState) => {
+      if (Object.keys(this.props.user).length === 1) {
+        this.props.changeSuggestionState({room_id: this.props.room, suggestions: suggestionState})
+      }
+    })
   }
 
   renderResults() {
@@ -22,6 +29,7 @@ class SongSearch extends Component {
             song={song} user={this.props.user} 
             remotePlaylist={this.props.remotePlaylist} 
             room_id={this.props.room} 
+            user={this.props.user}
             />
       )
     });
@@ -41,11 +49,11 @@ class SongSearch extends Component {
                     onChange={this.onInputChange}
                   />
                   <InputGroup.Button>
-                    { this.state.term ? (
+                    { this.props.suggestions || Object.keys(this.props.user).length > 1 ? (
                     <Button type='submit' bsClass="btn btn-outline-info" bsSize="small"><i className="fa fa-search" aria-hidden="true"></i></Button>
                     ) : (
                     <Button type='submit' bsClass="btn btn-outline-secondary" bsSize="small" disabled><i className="fa fa-search" aria-hidden="true"></i></Button>
-                    )}
+                    ) }
                   </InputGroup.Button>
                 </InputGroup>
               </FormGroup>
@@ -87,12 +95,13 @@ function mapStateToProps(state) {
     user: state.user,
     room: state.room,
     songs: state.songs,
-    tokens: state.tokens
+    tokens: state.tokens,
+    suggestions: state.suggestions
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ searchSongs, remoteAddSongs, tokenValidation }, dispatch)
+  return bindActionCreators({ searchSongs, remoteAddSongs, tokenValidation, changeSuggestionState }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SongSearch)

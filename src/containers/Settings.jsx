@@ -3,7 +3,8 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Device from '../components/Device'
-import { remoteCheckDevices, remoteTransferPlayback, remoteRefreshToken } from '../actions/index'
+import { remoteCheckDevices, remoteTransferPlayback, remoteRefreshToken, changeSuggestionState } from '../actions/index'
+import socket from '../lib/SocketAPI';
 
 class Settings extends Component {
   componentWillMount() {
@@ -21,8 +22,13 @@ class Settings extends Component {
     })
   }
   onHandleClick() {
-    console.log('clicked')
+    console.log('Refresh token clicked')
     this.props.remoteRefreshToken(this.props.tokens, this.props.room)
+  }
+  toggleSongSuggestions() {
+    console.log('Suggestion state toggled, currently: ', this.props.suggestions)
+    socket.emit('toggle-suggestions', {room_id: this.props.room, suggestions: !this.props.suggestions});
+    this.props.changeSuggestionState({room_id: this.props.room, suggestions: !this.props.suggestions})
   }
   render() {
     if (this.props.user === 'empty') {
@@ -32,7 +38,7 @@ class Settings extends Component {
         <div className="text-center settingCont border p-3 ">
           <h4>Settings</h4>
           <div className="p-3">
-            <h5>Available Devices </h5>
+            <h5>Available Devices</h5>
             <div>
               {this.renderDevices()}
             </div>
@@ -45,8 +51,14 @@ class Settings extends Component {
             ><i className="fa fa-refresh" aria-hidden="true"></i> Refresh Token</button>
           </div>
           <br />
+          <div>
+            <button
+              className='btn btn-outline-info'
+              onClick={() => this.toggleSongSuggestions()}
+            >Song Suggesting: {(this.props.suggestions ? 'On' : 'Off')}</button>
+          </div>
           <Link to='/playlist'>
-            <div className='btn btn-outline-info'><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</div>
+            <div className='btn btn-outline-info'><i className="fa fa-arrow-left" aria-hidden="true"></i> Back</div>
           </Link>
         </div>
       )
@@ -54,19 +66,18 @@ class Settings extends Component {
   }
 }
 
-
-
 function mapStateToProps(state) {
   return {
     user: state.user,
     devices: state.devices,
     tokens: state.tokens,
-    room: state.room
+    room: state.room,
+    suggestions: state.suggestions
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ remoteCheckDevices, remoteTransferPlayback, remoteRefreshToken }, dispatch)
+  return bindActionCreators({ remoteCheckDevices, remoteTransferPlayback, remoteRefreshToken, changeSuggestionState }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);

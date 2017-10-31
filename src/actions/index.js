@@ -28,12 +28,21 @@ export const SET_VOTE = 'SET_VOTE';
 // export const MINUS_VOTE = 'MINUS_VOTE';
 export const SET_TO_PLAYING = 'SET_TO_PLAYING';
 export const BROWSER_DEVICE = 'BROWSER_DEVICE';
+export const TOGGLE_SUGGESTION = 'TOGGLE_SUGGESTION';
 
 let tokenSet = false;
 let remotePlaylistSet = false;
 let host = false;
 
-export function updatedBrowserDevice(browser) {
+export function changeSuggestionState(data) {
+  // console.log("DATAAAAA", data);
+  return {
+    type: TOGGLE_SUGGESTION,
+    payload: data.suggestions
+  }
+}
+
+export function updateBrowserDevice(browser) {
   return {
     type: BROWSER_DEVICE,
     payload: browser
