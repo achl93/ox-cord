@@ -33,6 +33,11 @@ class NowPlaying extends Component {
     }
   }
 
+  onStartPlaylist() {
+    this.props.remoteStartPlaylist(this.props.user.id, this.props.remotePlaylist.id, this.props.songs, this.props.nowPlaying)
+    console.log('navigating to open app')
+    this.props.onNavigate('/open-app');
+  }
   startParty() {
     // console.log(this.props.user);
     console.log('--starting party---tokens-')
@@ -74,7 +79,7 @@ class NowPlaying extends Component {
               <Button bsClass="btn btn-outline-info pauseButton" bsSize="small" onClick={() => this.props.remotePause()}><i className="fa fa-pause" aria-hidden="true"></i></Button>
               <Button bsClass="btn btn-outline-info mx-1 nextButton" bsSize="small" onClick={() => this.props.remoteSkip()}><i className="fa fa-step-forward" aria-hidden="true"></i></Button>
               {(this.props.partyStatus.started) &&
-                <Button bsClass="btn btn-outline-info mx-1" bsSize="small" onClick={() => this.props.remoteStartPlaylist(this.props.user.id, this.props.remotePlaylist.id, this.props.songs, this.props.nowPlaying)}>Begin</Button>
+                <Button bsClass="btn btn-outline-info mx-1" bsSize="small" onClick={() => this.onStartPlaylist()}>Begin</Button>
               } {
                 (!this.props.partyStatus.started) &&
                 <Button bsClass="btn btn-outline-info mx-1" bsSize="small" onClick={() => this.startParty()}>Party </Button>

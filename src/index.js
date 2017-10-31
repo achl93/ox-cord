@@ -20,6 +20,7 @@ import Playlist from './components/Playlist.jsx';
 import Settings from './containers/Settings.jsx';
 import UserPlaylist from './components/UserPlaylist.jsx';
 import PlaylistImport from './containers/PlaylistImport.jsx';
+import OpenApp from './components/OpenApp.jsx';
 import Test from './containers/Test.jsx';
 import BGImg from './containers/BGImg.jsx';
 import './index.css';
@@ -44,6 +45,7 @@ ReactDOM.render(
               <Route path='/import' component={PlaylistImport} />
               <Route path='/host' component={Host} />
               <Route path='/create' component={Create} />
+              <Route path='/open-app' component={OpenApp} />
               <Route path='/test' component={Test} />
               <Route path='/' component={Home} />
             </Switch>
