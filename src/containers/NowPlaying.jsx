@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row, Col, Button } from 'react-bootstrap';
 import { remoteCheckNowPlaying, remotePlay, remotePause, remoteSkip, remoteCheckOrder, remoteStartPlaylist, startParty, joinRoom } from '../actions/index';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import socket from '../lib/SocketAPI';
 
@@ -60,6 +60,7 @@ class NowPlaying extends Component {
 
   endParty() {
     console.log("party is over 😭");
+    this.props.onNavigate('/exportPlaylist');
   }
 
   currentSong() {
