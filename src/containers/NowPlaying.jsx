@@ -37,6 +37,7 @@ class NowPlaying extends Component {
     this.props.remoteStartPlaylist(this.props.user.id, this.props.remotePlaylist.id, this.props.songs, this.props.nowPlaying)
     console.log('navigating to open app')
     this.props.onNavigate('/open-app');
+    this.props.startParty('PartyInProgress')
   }
   startParty() {
     // console.log(this.props.user);
@@ -54,7 +55,11 @@ class NowPlaying extends Component {
       remotePlaylist: this.props.remotePlaylist
     });
     this.props.joinRoom(this.props.user.id);
-    this.props.startParty();
+    this.props.startParty('started');
+  }
+
+  endParty() {
+    console.log("party is over 😭");
   }
 
   currentSong() {
@@ -62,7 +67,8 @@ class NowPlaying extends Component {
       return (
         <Col>
           <Row >
-            <h6 className="px-3 pt-1">Now Playing </h6>
+            <h6 className="px-3 pt-1">Now Playing on {this.props.activeDevice.name} <i className={`fa fa-${this.deviceType()}`} aria-hidden="true"></i></h6>
+            {console.log(this.props.activeDevice.name)}
           </Row >
           <Row bsClass="fullInfo d-flex">
             <Col>
@@ -78,11 +84,14 @@ class NowPlaying extends Component {
               <Button bsClass="btn btn-outline-info mx-1 playButton" bsSize="large" onClick={() => this.props.remotePlay()}><i className="fa fa-play" aria-hidden="true"></i></Button>
               <Button bsClass="btn btn-outline-info pauseButton" bsSize="small" onClick={() => this.props.remotePause()}><i className="fa fa-pause" aria-hidden="true"></i></Button>
               <Button bsClass="btn btn-outline-info mx-1 nextButton" bsSize="small" onClick={() => this.props.remoteSkip()}><i className="fa fa-step-forward" aria-hidden="true"></i></Button>
-              {(this.props.partyStatus.started) &&
+              {(this.props.partyStatus === "started") &&
                 <Button bsClass="btn btn-outline-info mx-1" bsSize="small" onClick={() => this.onStartPlaylist()}>Begin</Button>
               } {
-                (!this.props.partyStatus.started) &&
-                <Button bsClass="btn btn-outline-info mx-1" bsSize="small" onClick={() => this.startParty()}>Party </Button>
+                (this.props.partyStatus === "notStarted") &&
+                <Button bsClass="btn btn-outline-success mx-1" bsSize="small" onClick={() => this.startParty()}>Host</Button>
+              } {
+                (this.props.partyStatus === "PartyInProgress") &&
+                <Button bsClass="btn btn-outline-danger mx-1" bsSize="small">End</Button>
               }
               <Link to='/settings'>
                 <Button bsClass="btn btn-outline-info" bsSize="small">
