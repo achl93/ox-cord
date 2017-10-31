@@ -144,7 +144,7 @@ io.on('connection', (socket) => {
   socket.on('request-active-rooms', () => {
     if (SHOW_DEBUG) { console.log(' + Client requested an active rooms list!') }
     dataHelpers.getActiveRooms((err, rooms) => {
-      io.sockets.emit('active-rooms-sent', rooms);
+      socket.emit('active-rooms-sent', rooms);
     });
   });
 
@@ -156,7 +156,7 @@ io.on('connection', (socket) => {
           return room;
         }
       })
-      io.sockets.emit('active-rooms-sent', nearbyRooms);
+      socket.emit('active-rooms-sent', nearbyRooms);
     });
   });
 

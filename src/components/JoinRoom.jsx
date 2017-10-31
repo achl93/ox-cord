@@ -18,12 +18,7 @@ class JoinRoom extends Component {
     this.props.joinRoom(this.props.room_id);
     this.props.checkRemotePlaylist(this.props.remotePlaylist)
     this.props.storeUser({ id: this.props.room_id })
-  }
-
-  componentDidMount() {
-    socket.on('user-joined', (room_id) => {
-      this.setState({ redirect: true });
-    });
+    this.setState({ redirect: true });
   }
   
   render() {

@@ -19,10 +19,6 @@ class Playlist extends Component {
     socket.on('host-tokens-sent', (tokens) => {
       this.props.storeTokens(tokens);
     });
-    this.props.tokenValidation({
-      room_id: this.props.room,
-      tokens: this.props.tokens
-    });
   }
 
   render() {
@@ -51,6 +47,12 @@ class Playlist extends Component {
     if (this.props.user !== 'empty') {
       this.props.joinRoom(this.props.user.id);
     }
+    setInterval(() => {
+      this.props.tokenValidation({
+        room_id: this.props.room,
+        tokens: this.props.tokens
+      });
+    }, 300000);
   }
 }
 
