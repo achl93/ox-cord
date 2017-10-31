@@ -33,7 +33,7 @@ let tokenSet = false;
 let remotePlaylistSet = false;
 let host = false;
 
-export function updatedBrowserDevice(browser){
+export function updatedBrowserDevice(browser) {
   return {
     type: BROWSER_DEVICE,
     payload: browser
@@ -224,16 +224,18 @@ export function createRemotePlaylist(newRemotePlaylist) {
   }
 };
 
-export function remoteCreateRemotePlaylist(userID) {
+export function remoteCreateRemotePlaylist(userID, playlistName = 'Oxcord') {
   return (dispatch) => {
-    spotifyApi.createPlaylist(userID, { name: 'Oxcord', public: true, description: 'Playlist created by Oxcord' })
+    spotifyApi.createPlaylist(userID, { name: playlistName, public: true, description: 'Playlist created by Oxcord' })
       .then((createdPlaylist) => {
-        const result = {
-          id: createdPlaylist.id,
-          exists: true
+        if (playlistName === 'Oxcord') {
+          const result = {
+            id: createdPlaylist.id,
+            exists: true
+          }
+          remotePlaylistSet = true;
+          dispatch(createRemotePlaylist(result));
         }
-        remotePlaylistSet = true;
-        dispatch(createRemotePlaylist(result));
       })
   }
 };
@@ -316,11 +318,11 @@ export function tokenValidation(data) {
   return (dispatch) => {
     // 50 minutes in milliseconds
     let threshold = 3000000;
-  
+
     // If tokens are expired
     if ((Date.now() - data.tokens.create_at) > threshold) {
       dispatch(remoteRefreshToken(data.tokens, data.room_id));
-    } 
+    }
   }
 };
 
