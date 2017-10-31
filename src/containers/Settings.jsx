@@ -29,26 +29,24 @@ class Settings extends Component {
       return <Redirect to='/' />
     } else {
       return (
-        <div className="text-center">
-          <h1>Settings</h1>
+        <div className="text-center settingCont border p-3 ">
+          <h4>Settings</h4>
           <div className="p-3">
-            <h2>Available Devices </h2>
-            <p>(Click to transfer playback) </p>
+            <h5>Available Devices </h5>
             <div>
               {this.renderDevies()}
             </div>
           </div>
           <div>
-            <h3>Access Token</h3>
-          <p className='text-overflow'> {this.props.tokens.access_token}</p>
+            <h5>Access Token</h5>
             <button
               className='btn btn-outline-info'
               onClick={() => this.onHandleClick()}
-            > Refresh Token</button>
+            ><i class="fa fa-refresh" aria-hidden="true"></i> Refresh Token</button>
           </div>
           <br />
           <Link to='/playlist'>
-            <div className='btn btn-outline-info'> Back to Player</div>
+            <div className='btn btn-outline-info'><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</div>
           </Link>
         </div>
       )

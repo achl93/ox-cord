@@ -150,3 +150,11 @@ input.form-control {
 .importInfo {
   color: rgb(161, 161, 161);
 }
+
+.settingCont {
+  background-color: rgb(43, 42, 42);
+}
+
+.joinRoom {
+  text-align: center;
+}

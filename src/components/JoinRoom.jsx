@@ -26,7 +26,7 @@ class JoinRoom extends Component {
       return <Redirect to={{pathname: '/user-playlist', state: { from: this.props.room_id } }} />;
     }
     return (
-      <div><button className= "btn btn-outline-info m-1" onClick={this.sendToRoom}>{this.props.room_name}</button></div>
+      <div><button className= "btn btn-outline-info my-1 mx-2" onClick={this.sendToRoom}>{this.props.room_name}</button></div>
     )
   }
 

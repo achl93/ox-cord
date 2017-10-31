@@ -70,7 +70,7 @@ class NowPlaying extends Component {
             </div>
           </Row>
           { (this.props.user != 'empty') &&
-              <div className = "buttons my-2">       
+              <div className = "buttons my-2">   
               <Button bsClass="btn btn-outline-info mx-1 playButton" bsSize="large" onClick={() => this.props.remotePlay()}><i className="fa fa-play" aria-hidden="true"></i></Button>
               <Button bsClass="btn btn-outline-info pauseButton" bsSize="small" onClick={() => this.props.remotePause()}><i className="fa fa-pause" aria-hidden="true"></i></Button>
               <Button bsClass="btn btn-outline-info mx-1 nextButton" bsSize="small" onClick={() => this.props.remoteSkip()}><i className="fa fa-step-forward" aria-hidden="true"></i></Button>
@@ -116,13 +116,16 @@ class NowPlaying extends Component {
   // }
 
   render() {
+
     return (
       <div>
         {this.currentSong()}
       </div>
     )
   }
+  
 }
+
 
 function mapStateToProps(state) {
   return {

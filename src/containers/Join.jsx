@@ -61,7 +61,7 @@ class Join extends Component {
     } else {
       return (
         <div>
-          Join a room!
+          <h6 className="joinRoom">Join a room</h6>
         {this.state.rooms.map((room) => {
             return (<JoinRoom 
                       room={room}

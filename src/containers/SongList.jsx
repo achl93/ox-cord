@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { remoteRemoveSongs, remoteCheckRemotePlaylists, importPlaylist, setSongs } from '../actions/index';
-import { Row, Col, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
+import { Row, Col, ListGroup, ListGroupItem, Button, Tooltip, OverlayTrigger, ButtonToolbar, Popover } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 import Song from '../components/Song';
 import socket from '../lib/SocketAPI';
@@ -21,6 +21,7 @@ class Songlist extends Component {
     }
     this.importRemote = this.importRemote.bind(this)
   }
+
   importRemote() {
     if (!this.state.imported && this.props.remotePlaylist.exists){
       this.props.importPlaylist(this.props.user.id, this.props.remotePlaylist.id);
@@ -29,6 +30,7 @@ class Songlist extends Component {
       })
     }
   }
+
   renderSongs() {
     if (this.props.songs !== null && this.props.songs !== undefined) {
       if (Object.keys(this.props.songs).length !== 0) {
@@ -45,6 +47,10 @@ class Songlist extends Component {
   }
 
   render () {
+
+    const tooltip = (
+      <Tooltip id="tooltip"><strong>Holy guacamole!</strong> Check this info.</Tooltip>
+    );
     
     if (!this.props.remotePlaylist.exists) {
       return <Redirect to="/create"/>;
@@ -62,7 +68,7 @@ class Songlist extends Component {
                   <Col bsClass="justify-content-end">
                     <Link to='/import'>
                     {!this.props.partyStatus.started &&
-                      <Button bsClass=" btn btn-outline-info mb-2" bsSize="small"><i className="fa fa-download" aria-hidden="true"></i></Button>
+                        <Button bsClass=" btn btn-outline-info mb-2" bsSize="small"><i className="fa fa-download" aria-hidden="true"></i></Button>
 
                     } </Link> {this.props.partyStatus.started &&
                       <Button bsClass=" btn btn-outline-secondary mb-2" bsSize="small" disabled><i className="fa fa-download" aria-hidden="true"></i></Button>                    
