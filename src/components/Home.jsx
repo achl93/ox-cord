@@ -10,7 +10,7 @@ export default class Home extends Component {
       <div className=' row w-25 '>
         <div className='col-md-4 mx-auto'>
           <div className='row'>
-            <a href={'/login'} className='w-100 mt-3'>
+            <a href={'https://oxcord-auth.herokuapp.com/login'} className='w-100 mt-3'>
               <Button bsClass="btn btn-outline-info btn-block" block>
                 Host
               </Button>
