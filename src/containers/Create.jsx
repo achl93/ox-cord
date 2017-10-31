@@ -20,7 +20,7 @@ class Create extends Component {
                       && (
                         <div>
                           <div>
-                             Public Playlist 'Oxcord' not found on your acount
+                             Public Playlist 'Ox Cord' not found on your acount
                           </div>
                             <Button bsClass= "m-2 btn btn-outline-success"  onClick={()=>{this.onCreateRemote()}}>
                               Create
