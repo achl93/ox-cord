@@ -563,7 +563,11 @@ function findReorderForSpotifyTopThree(livePlaylist, localPlaylist) {
     return localPlaylist[index].id !== item.id
   })
   if (diff) {
-    const localDiffIndex = localPlaylist.findIndex((item) => { return item.id === diff.id });
+    const localDiffIndex = localPlaylist.findIndex((item) => { return item.id === diff.id }); //returns -1
+    if (localDiffIndex === -1 ){
+      // fix this
+      return;
+    }
     const liveDiffIndex = livePlaylist.findIndex((item) => { return item.id === diff.id });
     const reordered = reorder(localPlaylist, localDiffIndex, liveDiffIndex);
     const output = {
