@@ -40,7 +40,7 @@ class Create extends Component {
     }
   }
   onCreateRemote(){
-    this.props.remoteCreateRemotePlaylist(this.props.user.id);
+    this.props.remoteCreateRemotePlaylist(this.props.user.id, null);
   }
 }
 function mapStateToProps(state) {

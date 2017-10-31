@@ -224,7 +224,7 @@ export function createRemotePlaylist(newRemotePlaylist) {
   }
 };
 
-export function remoteCreateRemotePlaylist(userID, playlistName = 'Oxcord') {
+export function remoteCreateRemotePlaylist(userID, songURI, playlistName = 'Oxcord') {
   return (dispatch) => {
     spotifyApi.createPlaylist(userID, { name: playlistName, public: true, description: 'Playlist created by Ox Cord' })
       .then((createdPlaylist) => {
@@ -235,6 +235,8 @@ export function remoteCreateRemotePlaylist(userID, playlistName = 'Oxcord') {
           }
           remotePlaylistSet = true;
           dispatch(createRemotePlaylist(result));
+        } else {
+          spotifyApi.addTracksToPlaylist(userID, createdPlaylist.id, songURI); 
         }
       })
   }

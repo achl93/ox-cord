@@ -26,8 +26,13 @@ class ExportPlaylist extends Component {
   makePlaylist() {
     socket.emit('request-archived-songs', this.props.room);
     socket.on('archived-songs-sent', (songs) => {
-      console.log('Archived Songs Received! ', songs);
-      this.props.remoteCreateRemotePlaylist(this.props.user.id, this.today() );
+      console.log('Archived Songs Received! ');
+
+      const songURI = songs[0].archive.map((song) => {
+        return `spotify:track:${song.id}`
+      });
+
+      this.props.remoteCreateRemotePlaylist(this.props.user.id, songURI ,this.today() );
     });
   };
 
