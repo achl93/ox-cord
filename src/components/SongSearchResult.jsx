@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Button, ListGroupItem } from 'react-bootstrap';
 import AlertContainer from 'react-alert'
+import socket from '../lib/SocketAPI';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-export default class SongSearchResult extends Component {
-
+class SongSearchResult extends Component {
   render() {
     const alertOptions = {
       offset: 14,
@@ -40,3 +42,15 @@ export default class SongSearchResult extends Component {
     }
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    suggestions: state.suggestions
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({}, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SongSearchResult)

@@ -61,7 +61,7 @@ MongoDB.connect(MONGODB_URI, function (err, db) {
 io.on('connection', (socket) => {
 
   socket.on('toggle-suggestions', (data) => {
-    if (SHOW_DEBUG) { console.log(' + Suggestion state toggled', data.suggestions) }
+    if (SHOW_DEBUG) { console.log(' + Suggestion state toggled') }
     io.to(data.room_id).emit('suggestion-state', data.suggestions)
   });
 

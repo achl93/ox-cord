@@ -23,7 +23,6 @@ class SongSearch extends Component {
             remotePlaylist={this.props.remotePlaylist} 
             room_id={this.props.room} 
             user={this.props.user}
-            suggestions={this.props.suggestions}
             />
       )
     });
