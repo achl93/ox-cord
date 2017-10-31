@@ -22,6 +22,8 @@ class SongSearch extends Component {
             song={song} user={this.props.user} 
             remotePlaylist={this.props.remotePlaylist} 
             room_id={this.props.room} 
+            user={this.props.user}
+            suggestions={this.props.suggestions}
             />
       )
     });
@@ -87,7 +89,8 @@ function mapStateToProps(state) {
     user: state.user,
     room: state.room,
     songs: state.songs,
-    tokens: state.tokens
+    tokens: state.tokens,
+    suggestions: state.suggestions
   }
 }
 

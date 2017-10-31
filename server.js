@@ -60,6 +60,11 @@ MongoDB.connect(MONGODB_URI, function (err, db) {
  */
 io.on('connection', (socket) => {
 
+  socket.on('toggle-suggestions', (data) => {
+    if (SHOW_DEBUG) { console.log(' + Suggestion state toggled : ', room) }
+    io.to(data.room_id).emit('suggestion-state', data.suggestions)
+  });
+
   socket.on('join-room', (room) => {
     if (SHOW_DEBUG) { console.log(' + Client has joined the room : ', room) }
     socket.join(room);
