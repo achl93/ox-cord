@@ -118,3 +118,7 @@ input.form-control {
 .nextButton {
   border-radius: 100% !important;
 }
+
+#mobile-download {
+  display: none;
+}
