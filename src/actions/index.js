@@ -72,24 +72,22 @@ export function addSongs(tracks) {
   };
 }
 
-export function remoteAddSongs(userID, remotePlaylistID, tracks, room_id, notify_all = true) {
+export function remoteAddSongs(userID, remotePlaylistID, tracks, room_id) {
   const tracksString = tracks.map((track) => {
     return `spotify:track:${track.id}`
   });
   return (dispatch) => {
     spotifyApi.addTracksToPlaylist(userID, remotePlaylistID, tracksString)
       .then(() => {
-        if (notify_all) {
-          socket.emit('add-song', {
-            room_id: room_id,
-            songObj: tracks
-          });
-          socket.emit('request-song-list', room_id);
-          if (tracks.length === 1) {
-            dispatch(addSong(tracks[0]));
-          } else {
-            dispatch(addSongs(tracks));
-          }
+        socket.emit('add-song', {
+          room_id: room_id,
+          songObj: tracks
+        });
+        socket.emit('request-song-list', room_id);
+        if (tracks.length === 1) {
+          dispatch(addSong(tracks[0]));
+        } else {
+          dispatch(addSongs(tracks));
         }
       }).catch(error => {
         console.log('error:', error)
