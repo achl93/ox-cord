@@ -127,6 +127,15 @@ io.on('connection', (socket) => {
     });
   });
 
+  socket.on('request-archived-songs', (room_id) => {
+    if (SHOW_DEBUG) { console.log(' + Host requested archived songs list ', room_id); }
+    dataHelpers.getArchivedSongsFromRoomID(room_id, (err, songs) => {
+      console.log(err);
+      console.log(songs);
+      socket.emit('archived-songs-sent', songs);
+    });
+  });
+
   socket.on('distribute-new-tokens', (data) => {
     io.to(data.room_id).emit('host-tokens-sent', data.tokens);
   });
