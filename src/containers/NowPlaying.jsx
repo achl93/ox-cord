@@ -66,7 +66,11 @@ class NowPlaying extends Component {
       return (
         <Col>
           <Row >
+            {(this.props.activeDevice.type === 'unknown') &&
+            <h6 className="px-3 pt-1">Now Playing </h6>
+            } { (this.props.activeDevice.type !== 'unknown') &&
             <h6 className="px-3 pt-1">Now Playing on {this.props.activeDevice.name} <i className={`fa fa-${this.deviceType()}`} aria-hidden="true"></i></h6>
+            }
           </Row >
           <Row bsClass="fullInfo d-flex">
             <Col>
