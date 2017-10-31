@@ -37,7 +37,7 @@ class UserPlaylist extends Component {
       return <Redirect to="/" />
     } else {
       return (
-        <Row bsClass='scrollable'>
+        <Row bsClass='scrollable border'>
           <Row bsClass='row userplaylist rounded p-3'>
             <Col md={12}>
               <NowPlaying />

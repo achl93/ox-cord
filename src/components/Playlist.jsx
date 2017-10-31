@@ -30,7 +30,7 @@ class Playlist extends Component {
           <Row bsClass=' row col-md-12 nowplayer rounded p-3 pt-1 no-gutters'>
             <NowPlaying />
           </Row>
-          <Row bsClass=' q_search justify-content-center rounded row col-md-12 no-gutters '>
+          <Row bsClass=' q_search justify-content-center border row col-md-12 no-gutters '>
             <Row bsClass=' col-md-12 '>
               <Col md={12}>
                 <PlayerControls />
