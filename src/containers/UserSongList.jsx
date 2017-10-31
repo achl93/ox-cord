@@ -9,6 +9,20 @@ function byVotes(a, b) {
   if (b.playing === true) {
     return 1;
   }
+  if (b.votes === a.votes) {
+    if (b.id > a.id) {
+      return 1
+    } else {
+      return -1
+    }
+    if (b.votes === a.votes) {
+    if (b.id > a.id) {
+      return 1
+    } else {
+      return -1
+    }
+  }
+  }
   return b.votes - a.votes;
 }
 

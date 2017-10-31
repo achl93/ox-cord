@@ -41,8 +41,6 @@ class NowPlaying extends Component {
   }
   startParty() {
     // console.log(this.props.user);
-    console.log('--starting party---tokens-')
-    console.log(this.props.tokens)
     socket.emit('create-room', {
       room_id: this.props.user.id,
       uid: socket.id,
@@ -69,7 +67,6 @@ class NowPlaying extends Component {
         <Col>
           <Row >
             <h6 className="px-3 pt-1">Now Playing on {this.props.activeDevice.name} <i className={`fa fa-${this.deviceType()}`} aria-hidden="true"></i></h6>
-            {console.log(this.props.activeDevice.name)}
           </Row >
           <Row bsClass="fullInfo d-flex">
             <Col>
