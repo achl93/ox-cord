@@ -139,11 +139,11 @@ input.form-control {
 .q_search {
   overflow: scroll !important;
   max-height: calc(100vh - 18rem);
-  background-color: rgba(43, 42, 42, 0.57);
+  background-color: rgb(43, 42, 42);
 }
 
 .playlistCont {
-  background-color: rgba(43, 42, 42, 0.57);
+  background-color: rgb(43, 42, 42);
 }
 
 .importInfo {
@@ -159,7 +159,7 @@ input.form-control {
 }
 
 .userplaylist {
-  background-color: rgba(43, 42, 42, 0.57);
+  background-color: rgb(43, 42, 42);
 }
 
 .scrollable {
@@ -168,4 +168,21 @@ input.form-control {
 
 a:hover {
   text-decoration: none !important;
+}
+#mobile-download {
+  display: none;
+}
+
+#mobile-play {
+  color: #17a2b8;
+  background-color: transparent;
+  background-image: none;
+  border: solid 1px;
+  border-color: #17a2b8;
+}
+
+#mobile-play:hover {
+  color: #fff;
+  background-color: #17a2b8;
+  border-color: #17a2b8;
 }

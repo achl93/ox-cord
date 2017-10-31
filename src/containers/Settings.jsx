@@ -42,7 +42,7 @@ class Settings extends Component {
             <button
               className='btn btn-outline-info'
               onClick={() => this.onHandleClick()}
-            ><i class="fa fa-refresh" aria-hidden="true"></i> Refresh Token</button>
+            ><i className="fa fa-refresh" aria-hidden="true"></i> Refresh Token</button>
           </div>
           <br />
           <Link to='/playlist'>

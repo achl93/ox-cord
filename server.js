@@ -7,6 +7,9 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 require('dotenv').config();
 
+//https
+var httpsRedirect = require('express-https-redirect');
+
 const http = require('http');
 const MongoDB = require('mongodb').MongoClient;
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -29,6 +32,8 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
   app.use(webpackHotMiddleware(compiler));
 }
+
+app.use('/', httpsRedirect());
 
 app.use(express.static(path.join(__dirname, 'dist')))
   .use(cookieParser())
