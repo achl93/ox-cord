@@ -29,10 +29,6 @@ class UserPlaylist extends Component {
       socket.on('now-playing-updated', (songObj) => {
         this.props.updateNowPlaying(songObj);
       });
-      this.props.tokenValidation({
-        room_id: this.props.room,
-        tokens: this.props.tokens
-      });
     }
   }
 
