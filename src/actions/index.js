@@ -35,8 +35,7 @@ let remotePlaylistSet = false;
 let host = false;
 
 export function changeSuggestionState(data) {
-  console.log("DATAAAAA", data);
-  socket.emit('toggle-suggestions', {room_id: data.room_id, suggestions: data.suggestions})
+  // console.log("DATAAAAA", data);
   return {
     type: TOGGLE_SUGGESTION,
     payload: data.suggestions

@@ -5,7 +5,7 @@ import socket from '../lib/SocketAPI';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-class SongSearchResult extends Component {
+export default class SongSearchResult extends Component {
   render() {
     const alertOptions = {
       offset: 14,
@@ -34,23 +34,9 @@ class SongSearchResult extends Component {
   }
 
   onHandleClick() {
-    if (Object.keys(this.props.user).length > 1 || this.props.suggestions === true) {
-      if (!this.props.songs.find((track) => {return track.id === this.props.song.id})) {
-        this.props.remoteAddSongs(this.props.user.id, this.props.remotePlaylist.id, [this.props.song], this.props.room_id);
-        this.showAlert('Song has been added to playlist', 2000, 'success');
-      }
+    if (!this.props.songs.find((track) => {return track.id === this.props.song.id})) {
+      this.props.remoteAddSongs(this.props.user.id, this.props.remotePlaylist.id, [this.props.song], this.props.room_id);
+      this.showAlert('Song has been added to playlist', 2000, 'success');
     }
   }
 }
-
-function mapStateToProps(state) {
-  return {
-    suggestions: state.suggestions
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({}, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SongSearchResult)

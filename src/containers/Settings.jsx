@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Device from '../components/Device'
 import { remoteCheckDevices, remoteTransferPlayback, remoteRefreshToken, changeSuggestionState } from '../actions/index'
+import socket from '../lib/SocketAPI';
 
 class Settings extends Component {
   componentWillMount() {
@@ -26,7 +27,8 @@ class Settings extends Component {
   }
   toggleSongSuggestions() {
     console.log('Suggestion state toggled, currently: ', this.props.suggestions)
-    this.props.changeSuggestionState({room_id: this.props.room, suggestions: (this.props.suggestions ? false : true)})
+    socket.emit('toggle-suggestions', {room_id: this.props.room, suggestions: !this.props.suggestions});
+    this.props.changeSuggestionState({room_id: this.props.room, suggestions: !this.props.suggestions})
   }
   render() {
     if (this.props.user === 'empty') {
