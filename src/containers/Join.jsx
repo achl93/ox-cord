@@ -52,8 +52,7 @@ class Join extends Component {
     } else {
       return (
         <div className='text-center'>
-          <h1>Join a Party!</h1>
-          <p>Join a nearby party now!</p>
+          <h5>Join a Party</h5>
           {this.state.rooms.map((room) => {
             return (<JoinRoom
               room={room}
