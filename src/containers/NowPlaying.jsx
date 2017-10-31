@@ -41,8 +41,6 @@ class NowPlaying extends Component {
   }
   startParty() {
     // console.log(this.props.user);
-    console.log('--starting party---tokens-')
-    console.log(this.props.tokens)
     socket.emit('create-room', {
       room_id: this.props.user.id,
       uid: socket.id,

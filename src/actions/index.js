@@ -171,6 +171,9 @@ export function checkRemotePlaylist(remotePlaylist) {
 
 export function remoteCheckRemotePlaylists(userID) {
   return (dispatch) => {
+    if (!tokenSet){
+      return;
+    }
     spotifyApi.getUserPlaylists(userID).then((results) => {
       // check for name 'Oxcord'
       const found = results.items.find(playlist => playlist.name === 'Ox Cord');
@@ -495,6 +498,9 @@ class CheckNowPlaying extends EventEmitter {
     });
   }
   remoteCheckCurrentPlayingTrack(previous, cb) {
+    if (!tokenSet) {
+      return;
+    }
     spotifyApi.getMyCurrentPlaybackState({})
       .then((result) => {
         if (!result.item) {
@@ -575,6 +581,9 @@ function findReorderForSpotifyTopThree(livePlaylist, localPlaylist) {
 
 export function remoteCheckOrder(userID, remotePlaylistID, songs) {
   return (dispatch) => {
+    if (!tokenSet){
+      return;
+    }
     if (songs.length === 0 || songs[0].id === 0 || !host) {
       // dispatch({type: 'DO_NOTHING', payload: ''})
     } else {
