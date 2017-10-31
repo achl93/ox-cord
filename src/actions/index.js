@@ -173,7 +173,7 @@ export function remoteCheckRemotePlaylists(userID) {
   return (dispatch) => {
     spotifyApi.getUserPlaylists(userID).then((results) => {
       // check for name 'Oxcord'
-      const found = results.items.find(playlist => playlist.name === 'Oxcord');
+      const found = results.items.find(playlist => playlist.name === 'Ox Cord');
       let result;
       if (found) {
         result = {
@@ -233,16 +233,20 @@ export function createRemotePlaylist(newRemotePlaylist) {
   }
 };
 
-export function remoteCreateRemotePlaylist(userID) {
+export function remoteCreateRemotePlaylist(userID, songURI, playlistName = 'Ox Cord') {
   return (dispatch) => {
-    spotifyApi.createPlaylist(userID, { name: 'Oxcord', public: true, description: 'Playlist created by Oxcord' })
+    spotifyApi.createPlaylist(userID, { name: playlistName, public: true, description: 'Playlist created by Ox Cord' })
       .then((createdPlaylist) => {
-        const result = {
-          id: createdPlaylist.id,
-          exists: true
+        if (playlistName === 'Ox Cord') {
+          const result = {
+            id: createdPlaylist.id,
+            exists: true
+          }
+          remotePlaylistSet = true;
+          dispatch(createRemotePlaylist(result));
+        } else {
+          spotifyApi.addTracksToPlaylist(userID, createdPlaylist.id, songURI); 
         }
-        remotePlaylistSet = true;
-        dispatch(createRemotePlaylist(result));
       })
   }
 };
@@ -325,11 +329,11 @@ export function tokenValidation(data) {
   return (dispatch) => {
     // 50 minutes in milliseconds
     let threshold = 3000000;
-  
+
     // If tokens are expired
     if ((Date.now() - data.tokens.create_at) > threshold) {
       dispatch(remoteRefreshToken(data.tokens, data.room_id));
-    } 
+    }
   }
 };
 
@@ -375,10 +379,10 @@ export function storeUser(user) {
   }
 };
 
-export function startParty() {
+export function startParty(status) {
   return {
     type: PARTY_STATUS,
-    payload: { started: true }
+    payload: status
   }
 }
 

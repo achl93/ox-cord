@@ -48,6 +48,13 @@ module.exports = function dataHelpers(db) {
         });
     },
 
+    getArchivedSongsFromRoomID: function(room_id, callback) {
+      db.collection("rooms").find({"room_id": room_id}, {_id: 0, "archive": 1})
+        .toArray((err, items) => {
+          callback(err, items);
+        });
+    },
+
     getSongFromRoomID: function(song_id, room_id, callback) {
       db.collection("rooms").find({"room_id": room_id, "playlist.id": song_id}, {"playlist.$": 1, "_id": 0}).toArray(callback);
     },
