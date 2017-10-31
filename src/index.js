@@ -23,6 +23,7 @@ import PlaylistImport from './containers/PlaylistImport.jsx';
 import OpenApp from './components/OpenApp.jsx';
 import Test from './containers/Test.jsx';
 import BGImg from './containers/BGImg.jsx';
+import ExportPlaylist from './containers/ExportPlaylist.jsx';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -48,6 +49,7 @@ ReactDOM.render(
               <Route path='/open-app' component={OpenApp} />
               <Route path='/test' component={Test} />
               <Route path='/' component={Home} />
+              <Route path='/exportPlaylist' component={ExportPlaylist} />
             </Switch>
           </BrowserRouter>
     </Row>

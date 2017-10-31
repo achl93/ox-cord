@@ -368,10 +368,10 @@ export function storeUser(user) {
   }
 };
 
-export function startParty() {
+export function startParty(status) {
   return {
     type: PARTY_STATUS,
-    payload: { started: true }
+    payload: status
   }
 }
 
