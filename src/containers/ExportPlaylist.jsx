@@ -42,10 +42,9 @@ class ExportPlaylist extends Component {
       <div className="text-center settingCont border p-3">
         <h4>Export to Playlist</h4>
         <div>
-          <h5>Something here</h5>
+          <h6 className="importInfo">Enjoyed the party? Add tonight's songs to Spotify</h6>
           <button className="btn btn-outline-info" onClick={() => this.makePlaylist()}><i className="fa fa-upload" aria-hidden="true"></i> Export</button>
         </div>
-        <br />
         <Link to='/playlist'>
           <div className='btn btn-outline-info'><i className="fa fa-arrow-left" aria-hidden="true"></i> Back</div>
         </Link>

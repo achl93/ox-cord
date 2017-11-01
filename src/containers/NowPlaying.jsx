@@ -57,7 +57,6 @@ class NowPlaying extends Component {
   }
 
   endParty() {
-    console.log("party is over 😭");
     this.props.onNavigate('/exportPlaylist');
   }
 
