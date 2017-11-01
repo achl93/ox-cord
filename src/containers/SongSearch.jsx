@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { searchSongs, remoteAddSongs, tokenValidation } from '../actions/index';
+import { remoteSearchSongs, remoteAddSongs, tokenValidation } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row, Col, FormControl, FormGroup, InputGroup, Button, ListGroup } from 'react-bootstrap';
@@ -76,7 +76,7 @@ class SongSearch extends Component {
       room_id: this.props.room, 
       tokens: this.props.tokens 
     });
-    this.props.searchSongs(this.state.term);
+    this.props.remoteSearchSongs(this.state.term, this.props.songs);
     this.setState({
       term: ''
     });
@@ -101,7 +101,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ searchSongs, remoteAddSongs, tokenValidation, changeSuggestionState }, dispatch)
+  return bindActionCreators({ remoteSearchSongs, remoteAddSongs, tokenValidation, changeSuggestionState }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SongSearch)

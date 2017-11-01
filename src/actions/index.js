@@ -135,11 +135,40 @@ export function removeSong(id) {
   };
 }
 
-export function searchSongs(term) {
-  const request = spotifyApi.searchTracks(term, { limit: 5 });
+export function remoteSearchSongs(term, savedTracks) {
+  return (dispatch) => {
+  spotifyApi.searchTracks(term, { limit: 5 })
+    .then((results) => {
+      console.log('----results-----')
+      console.log(results)
+      if (!results || results.tracks.items.length === 0 ){
+        return;
+      }
+      const searchResults = results.tracks.items.map(track => {
+        return {
+          id: track.id,
+          name: track.name,
+          artist: track.artists[0].name,
+          votes: 0,
+          cover_art: track.album.images[2].url,
+          playing: false
+        }
+      })
+      console.log('----formatted  results-----')
+      console.log(searchResults);
+      const filteredTracks = searchResults.filter((track) => {
+          return !savedTracks.some(savedTrack => savedTrack.id === track.id)
+        })
+        console.log('----filtered results-----')
+        console.log(filteredTracks)
+        return dispatch(searchSongs(filteredTracks))
+      })
+  }
+}
+export function searchSongs(tracks) {
   return {
     type: SEARCH_SONGS,
-    payload: request
+    payload: tracks
   }
 };
 
@@ -257,6 +286,8 @@ export function remoteCreateRemotePlaylist(userID, songURI, playlistName = 'Ox C
 // start remote playlist from beginning
 export function remoteStartPlaylist(userID, remotePlaylistID, songs, nowPlaying) {
   const context_uri = `spotify:user:${userID}:playlist:${remotePlaylistID}`;
+  console.log('REMOTE START')
+  console.log(context_uri)
   return (dispatch) => {
     spotifyApi.setShuffle(false, {})
       .then(() => spotifyApi.play({ context_uri }))
@@ -487,7 +518,7 @@ class CheckNowPlaying extends EventEmitter {
       if (tokenSet && host) {
         this.checkSong();
       }
-    }, 2500);
+    }, 3000);
   }
 
   checkSong() {
@@ -558,6 +589,7 @@ function reorder(input, start, index) {
 }
 
 function findReorderForSpotifyTopThree(livePlaylist, localPlaylist) {
+  console
   const liveTopThree = livePlaylist.slice(0, 3);
   const diff = liveTopThree.find((item, index) => {
     return localPlaylist[index].id !== item.id
@@ -581,7 +613,6 @@ function findReorderForSpotifyTopThree(livePlaylist, localPlaylist) {
     return;
   }
 }
-
 
 export function remoteCheckOrder(userID, remotePlaylistID, songs) {
   return (dispatch) => {
