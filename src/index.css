@@ -144,7 +144,7 @@ input.form-control {
 
 .user_q_search {
   overflow: scroll !important;
-  max-height: calc(100vh - 16rem);
+  max-height: calc(100vh - 17rem);
   background-color: rgb(43, 42, 42);
 }
 
