@@ -86,7 +86,7 @@ class NowPlaying extends Component {
               <Button bsClass="btn btn-outline-info pauseButton" bsSize="small" onClick={() => this.props.remotePause()}><i className="fa fa-pause" aria-hidden="true"></i></Button>
               <Button bsClass="btn btn-outline-info mx-1 nextButton" bsSize="small" onClick={() => this.props.remoteSkip()}><i className="fa fa-step-forward" aria-hidden="true"></i></Button>
               {(this.props.partyStatus === "started") &&
-                <Button bsClass="btn btn-outline-info mx-1" bsSize="small" onClick={() => this.onStartPlaylist()}>Begin</Button>
+                <Button bsClass="btn btn-outline-success mx-1" bsSize="small" onClick={() => this.onStartPlaylist()}>Begin</Button>
               } {
                 (this.props.partyStatus === "notStarted") &&
                 <Button bsClass="btn btn-outline-success mx-1" bsSize="small" onClick={() => this.startParty()}>Host</Button>
@@ -96,7 +96,7 @@ class NowPlaying extends Component {
               }
               <Link to='/settings'>
                 <Button bsClass="btn btn-outline-info" bsSize="small">
-                  <i className={`fa fa-${this.deviceType()}`} aria-hidden="true"></i>
+                  <i className={`fa fa-wrench`} aria-hidden="true"></i>
                 </Button>
               </Link>
             </div>
