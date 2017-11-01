@@ -615,7 +615,7 @@ export function remoteCheckOrder(userID, remotePlaylistID, songs) {
     if (!tokenSet || !check){
       return;
     }
-    console.log('-----CHECKING ORDER------')
+    
     if (songs.length === 0 || songs[0].id === 0 || !host) {
       // dispatch({type: 'DO_NOTHING', payload: ''})
     } else {
