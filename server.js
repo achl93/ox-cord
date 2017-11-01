@@ -186,7 +186,9 @@ io.on('connection', (socket) => {
 
   socket.on('remove-party', (room_id) => {
     dataHelpers.removePartyObj(room_id, (err) => {
-      console.log(err);
+      if (err) {
+        console.log(err);
+      }
     })
   })
 

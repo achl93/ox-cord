@@ -38,7 +38,8 @@ class ExportPlaylist extends Component {
   };
 
   destroyRoom() {
-    // emit a message to socket server to delete this room
+    socket.emit('remove-party', this.props.room);
+    <Redirect to='/' />
   }
 
   render() {
