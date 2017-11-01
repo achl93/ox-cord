@@ -6,6 +6,7 @@ import { Row, Col, FormControl, FormGroup, InputGroup, Button, ListGroup } from 
 import SongSearchResult from '../components/SongSearchResult';
 import { changeSuggestionState } from '../actions/index';
 import socket from '../lib/SocketAPI';
+import AlertContainer from 'react-alert'
 
 class SongSearch extends Component {
   constructor(props){
@@ -15,7 +16,8 @@ class SongSearch extends Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
     socket.on('suggestion-state', (suggestionState) => {
       if (Object.keys(this.props.user).length === 1) {
-        this.props.changeSuggestionState({room_id: this.props.room, suggestions: suggestionState})
+        this.showAlert(`Song suggestions are now turned ${suggestionState ? 'on.' : 'off.'}`, 2000, 'info');
+        this.props.changeSuggestionState({room_id: this.props.room, suggestions: suggestionState});
       }
     })
   }
@@ -35,8 +37,16 @@ class SongSearch extends Component {
     });
   }
   render() {
+    const alertOptions = {
+      offset: 14,
+      position: 'bottom left',
+      theme: 'dark',
+      time: 1000,
+      transition: 'fade'
+    }
     return (
       <Row>
+        <AlertContainer ref={a => this.msg = a} {...this.alertOptions} />
         <Col md={12}>
           <Row>
             <form onSubmit={this.onFormSubmit}>
@@ -70,7 +80,15 @@ class SongSearch extends Component {
       </Row>
     )
   }
-  onFormSubmit(event){
+
+  showAlert(message, duration, type) {
+    this.msg.show(message, {
+      time: duration,
+      type: type,
+    })
+  }
+
+  onFormSubmit(event) {
     event.preventDefault();
     this.props.tokenValidation({ 
       room_id: this.props.room, 
