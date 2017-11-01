@@ -186,6 +186,7 @@ io.on('connection', (socket) => {
 
   socket.on('remove-party', (room_id) => {
     dataHelpers.removePartyObj(room_id);
+    io.to(room_id).emit('host-ended-party');
   });
 
   console.log('> Client Connected to Socket Server ', socket.id);
