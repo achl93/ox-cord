@@ -5,7 +5,6 @@ const initial = {
   name: 'Nothing Playing Yet!', 
   artist: 'Please wait for the Host to start the party!', 
   cover_art: 'https://dncache-mauganscorp.netdna-ssl.com/thumbseg/1442/1442039-bigthumbnail.jpg', 
-  cover_background: 'https://dncache-mauganscorp.netdna-ssl.com/thumbseg/1442/1442039-bigthumbnail.jpg' 
 }
 
 export default function(state = initial, action) {
