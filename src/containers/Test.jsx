@@ -9,14 +9,14 @@ class Test extends Component {
     super(props)
     this.props.updatedBrowserDevice(this.checkBrowserDevice());
   }
-  checkBrowserDevice() {
-    if (!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent))) {
-       // Hide scan button for Desktop
-      return { type: 'desktop' }
-    }  else {
-      return { type: 'mobile' }
-    }       
-  }
+  // checkBrowserDevice() {
+  //   if (!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent))) {
+  //      // Hide scan button for Desktop
+  //     return { type: 'desktop' }
+  //   }  else {
+  //     return { type: 'mobile' }
+  //   }       
+  // }
   componentWillMount(){
    // currentSongChecker((trackID)=>this.updateSong(trackID))
   }

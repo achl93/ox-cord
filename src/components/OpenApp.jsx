@@ -17,6 +17,7 @@ export default class Test extends Component {
           <button 
             type="button" 
             className="btn btn-outline-success my-2"
+            id="mobile-play" 
             //onClick={() => this.onOpenApp()}
           >
           <i className="fa fa-spotify" aria-hidden="true"></i> Open Spotify
