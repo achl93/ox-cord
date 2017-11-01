@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { remoteSearchSongs, remoteAddSongs, tokenValidation } from '../actions/index';
+import { searchSongs, remoteSearchSongs, remoteAddSongs, tokenValidation } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Row, Col, FormControl, FormGroup, InputGroup, Button, ListGroup } from 'react-bootstrap';
@@ -18,6 +18,9 @@ class SongSearch extends Component {
       if (Object.keys(this.props.user).length === 1) {
         this.showAlert(`Song suggestions are now turned ${suggestionState ? 'on.' : 'off.'}`, 2000, 'info');
         this.props.changeSuggestionState({ room_id: this.props.room, suggestions: suggestionState });
+        if (!suggestionState){
+          this.props.searchSongs([]);
+        }
       }
     })
   }
@@ -129,7 +132,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ remoteSearchSongs, remoteAddSongs, tokenValidation, changeSuggestionState }, dispatch)
+  return bindActionCreators({ searchSongs, remoteSearchSongs, remoteAddSongs, tokenValidation, changeSuggestionState }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SongSearch)
