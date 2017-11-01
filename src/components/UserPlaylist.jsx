@@ -29,6 +29,9 @@ class UserPlaylist extends Component {
       socket.on('now-playing-updated', (songObj) => {
         this.props.updateNowPlaying(songObj);
       });
+      socket.on('host-ended-party', () => {
+        this.props.history.push('/');
+      });
     }
   }
 
