@@ -5,9 +5,9 @@ export default class Test extends Component {
 
   render(){
     return (
-      <div className='text-center'>
+      <div className="text-center endCont border p-3 ">
         <div>
-            If playback hasn't started, open the Oxcord playlist on your Spotify App to start manually
+            If playback hasn't begun, open the Ox Cord playlist on Spotify to start manually
         </div>
         <div role="dialog" aria-hidden="true" aria-labelledby="choice-modal-title" className="choice-modal js-choice-modal hide">
               {/* THE FIRST BUTTON IS BUTTON IS BEING HIDDEN FOR NOW,DON'T DELETE IT PLS */}
@@ -16,17 +16,16 @@ export default class Test extends Component {
           </button>
           <button 
             type="button" 
-            id="mobile-play" 
-            className="btn btn-transparent"
+            className="btn btn-outline-success my-2"
             //onClick={() => this.onOpenApp()}
           >
-            Open Spotify
+          <i className="fa fa-spotify" aria-hidden="true"></i> Open Spotify
           </button>
         </div>
         <div>
         <Link to='/playlist'>
-          <button className="btn btn-outline-info m-1">
-            Back to Playlist
+          <button className="btn btn-outline-secondary mt-3 btn-sm">
+          <i className="fa fa-arrow-left" aria-hidden="true"></i> Back
           </button>
         </Link>
         </div>

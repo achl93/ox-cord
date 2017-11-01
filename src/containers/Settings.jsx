@@ -38,27 +38,28 @@ class Settings extends Component {
         <div className="text-center settingCont border p-3 ">
           <h4>Settings</h4>
           <div className="p-3">
-            <h5>Available Devices</h5>
+            <h6>Available Devices</h6>
             <div>
               {this.renderDevices()}
             </div>
           </div>
           <div>
-            <h5>Access Token</h5>
+            <h6>Access Token</h6>
             <button
-              className='btn btn-outline-info'
+              className='btn btn-outline-success'
               onClick={() => this.onHandleClick()}
             ><i className="fa fa-refresh" aria-hidden="true"></i> Refresh Token</button>
           </div>
           <br />
           <div>
+          <h6>Guest Controls</h6>
             <button
               className='btn btn-outline-info'
               onClick={() => this.toggleSongSuggestions()}
-            >Song Suggesting: {(this.props.suggestions ? 'On' : 'Off')}</button>
+            ><i className="fa fa-comments-o" aria-hidden="true"></i> Song Suggesting: {(this.props.suggestions ? 'On' : 'Off')}</button>
           </div>
           <Link to='/playlist'>
-            <div className='btn btn-outline-info'><i className="fa fa-arrow-left" aria-hidden="true"></i> Back</div>
+            <div className='btn btn-outline-secondary btn-sm mt-3'><i className="fa fa-arrow-left" aria-hidden="true"></i> Back</div>
           </Link>
         </div>
       )

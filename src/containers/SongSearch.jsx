@@ -6,16 +6,18 @@ import { Row, Col, FormControl, FormGroup, InputGroup, Button, ListGroup } from 
 import SongSearchResult from '../components/SongSearchResult';
 import { changeSuggestionState } from '../actions/index';
 import socket from '../lib/SocketAPI';
+import AlertContainer from 'react-alert'
 
 class SongSearch extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = { term: '' };
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
     socket.on('suggestion-state', (suggestionState) => {
       if (Object.keys(this.props.user).length === 1) {
-        this.props.changeSuggestionState({room_id: this.props.room, suggestions: suggestionState})
+        this.showAlert(`Song suggestions are now turned ${suggestionState ? 'on.' : 'off.'}`, 2000, 'info');
+        this.props.changeSuggestionState({ room_id: this.props.room, suggestions: suggestionState });
       }
     })
   }
@@ -23,37 +25,55 @@ class SongSearch extends Component {
   renderResults() {
     return this.props.results.map((song) => {
       return (
-          <SongSearchResult 
-            remoteAddSongs={this.props.remoteAddSongs} 
-            songs={this.props.songs} key={song.id} 
-            song={song} user={this.props.user} 
-            remotePlaylist={this.props.remotePlaylist} 
-            room_id={this.props.room} 
-            user={this.props.user}
-            />
+        <SongSearchResult
+          remoteAddSongs={this.props.remoteAddSongs}
+          songs={this.props.songs} key={song.id}
+          song={song} user={this.props.user}
+          remotePlaylist={this.props.remotePlaylist}
+          room_id={this.props.room}
+          user={this.props.user}
+        />
       )
     });
   }
   render() {
+    const alertOptions = {
+      offset: 14,
+      position: 'bottom left',
+      theme: 'dark',
+      time: 1000,
+      transition: 'fade'
+    }
     return (
       <Row>
+        <AlertContainer ref={a => this.msg = a} {...this.alertOptions} />
         <Col md={12}>
           <Row>
             <form onSubmit={this.onFormSubmit}>
               <FormGroup bsClass='form-group px-3'>
                 <InputGroup>
-                  <FormControl
-                    type="text"
-                    placeholder='Search Spotify'
-                    value={this.state.term}
-                    onChange={this.onInputChange}
-                  />
-                  <InputGroup.Button>
-                    { this.props.suggestions || Object.keys(this.props.user).length > 1 ? (
-                    <Button type='submit' bsClass="btn btn-outline-info" bsSize="small"><i className="fa fa-search" aria-hidden="true"></i></Button>
+                  {this.props.suggestions || Object.keys(this.props.user).length > 1 ?
+                    (
+                      <FormControl
+                        type="text"
+                        placeholder='Search Spotify'
+                        value={this.state.term}
+                        onChange={this.onInputChange} />
                     ) : (
-                    <Button type='submit' bsClass="btn btn-outline-secondary" bsSize="small" disabled><i className="fa fa-search" aria-hidden="true"></i></Button>
-                    ) }
+                      <FormControl
+                        bsClass="form-control greyedSearch"
+                        type="text"
+                        placeholder='Search Spotify'
+                        value={this.state.term}
+                        onChange={this.onInputChange}
+                        disabled />
+                    )}
+                  <InputGroup.Button>
+                    {this.props.suggestions || Object.keys(this.props.user).length > 1 ? (
+                      <Button type='submit' bsClass="btn btn-outline-info" bsSize="small"><i className="fa fa-search" aria-hidden="true"></i></Button>
+                    ) : (
+                        <Button type='submit' bsClass="btn btn-outline-secondary" bsSize="small" disabled><i className="fa fa-search" aria-hidden="true"></i></Button>
+                      )}
                   </InputGroup.Button>
                 </InputGroup>
               </FormGroup>
@@ -62,7 +82,7 @@ class SongSearch extends Component {
           <Row>
             <Col md={12}>
               <ListGroup>
-                { this.renderResults() }
+                {this.renderResults()}
               </ListGroup>
             </Col>
           </Row>
@@ -70,11 +90,19 @@ class SongSearch extends Component {
       </Row>
     )
   }
-  onFormSubmit(event){
+
+  showAlert(message, duration, type) {
+    this.msg.show(message, {
+      time: duration,
+      type: type,
+    })
+  }
+
+  onFormSubmit(event) {
     event.preventDefault();
-    this.props.tokenValidation({ 
-      room_id: this.props.room, 
-      tokens: this.props.tokens 
+    this.props.tokenValidation({
+      room_id: this.props.room,
+      tokens: this.props.tokens
     });
     this.props.remoteSearchSongs(this.state.term, this.props.songs);
     this.setState({

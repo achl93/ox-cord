@@ -17,7 +17,7 @@ class UserPlaylist extends Component {
     if (Object.keys(this.props.room).length !== 0) {
       socket.emit('request-song-list', this.props.room);
       socket.emit('request-now-playing', this.props.room);
-      socket.emit('request-host-token', this.props.room);
+      socket.emit('request-tokens-from-host', this.props.room);
       socket.on('host-tokens-sent', (tokens) => {
         this.props.storeTokens(tokens);
       });

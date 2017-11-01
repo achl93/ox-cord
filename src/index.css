@@ -162,6 +162,11 @@ input.form-control {
   background-color: rgb(43, 42, 42);
 }
 
+.endCont {
+  max-width: 20em;
+  background-color: rgb(43, 42, 42);
+}
+
 .scrollable {
   overflow: scroll !important;
 }
@@ -169,20 +174,16 @@ input.form-control {
 a:hover {
   text-decoration: none !important;
 }
+
 #mobile-download {
   display: none;
 }
 
-#mobile-play {
-  color: #17a2b8;
-  background-color: transparent;
-  background-image: none;
-  border: solid 1px;
-  border-color: #17a2b8;
+input:disabled {
+  background: rgb(43, 42, 42) !important;
 }
 
-#mobile-play:hover {
-  color: #fff;
-  background-color: #17a2b8;
-  border-color: #17a2b8;
+.greyedSearch {
+  background: rgb(43, 42, 42) !important;
+  border-color: #656b70 !important;
 }

@@ -141,6 +141,11 @@ io.on('connection', (socket) => {
     });
   });
 
+  socket.on('request-tokens-from-host', (room_id) => {
+    if (SHOW_DEBUG) { console.log(' + Request for tokens from host has been issued ', room_id); }
+    io.to(room_id).emit('request-tokens-from-host');
+  });
+
   socket.on('distribute-new-tokens', (data) => {
     io.to(data.room_id).emit('host-tokens-sent', data.tokens);
   });

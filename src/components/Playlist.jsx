@@ -20,6 +20,20 @@ class Playlist extends Component {
     socket.on('host-tokens-sent', (tokens) => {
       this.props.storeTokens(tokens);
     });
+    socket.on('request-tokens-from-host', () => {
+      console.log('Tokens requested from host..', this.props.tokens);
+      socket.emit('distribute-new-tokens', {
+        room_id: this.props.room,
+        tokens: this.props.tokens
+      });
+    });
+  }
+
+  componentDidUpdate() {
+    this.props.tokenValidation({
+      room_id: this.props.room,
+      tokens: this.props.tokens
+    });
   }
 
   render() {
@@ -29,7 +43,7 @@ class Playlist extends Component {
       return (
         <Row bsClass="mainCont col-md-8">
           <Row bsClass=' row col-md-12 nowplayer rounded p-3 pt-1 no-gutters'>
-            <NowPlaying onNavigate={this.onNavigate}/>
+            <NowPlaying onNavigate={this.onNavigate} />
           </Row>
           <Row bsClass=' q_search justify-content-center border row col-md-12 no-gutters '>
             <Row bsClass=' col-md-12 '>
@@ -55,7 +69,7 @@ class Playlist extends Component {
       });
     }, 300000);
   }
-  onNavigate(destination){
+  onNavigate(destination) {
     this.props.history.push(destination)
   }
 }
