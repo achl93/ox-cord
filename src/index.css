@@ -106,7 +106,6 @@ input.form-control {
   z-index: 999;
   background-color: rgba(43, 42, 42, 0.57);
   /* margin-left: 0 !important; */
-  height: 12rem;
 }
 
 .blurr {
@@ -186,4 +185,20 @@ input:disabled {
 .greyedSearch {
   background: rgb(43, 42, 42) !important;
   border-color: #656b70 !important;
+}
+
+.nowPlayingSongName {
+  max-height: 8vh;
+  max-width: 45vw;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+
+.nowPlayingDevice {
+  max-height: 8vh;
+  max-width: 75vw;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  white-space: nowrap;
 }

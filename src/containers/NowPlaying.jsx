@@ -76,7 +76,9 @@ class NowPlaying extends Component {
             {(this.props.activeDevice.type === 'unknown') &&
             <h6 className="px-3 pt-1">Now Playing </h6>
             } { (this.props.activeDevice.type !== 'unknown') &&
-            <h6 className="px-3 pt-1">Now Playing on {this.props.activeDevice.name} <i className={`fa fa-${this.deviceType()}`} aria-hidden="true"></i></h6>
+            <div className="nowPlayingDevice">
+            <h6 className="pls px-3">Now Playing on {this.props.activeDevice.name} <i className={`fa fa-${this.deviceType()}`} aria-hidden="true"></i></h6>
+            </div>
             }
           </Row >
           <Row bsClass="fullInfo d-flex">
@@ -84,12 +86,14 @@ class NowPlaying extends Component {
               <img className="nowplayingcover" src={this.props.nowPlaying.cover_art} alt="Album Art" />
             </Col>
             <div className="songAndArtist">
+              <div className="nowPlayingSongName">
               <h5 className="songName mx-2">{this.props.nowPlaying.name}</h5>
+              </div>
               <h6 className=" artist mx-2">{this.props.nowPlaying.artist}</h6>
             </div>
           </Row>
           {(Object.keys(this.props.user).length > 1) &&
-            <div className="buttons my-2">
+            <div className="buttons mt-2">
               <Button bsClass="btn btn-outline-info mx-1 playButton" bsSize="large" onClick={() => this.props.remotePlay()}><i className="fa fa-play" aria-hidden="true"></i></Button>
               <Button bsClass="btn btn-outline-info pauseButton" bsSize="small" onClick={() => this.props.remotePause()}><i className="fa fa-pause" aria-hidden="true"></i></Button>
               <Button bsClass="btn btn-outline-info mx-1 nextButton" bsSize="small" onClick={() => this.props.remoteSkip()}><i className="fa fa-step-forward" aria-hidden="true"></i></Button>
