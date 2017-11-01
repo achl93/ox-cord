@@ -219,3 +219,7 @@ input:disabled {
 .userSongItem:active {
   background-color: rgb(255, 192, 8) !important;
 }
+
+.userSongItem:hover {
+  background-color: rgb(59, 58, 58) !important;
+}
