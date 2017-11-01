@@ -46,11 +46,22 @@ class Songlist extends Component {
   }
   }
 
-  render () {
+  importButtonStatus() {
+    let partyStatus = this.props.partyStatus;
+    if(partyStatus === "notStarted" || partyStatus === "started") {
+      return (
+      <Link to='/import'>
+        <Button bsClass=" btn btn-outline-info mb-2" bsSize="small"><i className="fa fa-download" aria-hidden="true"></i></Button>
+      </Link>
+      );
+    } else {
+      return (
+      <Button bsClass=" btn btn-outline-secondary mb-2" bsSize="small" disabled><i className="fa fa-download" aria-hidden="true"></i></Button>
+      );
+    }
+  }
 
-    const tooltip = (
-      <Tooltip id="tooltip"><strong>Holy guacamole!</strong> Check this info.</Tooltip>
-    );
+  render () {
     
     if (!this.props.remotePlaylist.exists) {
       return <Redirect to="/create"/>;
@@ -66,13 +77,7 @@ class Songlist extends Component {
                   <h4 className='text-center'>Queue </h4>
                   </Col>
                   <Col bsClass="justify-content-end">
-                    <Link to='/import'>
-                    {!this.props.partyStatus.started &&
-                        <Button bsClass=" btn btn-outline-info mb-2" bsSize="small"><i className="fa fa-download" aria-hidden="true"></i></Button>
-
-                    } </Link> {this.props.partyStatus.started &&
-                      <Button bsClass=" btn btn-outline-secondary mb-2" bsSize="small" disabled><i className="fa fa-download" aria-hidden="true"></i></Button>                    
-                    }
+                  {this.importButtonStatus()}
                   </Col>
                 </Row>
                   <ListGroup >
