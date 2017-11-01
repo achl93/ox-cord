@@ -34,7 +34,7 @@ class Songlist extends Component {
   renderSongs() {
     if (this.props.songs !== null && this.props.songs !== undefined) {
       if (Object.keys(this.props.songs).length !== 0) {
-        return this.props.songs.slice(1).map((song) => {
+        return this.props.songs.map((song) => {
           return (
             <Song key={song.id} song={song} remoteRemoveSongs={this.props.remoteRemoveSongs} user={this.props.user} remotePlaylist={this.props.remotePlaylist} room={this.props.room} />
           )
