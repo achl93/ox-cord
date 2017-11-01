@@ -73,7 +73,7 @@ module.exports = function dataHelpers(db) {
       })
     },
 
-    removePartyObj: function(room_id) {
+    removePartyObj: function(room_id, callback) {
       db.collection("rooms").findOneAndDelete({"room_id": room_id});
     }
   };

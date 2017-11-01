@@ -39,7 +39,7 @@ class ExportPlaylist extends Component {
 
   destroyRoom() {
     socket.emit('remove-party', this.props.room);
-    <Redirect to='/' />
+    this.props.history.push('/');
   }
 
   render() {
