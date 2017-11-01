@@ -35,7 +35,6 @@ let remotePlaylistSet = false;
 let host = false;
 
 export function changeSuggestionState(data) {
-  // console.log("DATAAAAA", data);
   return {
     type: TOGGLE_SUGGESTION,
     payload: data.suggestions
@@ -139,8 +138,6 @@ export function remoteSearchSongs(term, savedTracks) {
   return (dispatch) => {
   spotifyApi.searchTracks(term, { limit: 5 })
     .then((results) => {
-      console.log('----results-----')
-      console.log(results)
       if (!results || results.tracks.items.length === 0 ){
         return;
       }
@@ -154,13 +151,9 @@ export function remoteSearchSongs(term, savedTracks) {
           playing: false
         }
       })
-      console.log('----formatted  results-----')
-      console.log(searchResults);
       const filteredTracks = searchResults.filter((track) => {
           return !savedTracks.some(savedTrack => savedTrack.id === track.id)
         })
-        console.log('----filtered results-----')
-        console.log(filteredTracks)
         return dispatch(searchSongs(filteredTracks))
       })
   }
@@ -286,8 +279,6 @@ export function remoteCreateRemotePlaylist(userID, songURI, playlistName = 'Ox C
 // start remote playlist from beginning
 export function remoteStartPlaylist(userID, remotePlaylistID, songs, nowPlaying) {
   const context_uri = `spotify:user:${userID}:playlist:${remotePlaylistID}`;
-  console.log('REMOTE START')
-  console.log(context_uri)
   return (dispatch) => {
     spotifyApi.setShuffle(false, {})
       .then(() => spotifyApi.play({ context_uri }))
@@ -592,7 +583,6 @@ function reorder(input, start, index) {
 }
 
 function findReorderForSpotifyTopThree(livePlaylist, localPlaylist) {
-  console
   const liveTopThree = livePlaylist.slice(0, 3);
   const diff = liveTopThree.find((item, index) => {
     return localPlaylist[index].id !== item.id
@@ -617,11 +607,15 @@ function findReorderForSpotifyTopThree(livePlaylist, localPlaylist) {
   }
 }
 
+let check = true;
 export function remoteCheckOrder(userID, remotePlaylistID, songs) {
+ 
   return (dispatch) => {
-    if (!tokenSet){
+    check = !check;
+    if (!tokenSet || !check){
       return;
     }
+    console.log('-----CHECKING ORDER------')
     if (songs.length === 0 || songs[0].id === 0 || !host) {
       // dispatch({type: 'DO_NOTHING', payload: ''})
     } else {
