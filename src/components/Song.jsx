@@ -19,7 +19,7 @@ export default class Song extends Component {
       <h5>{ this.props.song.name }</h5>
       <p className= "artist"> { this.props.song.artist } 
       <Button bsClass='btn btn-sm btn-outline-danger badge float-right' onClick={()=>{this.onHandleClick()}}><i className="fa fa-trash" aria-hidden="true"></i></Button>
-       <Button bsClass='btn btn-sm btn-outline-warning badge float-right mx-1' disabled>{this.props.song.votes} Votes</Button>
+       <Button bsClass='btn btn-sm btn-outline-warning badge float-right mx-1' disabled>{this.props.song.votes} <i className="fa fa-heart" aria-hidden="true"></i></Button>
       </p>
       </ListGroupItem>
       </div>

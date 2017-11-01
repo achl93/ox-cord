@@ -82,6 +82,7 @@ input.form-control {
 
 .artist {
   color: rgb(161, 161, 161);
+  font-size: 1.1em;
 }
 
 .fa-circle-o-notch {
@@ -138,6 +139,12 @@ input.form-control {
 .q_search {
   overflow: scroll !important;
   max-height: calc(100vh - 18rem);
+  background-color: rgb(43, 42, 42);
+}
+
+.user_q_search {
+  overflow: scroll !important;
+  max-height: calc(100vh - 16rem);
   background-color: rgb(43, 42, 42);
 }
 
@@ -201,4 +208,14 @@ input:disabled {
   overflow-y: hidden;
   overflow-x: scroll;
   white-space: nowrap;
+}
+
+.userSongItem {
+  background-color: rgb(43, 42, 42) !important;
+  color: rgb(243, 243, 243) !important;
+  text-align: left !important;
+}
+
+.userSongItem:active {
+  background-color: rgb(255, 192, 8) !important;
 }
