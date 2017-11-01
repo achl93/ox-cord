@@ -184,6 +184,12 @@ io.on('connection', (socket) => {
     });
   });
 
+  socket.on('remove-party', (room_id) => {
+    dataHelpers.removePartyObj(room_id, (err) => {
+      console.log(err);
+    })
+  })
+
   console.log('> Client Connected to Socket Server ', socket.id);
 });
 

@@ -71,6 +71,10 @@ module.exports = function dataHelpers(db) {
         if (err) throw err;
         callback(null, data);
       })
+    },
+
+    removePartyObj: function(room_id) {
+      // removes obj with this room_id in db
     }
   };
 }
