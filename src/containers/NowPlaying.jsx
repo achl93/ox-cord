@@ -60,6 +60,14 @@ class NowPlaying extends Component {
     this.props.onNavigate('/exportPlaylist');
   }
 
+  locationChecker() {
+    if(this.props.coords.longitude === 0 ){
+      return (<Button bsClass="btn btn-outline-secondary mx-1" bsSize="small" onClick={() => this.startParty()} disabled>Host</Button>)
+    } else {
+      return (<Button bsClass="btn btn-outline-success mx-1" bsSize="small" onClick={() => this.startParty()}>Host</Button>)
+    }
+  }
+
   currentSong() {
     if (this.props.nowPlaying.name) {
       return (
@@ -89,7 +97,8 @@ class NowPlaying extends Component {
                 <Button bsClass="btn btn-outline-success mx-1" bsSize="small" onClick={() => this.onStartPlaylist()}>Begin</Button>
               } {
                 (this.props.partyStatus === "notStarted") &&
-                <Button bsClass="btn btn-outline-success mx-1" bsSize="small" onClick={() => this.startParty()}>Host</Button>
+                this.locationChecker()
+                // <Button bsClass="btn btn-outline-success mx-1" bsSize="small" onClick={() => this.startParty()}>Host</Button>
               } {
                 (this.props.partyStatus === "PartyInProgress") &&
                 <Button bsClass="btn btn-outline-danger mx-1" bsSize="small" onClick={() => this.endParty()}>End</Button>
