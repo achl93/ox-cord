@@ -21,8 +21,12 @@ export default class UserSong extends Component {
     return (
       <div>
         <AlertContainer ref={a => this.msg = a} {...this.alertOptions} />
-        <ListGroupItem className="col-md-12" > { this.props.song.name } - ({ this.props.song.artist })
+        <ListGroupItem className="col-md-12" >
+        <img className="album_cover" src={this.props.song.cover_art} alt="Album Art" />
+          <h5>{ this.props.song.name }</h5>
+          <p className= "artist"> { this.props.song.artist } 
           <Button bsClass='btn btn-sm btn-outline-warning badge float-right' onClick={()=>{this.onHandleClick()}}>{this.props.song.votes}</Button>
+          </p>
         </ListGroupItem>
       </div>
     )
