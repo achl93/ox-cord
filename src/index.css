@@ -82,6 +82,7 @@ input.form-control {
 
 .artist {
   color: rgb(161, 161, 161);
+  font-size: 1.1em;
 }
 
 .fa-circle-o-notch {
@@ -106,7 +107,6 @@ input.form-control {
   z-index: 999;
   background-color: rgba(43, 42, 42, 0.57);
   /* margin-left: 0 !important; */
-  height: 12rem;
 }
 
 .blurr {
@@ -139,6 +139,12 @@ input.form-control {
 .q_search {
   overflow: scroll !important;
   max-height: calc(100vh - 18rem);
+  background-color: rgb(43, 42, 42);
+}
+
+.user_q_search {
+  overflow: scroll !important;
+  max-height: calc(100vh - 16rem);
   background-color: rgb(43, 42, 42);
 }
 
@@ -186,4 +192,34 @@ input:disabled {
 .greyedSearch {
   background: rgb(43, 42, 42) !important;
   border-color: #656b70 !important;
+}
+
+.nowPlayingSongName {
+  max-height: 8vh;
+  max-width: 45vw;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+
+.nowPlayingDevice {
+  max-height: 8vh;
+  max-width: 75vw;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+
+.userSongItem {
+  background-color: rgb(43, 42, 42) !important;
+  color: rgb(243, 243, 243) !important;
+  text-align: left !important;
+}
+
+.userSongItem:active {
+  background-color: rgb(255, 192, 8) !important;
+}
+
+.userSongItem:hover {
+  background-color: rgb(59, 58, 58) !important;
 }

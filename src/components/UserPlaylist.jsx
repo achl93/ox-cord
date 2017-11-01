@@ -37,13 +37,17 @@ class UserPlaylist extends Component {
       return <Redirect to="/" />
     } else {
       return (
-        <Row bsClass='scrollable border'>
-          <Row bsClass='row userplaylist rounded p-3'>
-            <Col md={12}>
-              <NowPlaying />
-              <UserSongList />
-              <SongSearch />
-            </Col>
+        <Row bsClass="mainCont col-md-8">
+          <Row bsClass='row col-md-12 nowplayer rounded p-3 pt-1 no-gutters'>
+            <NowPlaying />
+          </Row>
+          <Row bsClass=' user_q_search justify-content-center border row col-md-12 no-gutters'>
+            <Row bsClass='col-md-12'>
+              <Col md={12}>
+                <UserSongList />
+                <SongSearch />
+              </Col>
+            </Row>
           </Row>
         </Row>
       )
