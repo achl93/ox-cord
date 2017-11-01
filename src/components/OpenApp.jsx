@@ -33,8 +33,29 @@ export default class Test extends Component {
           </Link>
           </div>
         </div>
-      );
-    }
+        <div role="dialog" aria-hidden="true" aria-labelledby="choice-modal-title" className="choice-modal js-choice-modal hide">
+              {/* THE FIRST BUTTON IS BUTTON IS BEING HIDDEN FOR NOW,DON'T DELETE IT PLS */}
+          <button type="button" id="mobile-download" className="btn btn-outline-info m-1">
+              Get Spotify
+          </button>
+          <button 
+            type="button" 
+            className="btn btn-outline-success my-2"
+            id="mobile-play" 
+            //onClick={() => this.onOpenApp()}
+          >
+          <i className="fa fa-spotify" aria-hidden="true"></i> Open Spotify
+          </button>
+        </div>
+        <div>
+        <Link to='/playlist'>
+          <button className="btn btn-outline-secondary mt-3 btn-sm">
+          <i className="fa fa-arrow-left" aria-hidden="true"></i> Back
+          </button>
+        </Link>
+        </div>
+      </div>
+    );
   }
   onOpenApp(){
     this.props.history.push('/playlist');

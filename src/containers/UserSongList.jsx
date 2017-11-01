@@ -9,19 +9,15 @@ function byVotes(a, b) {
   if (b.playing === true) {
     return 1;
   }
+  if (a.playing === true) {
+    return -1;
+  }
   if (b.votes === a.votes) {
     if (b.id > a.id) {
       return 1
     } else {
       return -1
     }
-    if (b.votes === a.votes) {
-    if (b.id > a.id) {
-      return 1
-    } else {
-      return -1
-    }
-  }
   }
   return b.votes - a.votes;
 }
@@ -30,6 +26,7 @@ class UserSongList extends Component {
   renderSongs() {
     if (this.props.songs !== null && this.props.songs !== undefined) {
       if (Object.keys(this.props.songs).length !== 0) {
+        
         return this.props.songs.sort(byVotes).map((song) => {
           if (song.id !== 0) {
             return (

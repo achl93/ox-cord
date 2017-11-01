@@ -33,10 +33,14 @@ class ExportPlaylist extends Component {
         return `spotify:track:${song.id}`
       });
 
-      this.props.remoteCreateRemotePlaylist(this.props.user.id, songURI ,this.today() );
+      this.props.remoteCreateRemotePlaylist(this.props.user.id, songURI, this.today() );
     });
   };
 
+  destroyRoom() {
+    socket.emit('remove-party', this.props.room);
+    this.props.history.push('/');
+  }
 
   render() {
     if (this.props.user === 'empty') {
@@ -56,8 +60,15 @@ class ExportPlaylist extends Component {
             <div className='btn btn-outline-secondary btn-sm mt-3'><i className="fa fa-arrow-left" aria-hidden="true"></i> Back</div>
           </Link>
         </div>
-      );
-    }
+        <div>
+          <h6>Are you sure the party is over? All content will be deleted </h6>
+          <Button onClick={()=>{this.destroyRoom()}} className="btn btn-danger mx-2">End Party</Button>
+        </div>
+        <Link to='/playlist'>
+          <div className='btn btn-outline-secondary btn-sm mt-3'><i className="fa fa-arrow-left" aria-hidden="true"></i> Back</div>
+        </Link>
+      </div>
+    );
   }
 }
 
@@ -65,7 +76,6 @@ function mapStateToProps(state) {
   return {
     room: state.room,
     user: state.user
-
   }
 }
 
