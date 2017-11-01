@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import socket from '../lib/SocketAPI';
@@ -39,21 +39,25 @@ class ExportPlaylist extends Component {
 
 
   render() {
-    return (
-      <div className="text-center endCont border p-3">
-        <div className="py-3">
-          <h6>Enjoyed the party? Add tonight's songs as a playlist to Spotify</h6>
-          <button className="btn btn-outline-info" onClick={() => this.makePlaylist()}><i className="fa fa-upload" aria-hidden="true"></i> Export</button>
+    if (this.props.user === 'empty') {
+      return <Redirect to='/' />
+    } else {
+      return (
+        <div className="text-center endCont border p-3">
+          <div className="py-3">
+            <h6>Enjoyed the party? Add tonight's songs as a playlist to Spotify</h6>
+            <button className="btn btn-outline-info" onClick={() => this.makePlaylist()}><i className="fa fa-upload" aria-hidden="true"></i> Export</button>
+          </div>
+          <div>
+            <h6>Are you sure the party is over? All content will be deleted </h6>
+            <Button className="btn btn-danger mx-2">End Party</Button>
+          </div>
+          <Link to='/playlist'>
+            <div className='btn btn-outline-secondary btn-sm mt-3'><i className="fa fa-arrow-left" aria-hidden="true"></i> Back</div>
+          </Link>
         </div>
-        <div>
-          <h6>Are you sure the party is over? All content will be deleted </h6>
-          <Button className="btn btn-danger mx-2">End Party</Button>
-        </div>
-        <Link to='/playlist'>
-          <div className='btn btn-outline-secondary btn-sm mt-3'><i className="fa fa-arrow-left" aria-hidden="true"></i> Back</div>
-        </Link>
-      </div>
-    );
+      );
+    }
   }
 }
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { remoteGetUserPlaylists, remoteImportPlaylist } from '../actions/index';
 import { connect } from 'react-redux';
 import PlaylistSearchResult from '../components/PlaylistSearchResult';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import { Row, Col, Button, ListGroup } from 'react-bootstrap';
 
@@ -21,7 +21,10 @@ class PlaylistImport extends Component {
     });
   }
   render() {
-    return (
+    if (this.props.user === 'empty') {
+      return <Redirect to='/' />
+    } else {
+      return (
       <Row bsClass='playlistCont row border p-3 text-center'>
         <Col md={12}>
           <Row>
@@ -48,6 +51,7 @@ class PlaylistImport extends Component {
       </Row>
     )
   }
+}
   componentDidMount(){
     console.log('import action created')
     this.props.remoteGetUserPlaylists(this.props.user.id);
