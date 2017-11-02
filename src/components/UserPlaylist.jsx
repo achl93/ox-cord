@@ -8,7 +8,7 @@ import { Row, Col } from 'react-bootstrap';
 import socket from '../lib/SocketAPI';
 import { Redirect } from 'react-router-dom';
 import SongSearch from '../containers/SongSearch';
-import { storeTokens, tokenValidation } from '../actions/index';
+import { storeTokens, tokenValidation, changeSuggestionState } from '../actions/index';
 
 
 class UserPlaylist extends Component {
@@ -32,7 +32,14 @@ class UserPlaylist extends Component {
       socket.on('host-ended-party', () => {
         this.props.history.push('/');
       });
+      socket.on('suggestion-status-sent', (status) => {
+        this.props.changeSuggestionState({ suggestions: status });
+      });
     }
+  }
+
+  componentDidMount() {
+    socket.emit('request-suggestion-status-from-host', this.props.room);
   }
 
   render() {
@@ -67,7 +74,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ setSongs, updateNowPlaying, storeTokens, tokenValidation }, dispatch)
+  return bindActionCreators({ setSongs, updateNowPlaying, storeTokens, tokenValidation, changeSuggestionState }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserPlaylist);

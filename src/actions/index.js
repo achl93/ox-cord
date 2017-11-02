@@ -342,7 +342,6 @@ export function remoteSkip() {
 };
 
 export function storeTokens(tokens) {
-  console.log('Storing new tokens..', tokens);
   spotifyApi.setAccessToken(tokens.access_token);
   tokenSet = true;
   return {
@@ -352,14 +351,12 @@ export function storeTokens(tokens) {
 };
 
 export function tokenValidation(data) {
-  console.log('tokenValidation called..', data);
   return (dispatch) => {
     // 50 minutes in milliseconds
     let threshold = 3000000;
 
     // If tokens are expired
     if ((Date.now() - data.tokens.create_at) > threshold) {
-      console.log('tokenValidation found tokens need to be refreshed...Refreshing...');
       dispatch(remoteRefreshToken(data.tokens, data.room_id));
     }
   }
@@ -620,6 +617,7 @@ export function remoteCheckOrder(userID, remotePlaylistID, songs) {
       // dispatch({type: 'DO_NOTHING', payload: ''})
     } else {
       if (remotePlaylistID !== 'NOT_CHECKED') {
+        // console.log('-----------checking order-------------')
         spotifyApi.getPlaylistTracks(userID, remotePlaylistID, { limit: 20 }).then((response) => {
           const pulledTracks = response.items.map((result) => {
             return {
@@ -627,10 +625,18 @@ export function remoteCheckOrder(userID, remotePlaylistID, songs) {
               name: result.track.name
             }
           });
-          const reorder = findReorderForSpotifyTopThree(songs, pulledTracks);
+          // console.log('---In-memory Tracks----')
+          // console.log(songs.map(track => track.name))
+          // console.log('---retrieved Tracks----')
+          // console.log(pulledTracks.map(track => track.name))
+          // const reorder = findReorderForSpotifyTopThree(songs, pulledTracks);
           if (reorder) {
+            // console.log('---difference found----')
+            // console.log(`${pulledTracks[reorder.start].name} is being moved  from index ${reorder.start} to ${reorder.insert_before}`)
             spotifyApi.reorderTracksInPlaylist(userID, remotePlaylistID, reorder.start, reorder.insert_before)
-          }
+          } else {
+              // console.lgitog('--no differences found--')
+          } 
         })
       }
     }

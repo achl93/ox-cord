@@ -120,6 +120,21 @@ input.form-control {
   z-index: -10000;
 }
 
+.homeBlurr {
+  top: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  filter: blur(30px);
+  z-index: -9999;
+}
+
+.homeButtons {
+  background-color: rgba(43, 42, 42, 0.295) !important;
+}
+
 .playButton {
   border-radius: 100% !important;
 }
