@@ -126,8 +126,6 @@ io.on('connection', (socket) => {
   socket.on('request-host-token', (room_id) => {
     if (SHOW_DEBUG) { console.log(' + User requested host token') }
     dataHelpers.getHostTokens(room_id, (err, tokens) => {
-      console.log('sending tokens')
-      console.log(tokens[0])
       io.to(room_id).emit('host-tokens-sent', tokens[0].tokens);
     });
   });
@@ -135,8 +133,6 @@ io.on('connection', (socket) => {
   socket.on('request-archived-songs', (room_id) => {
     if (SHOW_DEBUG) { console.log(' + Host requested archived songs list ', room_id); }
     dataHelpers.getArchivedSongsFromRoomID(room_id, (err, songs) => {
-      console.log(err);
-      console.log(songs);
       socket.emit('archived-songs-sent', songs);
     });
   });
@@ -187,6 +183,14 @@ io.on('connection', (socket) => {
   socket.on('remove-party', (room_id) => {
     dataHelpers.removePartyObj(room_id);
     io.to(room_id).emit('host-ended-party');
+  });
+
+  socket.on('request-suggestion-status-from-host', (room_id) => {
+    io.to(room_id).emit('request-suggestion-status-from-host');
+  });
+
+  socket.on('distribute-suggestion-status', (data) => {
+    io.to(data.room_id).emit('suggestion-status-sent', data.status);
   });
 
   console.log('> Client Connected to Socket Server ', socket.id);
