@@ -342,7 +342,6 @@ export function remoteSkip() {
 };
 
 export function storeTokens(tokens) {
-  console.log('Storing new tokens..', tokens);
   spotifyApi.setAccessToken(tokens.access_token);
   tokenSet = true;
   return {
@@ -352,14 +351,12 @@ export function storeTokens(tokens) {
 };
 
 export function tokenValidation(data) {
-  console.log('tokenValidation called..', data);
   return (dispatch) => {
     // 50 minutes in milliseconds
     let threshold = 3000000;
 
     // If tokens are expired
     if ((Date.now() - data.tokens.create_at) > threshold) {
-      console.log('tokenValidation found tokens need to be refreshed...Refreshing...');
       dispatch(remoteRefreshToken(data.tokens, data.room_id));
     }
   }

@@ -21,11 +21,13 @@ class Playlist extends Component {
       this.props.storeTokens(tokens);
     });
     socket.on('request-tokens-from-host', () => {
-      console.log('Tokens requested from host..', this.props.tokens);
       socket.emit('distribute-new-tokens', {
         room_id: this.props.room,
         tokens: this.props.tokens
       });
+    });
+    socket.on('request-suggestion-status-from-host', () => {
+      this.emitSuggestionStatus();
     });
   }
 
@@ -33,6 +35,13 @@ class Playlist extends Component {
     this.props.tokenValidation({
       room_id: this.props.room,
       tokens: this.props.tokens
+    });
+  }
+
+  emitSuggestionStatus() {
+    socket.emit('distribute-suggestion-status', {
+      room_id: this.props.room,
+      status: this.props.suggestions
     });
   }
 
@@ -79,7 +88,8 @@ function mapStateToProps(state) {
     user: state.user,
     nowPlaying: state.nowPlaying,
     room: state.room,
-    tokens: state.tokens
+    tokens: state.tokens,
+    suggestions: state.suggestions
   }
 }
 
