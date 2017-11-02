@@ -127,7 +127,7 @@ input.form-control {
   position: absolute;
   height: 100%;
   width: 100%;
-  filter: blur(30px) saturate(50%);
+  filter: blur(20px) brightness(20%);
   z-index: -9999;
 }
 
