@@ -47,7 +47,7 @@ class UserSongList extends Component {
         <Col md={12}>
           <Row>
             <Col md={12}>
-              <h4 className='text-center'>Songs</h4>
+              <h4 className='text-center pt-1'>Playlist</h4>
               <ListGroup>
                 {this.renderSongs()}
               </ListGroup>
