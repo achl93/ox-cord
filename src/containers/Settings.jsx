@@ -7,6 +7,15 @@ import { remoteCheckDevices, remoteTransferPlayback, remoteRefreshToken, changeS
 import socket from '../lib/SocketAPI';
 
 class Settings extends Component {
+  constructor(props) {
+    super(props);
+    socket.on('request-suggestion-status-from-host', () => {
+      socket.emit('distribute-suggestion-status', {
+        room_id: this.props.room,
+        status: this.props.suggestions
+      });
+    });
+  }
   componentWillMount() {
     this.props.remoteCheckDevices();
   }
@@ -27,8 +36,8 @@ class Settings extends Component {
   }
   toggleSongSuggestions() {
     console.log('Suggestion state toggled, currently: ', this.props.suggestions)
-    socket.emit('toggle-suggestions', {room_id: this.props.room, suggestions: !this.props.suggestions});
-    this.props.changeSuggestionState({room_id: this.props.room, suggestions: !this.props.suggestions})
+    socket.emit('toggle-suggestions', { room_id: this.props.room, suggestions: !this.props.suggestions });
+    this.props.changeSuggestionState({ room_id: this.props.room, suggestions: !this.props.suggestions })
   }
   render() {
     if (this.props.user === 'empty') {
@@ -52,7 +61,7 @@ class Settings extends Component {
           </div>
           <br />
           <div>
-          <h6>Guest Controls</h6>
+            <h6>Guest Controls</h6>
             <button
               className='btn btn-outline-info'
               onClick={() => this.toggleSongSuggestions()}
