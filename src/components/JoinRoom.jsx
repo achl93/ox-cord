@@ -26,7 +26,7 @@ class JoinRoom extends Component {
       return <Redirect to={{ pathname: '/user-playlist', state: { from: this.props.room_id } }} />;
     }
     return (
-      <div><button className="btn btn-outline-info m-1" onClick={this.sendToRoom}>{this.props.room_name} | <i className="fa fa-map-marker" aria-hidden="true"></i> {/*{(this.props.distance * 1000).toFixed(2)}*/}2.5m</button></div>
+      <div><button className="btn btn-outline-info m-1" onClick={this.sendToRoom}>{this.props.room_name} | <i className="fa fa-map-marker" aria-hidden="true"></i> {(this.props.distance * 1000).toFixed(2)}m</button></div>
     )
   }
 }
