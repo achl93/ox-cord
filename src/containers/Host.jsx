@@ -62,7 +62,9 @@ class Host extends Component {
   initiateLogin = () => {
     console.log('clicked!')
     /* TESTING OPENING OF POPUP */
-    window.open (`http://localhost:3000/login?scope=${encodeURIComponent(["user-read-private", "user-read-email", "user-read-playback-state", "user-modify-playback-state", "user-read-currently-playing", "playlist-modify-public", "playlist-modify-private"].join(' '))}`,"popup", "width=350,height=250");
+    const remoteHost = 'https://spotify-login.herokuapp.com';
+    const localHost = 'http://localhost:3000'
+    window.open (`${remoteHost}/login?scope=${encodeURIComponent(["user-read-private", "user-read-email", "user-read-playback-state", "user-modify-playback-state", "user-read-currently-playing", "playlist-modify-public", "playlist-modify-private"].join(' '))}`,"popup", "width=350,height=250");
     // Create IE + others compatible event handler
     var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
     var eventer = window[eventMethod];
@@ -71,7 +73,8 @@ class Host extends Component {
     eventer(messageEvent,(e) => {
       console.log('origin: ', e.origin)
       // Check if origin is proper
-      if( e.origin != 'http://localhost:3000' ){ return }
+      //if( e.origin != 'http://localhost:3000' ){ return }
+      if( e.origin != 'https://spotify-login.herokuapp.com' ){ return }
 
       const authObject = JSON.parse(e.data);
       if (authObject.access_token){
