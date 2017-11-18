@@ -6,6 +6,13 @@ module.exports = {
     './src/index'
   ],
   module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        include: path.join(__dirname, 'src')
+      }
+    ],
     loaders: [
       { test: /\.jsx?$/, loader: 'babel', exclude: /node_modules/ },
       { test: /\.s?css$/, loader: 'style!css!sass' },

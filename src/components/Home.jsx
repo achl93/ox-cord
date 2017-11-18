@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 
 export default class Home extends Component {
+  handleClick = (e) => {
+
+  }
   render() {
     const hostname = window && window.location && window.location.hostname;
-    console.log('hostname', hostname)
     const authlink = hostname === 'localhost'? 'http://localhost:3000' : 'https://oxcord-auth.herokuapp.com'
     return (
       // Route login button to Spotify login endpoint
@@ -24,6 +26,11 @@ export default class Home extends Component {
               <Button bsClass=" homeButtons btn btn-outline-info btn-lg btn-block" >
                 Join
               </Button>
+            </Link>
+            {/*------------TEST POPUP-----------*/}
+            <button className='btn btn-sm' onClick={this.handleClick}> Open Popup </button>
+            <Link to='/host'>
+              <button> HostTest </button>
             </Link>
           </div>
         </div>

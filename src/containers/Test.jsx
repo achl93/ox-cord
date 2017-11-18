@@ -7,7 +7,7 @@ import { Button } from 'react-bootstrap';
 class Test extends Component {
   constructor(props){
     super(props)
-    this.props.updatedBrowserDevice(this.checkBrowserDevice());
+    //this.props.updatedBrowserDevice(this.checkBrowserDevice());
   }
   // checkBrowserDevice() {
   //   if (!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent))) {
@@ -20,20 +20,26 @@ class Test extends Component {
   componentWillMount(){
    // currentSongChecker((trackID)=>this.updateSong(trackID))
   }
+  getSearchParams = () => {
+    var searchParams = {
+      create_at: Date.now()
+    };
+    var e, r = /([^&;=]+)=?([^&;]*)/g,
+        q = window.location.search.substring(1);
+        
+    e = r.exec(q)
+    while (e) {
+       searchParams[e[1]] = decodeURIComponent(e[2]);
+       e = r.exec(q);
+    }
+    console.log(searchParams)
+    return searchParams;
+  }
   render(){
     return (
-    <div>
-        <div>Test</div>
-        <div>You're on {this.props.browser.type}</div>
-        <div role="dialog" aria-hidden="true" aria-labelledby="choice-modal-title" className="choice-modal js-choice-modal hide">
-              {/* NEED TO WORK ON THIS BUTTON FUNTION*/}
-              <button type="button" id="mobile-download" className="btn btn-green">
-                  Get Spotify
-              </button>
-              <button type="button" id="mobile-play" className="btn btn-transparent">
-                  Open Spotify
-              </button>
-    </div>
+      <div>
+        <div>Test Component</div>
+        <button onClick={this.getSearchParams}> Check params </button>
       </div>
     );
   }
