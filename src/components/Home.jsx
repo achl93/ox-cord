@@ -15,11 +15,11 @@ export default class Home extends Component {
       <div className=' row w-25 '>
         <div className='col-md-12 col-sm-12 text-center mx-auto'>
           <div className='row'>
-            <a href={`${authlink}/login`} className='w-100 mt-3'>
+            <Link to='/host' className='w-100'>
               <Button bsClass=" homeButtons btn btn-outline-info btn-lg btn-block">
                 Host
               </Button>
-            </a>
+            </Link>
           </div>
           <div className='row'>
             <Link to='/join' className='w-100 mt-3'>

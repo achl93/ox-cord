@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux';
 import { storeTokens } from '../actions/index';
 import { remoteStoreUser } from '../actions/index';
 import { getGeo } from '../actions/index';
+import { Button } from 'react-bootstrap';
+
 // import socket from '../lib/SocketAPI';
 
 class Host extends Component {
@@ -50,10 +52,11 @@ class Host extends Component {
     }
      return (
       <div>
-        <i className="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
         <span className="sr-only">Loading...</span>
         <div>
-          <button onClick={this.initiateLogin}>Login with Spotify</button>
+          <Button bsClass="homeButtons btn btn-outline-success btn-lg btn-block" onClick={this.initiateLogin}>
+            Login with Spotify
+          </Button>
         </div>
       </div>
      )
