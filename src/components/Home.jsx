@@ -28,10 +28,6 @@ export default class Home extends Component {
               </Button>
             </Link>
             {/*------------TEST POPUP-----------*/}
-            <button className='btn btn-sm' onClick={this.handleClick}> Open Popup </button>
-            <Link to='/host'>
-              <button> HostTest </button>
-            </Link>
           </div>
         </div>
         <img className="homeBlurr" src="http://33.media.tumblr.com/4a4388896ecee16e66bacfe6e2e2030c/tumblr_nn2etjqUEc1u2uymso1_500.gif" />
