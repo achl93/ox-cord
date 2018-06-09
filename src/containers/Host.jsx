@@ -67,7 +67,7 @@ class Host extends Component {
     /* TESTING OPENING OF POPUP */
     const remoteHost = 'https://spotify-login.herokuapp.com';
     const localHost = 'http://localhost:3000'
-    window.open(`${localHost}/login?scope=${encodeURIComponent(["user-read-private", "user-read-email", "user-read-playback-state", "user-modify-playback-state", "user-read-currently-playing", "playlist-modify-public", "playlist-modify-private"].join(' '))}`, "popup", "width=350,height=250");
+    const popup = window.open(`${localHost}/login?scope=${encodeURIComponent(["user-read-private", "user-read-email", "user-read-playback-state", "user-modify-playback-state", "user-read-currently-playing", "playlist-modify-public", "playlist-modify-private"].join(' '))}`, "popup", "width=350,height=250");
     // Create IE + others compatible event handler
     var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
     var eventer = window[eventMethod];
@@ -84,6 +84,7 @@ class Host extends Component {
       console.log('authObject', authObject)
       if (authObject.access_token) {
         console.log('confirming login')
+        popup.close();
         authObject.created_at = Date.now();
         console.log('parent received message!: ', authObject);
         this.confirmLogin(authObject)
