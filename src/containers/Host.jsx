@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Redirect} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { storeTokens } from '../actions/index';
@@ -15,12 +15,12 @@ class Host extends Component {
       create_at: Date.now()
     };
     var e, r = /([^&;=]+)=?([^&;]*)/g,
-        q = window.location.search.substring(1);
-        
+      q = window.location.search.substring(1);
+
     e = r.exec(q)
     while (e) {
-       searchParams[e[1]] = decodeURIComponent(e[2]);
-       e = r.exec(q);
+      searchParams[e[1]] = decodeURIComponent(e[2]);
+      e = r.exec(q);
     }
     return searchParams;
   }
@@ -50,7 +50,7 @@ class Host extends Component {
     if (this.props.user !== 'empty') {
       this.props.history.push('/playlist')
     }
-     return (
+    return (
       <div>
         <span className="sr-only">Loading...</span>
         <div>
@@ -59,7 +59,7 @@ class Host extends Component {
           </Button>
         </div>
       </div>
-     )
+    )
   }
 
   initiateLogin = () => {
@@ -67,20 +67,23 @@ class Host extends Component {
     /* TESTING OPENING OF POPUP */
     const remoteHost = 'https://spotify-login.herokuapp.com';
     const localHost = 'http://localhost:3000'
-    window.open (`${remoteHost}/login?scope=${encodeURIComponent(["user-read-private", "user-read-email", "user-read-playback-state", "user-modify-playback-state", "user-read-currently-playing", "playlist-modify-public", "playlist-modify-private"].join(' '))}`,"popup", "width=350,height=250");
+    window.open(`${localHost}/login?scope=${encodeURIComponent(["user-read-private", "user-read-email", "user-read-playback-state", "user-modify-playback-state", "user-read-currently-playing", "playlist-modify-public", "playlist-modify-private"].join(' '))}`, "popup", "width=350,height=250");
     // Create IE + others compatible event handler
     var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
     var eventer = window[eventMethod];
     var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
     // Listen to message from child window
-    eventer(messageEvent,(e) => {
+    eventer(messageEvent, (e) => {
       console.log('origin: ', e.origin)
+      console.log('e: ', e)
       // Check if origin is proper
-      //if( e.origin != 'http://localhost:3000' ){ return }
-      if( e.origin != 'https://spotify-login.herokuapp.com' ){ return }
+      // if (e.origin != 'http://localhost:3000') { return }
+      // if (e.origin != 'https://spotify-login.herokuapp.com') { return }
 
-      const authObject = JSON.parse(e.data);
-      if (authObject.access_token){
+      const authObject = e.data;
+      console.log('authObject', authObject)
+      if (authObject.access_token) {
+        console.log('confirming login')
         authObject.created_at = Date.now();
         console.log('parent received message!: ', authObject);
         this.confirmLogin(authObject)
@@ -99,9 +102,9 @@ class Host extends Component {
 
   }
 
-//   componentDidMount() {
-//     socket.emit('join-room', this.props.user.id);
-//   }
+  //   componentDidMount() {
+  //     socket.emit('join-room', this.props.user.id);
+  //   }
 }
 
 function mapStateToProps(state) {
