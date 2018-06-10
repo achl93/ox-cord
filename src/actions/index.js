@@ -509,7 +509,7 @@ class CheckNowPlaying extends EventEmitter {
       if (tokenSet && host) {
         this.checkSong();
       }
-    }, 3000);
+    }, 10000);
   }
 
   checkSong() {
@@ -535,6 +535,7 @@ class CheckNowPlaying extends EventEmitter {
           cover_art: result.item.album.images[1].url,
           cover_background: result.item.album.images[0].url
         }
+        console.log('mytrack:', track);
         const device = result.device;
         const playlist = !result.context ? null : result.context.uri.split('playlist:')[1];
         const nowPlaying = {
@@ -571,7 +572,7 @@ export function remoteCheckNowPlaying(remotePlaylistID, userID, room_id, songs) 
   }
 }
 
-function reorder(input, start, index) {
+function reorderPlaylist(input, start, index) {
   const reordered = [...input];
   const offset = start < index ? -1 : 0;
   const removed = reordered.splice(start, 1)[0];
@@ -591,7 +592,7 @@ function findReorderForSpotifyTopThree(livePlaylist, localPlaylist) {
       return;
     }
     const liveDiffIndex = livePlaylist.findIndex((item) => { return item.id === diff.id });
-    const reordered = reorder(localPlaylist, localDiffIndex, liveDiffIndex);
+    const reordered = reorderPlaylist(localPlaylist, localDiffIndex, liveDiffIndex);
     const output = {
       exists: true,
       start: localDiffIndex,
@@ -629,13 +630,17 @@ export function remoteCheckOrder(userID, remotePlaylistID, songs) {
           // console.log(songs.map(track => track.name))
           // console.log('---retrieved Tracks----')
           // console.log(pulledTracks.map(track => track.name))
-          // const reorder = findReorderForSpotifyTopThree(songs, pulledTracks);
-          if (reorder) {
+          console.log(songs);
+          console.log(pulledTracks);
+          const reorder = findReorderForSpotifyTopThree(songs, pulledTracks);
+          console.log(reorder);
+          if (reorder && reorder.exists) {
+            //console.log('INSIDE', reorder);
             // console.log('---difference found----')
             // console.log(`${pulledTracks[reorder.start].name} is being moved  from index ${reorder.start} to ${reorder.insert_before}`)
             spotifyApi.reorderTracksInPlaylist(userID, remotePlaylistID, reorder.start, reorder.insert_before)
           } else {
-              // console.lgitog('--no differences found--')
+              console.log('--no differences found--')
           } 
         })
       }
