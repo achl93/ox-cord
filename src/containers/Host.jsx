@@ -65,9 +65,9 @@ class Host extends Component {
   initiateLogin = () => {
     console.log('clicked!')
     /* TESTING OPENING OF POPUP */
-    const remoteHost = 'https://spotify-login.herokuapp.com';
+    const remoteHost = 'https://oxcord-auth.herokuapp.com';
     const localHost = 'http://localhost:3000'
-    const popup = window.open(`${localHost}/login?scope=${encodeURIComponent(["user-read-private", "user-read-email", "user-read-playback-state", "user-modify-playback-state", "user-read-currently-playing", "playlist-modify-public", "playlist-modify-private"].join(' '))}`, "popup", "width=350,height=250");
+    const popup = window.open(`${remoteHost}/login?scope=${encodeURIComponent(["user-read-private", "user-read-email", "user-read-playback-state", "user-modify-playback-state", "user-read-currently-playing", "playlist-modify-public", "playlist-modify-private"].join(' '))}`, "popup", "width=350,height=250");
     // Create IE + others compatible event handler
     var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
     var eventer = window[eventMethod];
