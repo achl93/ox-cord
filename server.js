@@ -182,12 +182,13 @@ io.on('connection', (socket) => {
     let nearbyRooms;
     if (SHOW_DEBUG) { console.log(' + Client requested an active rooms nearby list!', coordsObj) }
     dataHelpers.getActiveRooms((err, rooms) => {
-      nearbyRooms = rooms; // .filter((room) => {
-        if (distanceInKmBetweenEarthCoordinates(room.geolocation.latitude, room.geolocation.longitude, coordsObj.latitude, coordsObj.longitude) <= 0.25) {
-          return room;
-        }
-        // return room;
-      })
+      nearbyRooms = rooms
+      //  .filter((room) => {
+      //   if (distanceInKmBetweenEarthCoordinates(room.geolocation.latitude, room.geolocation.longitude, coordsObj.latitude, coordsObj.longitude) <= 0.25) {
+      //     return room;
+      //   }
+      //   // return room;
+      // })
       socket.emit('active-rooms-sent', nearbyRooms);
     });
   });
