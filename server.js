@@ -179,9 +179,10 @@ io.on('connection', (socket) => {
   });
 
   socket.on('request-active-rooms-nearby', (coordsObj) => {
+    let nearbyRooms;
     if (SHOW_DEBUG) { console.log(' + Client requested an active rooms nearby list!', coordsObj) }
     dataHelpers.getActiveRooms((err, rooms) => {
-      let nearbyRooms = rooms.filter((room) => {
+      nearbyRooms = rooms; // .filter((room) => {
         if (distanceInKmBetweenEarthCoordinates(room.geolocation.latitude, room.geolocation.longitude, coordsObj.latitude, coordsObj.longitude) <= 0.25) {
           return room;
         }
