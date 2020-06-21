@@ -9,22 +9,30 @@ import { Button } from 'react-bootstrap';
 
 // import socket from '../lib/SocketAPI';
 
-class Host extends Component {
-  getSearchParams() {
-    var searchParams = {
-      create_at: Date.now()
-    };
-    var e, r = /([^&;=]+)=?([^&;]*)/g,
-      q = window.location.search.substring(1);
+const getSearchParams = () => {
+  var searchParams = {
+    create_at: Date.now()
+  };
+  var e, r = /([^&;=]+)=?([^&;]*)/g,
+    q = window.location.search.substring(1);
 
-    e = r.exec(q)
-    while (e) {
-      searchParams[e[1]] = decodeURIComponent(e[2]);
-      e = r.exec(q);
-    }
-    return searchParams;
+  e = r.exec(q)
+  while (e) {
+    searchParams[e[1]] = decodeURIComponent(e[2]);
+    e = r.exec(q);
   }
+  return searchParams;
+}
 
+class Host extends Component {
+
+  componentWillMount() {
+    const params = getSearchParams();
+    if (params.access_token) {
+      this.confirmLogin(params);
+    }
+    console.log('PARAMS?', params)
+  }
 
 
   setLocation(pos) {
@@ -67,7 +75,7 @@ class Host extends Component {
     /* TESTING OPENING OF POPUP */
     const remoteHost = 'https://oxcord-auth.herokuapp.com';
     const localHost = 'http://localhost:3000'
-    const popup = window.open(`${remoteHost}/login?scope=${encodeURIComponent(["user-read-private", "user-read-email", "user-read-playback-state", "user-modify-playback-state", "user-read-currently-playing", "playlist-modify-public", "playlist-modify-private"].join(' '))}`, "popup", "width=350,height=250");
+    const popup = window.location = `${localHost}/login?scope=${encodeURIComponent(["user-read-private", "user-read-email", "user-read-playback-state", "user-modify-playback-state", "user-read-currently-playing", "playlist-modify-public", "playlist-modify-private"].join(' '))}`;
     // Create IE + others compatible event handler
     var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
     var eventer = window[eventMethod];
