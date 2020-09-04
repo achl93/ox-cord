@@ -15,7 +15,7 @@
     "express-https-redirect": "^1.0.0",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
-    "mongodb": "^2.2.33",
+    "mongodb": "^3.1.13",
     "node-sass": "^3.4.2",
     "popper.js": "^1.12.9",
     "querystring": "^0.2.0",
