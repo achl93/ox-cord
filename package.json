@@ -34,7 +34,7 @@
     "redux-thunk": "^2.2.0",
     "request": "^2.83.0",
     "sass-loader": "^3.2.0",
-    "socket.io": "^2.0.3",
+    "socket.io": "^2.4.0",
     "socket.io-client": "^2.0.3",
     "spotify-web-api-js": "^0.22.1",
     "style-loader": "^0.13.1",
